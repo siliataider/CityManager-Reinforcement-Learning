@@ -19,6 +19,6 @@ public class Building extends MapObject{
 
     @Override
     public String toString() {
-        return this.getClass().getName()+"; "+getCoords();
+        return this.getClass().getSimpleName()+"; ("+getCoords().getX()+","+getCoords().getY()+")";
     }
 }

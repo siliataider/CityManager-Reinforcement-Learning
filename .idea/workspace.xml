@@ -5,29 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="07fbec91-0c86-47d8-ac4b-2ba1d8072e5e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/City Manager.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/Enums/Stats.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/Enums/Weather.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/Map.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/MapObjects/Agent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/MapObjects/Building.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/MapObjects/BuildingFactory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/MapObjects/Home.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/MapObjects/MapObject.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/MapObjects/Resto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/MapObjects/Work.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/TimeManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/Transaction.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/WeatherManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Simulator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/BackSimulationApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/BackSimulationApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/Map.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/Map.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/MapObjects/Building.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/MapObjects/Building.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/MapObjects/BuildingFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/BuildingManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/TimeManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/TimeManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/WeatherManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/WeatherManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Simulator.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Simulator.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,6 +49,8 @@
   "keyToString": {
     "ASKED_ADD_EXTERNAL_FILES": "true",
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Application.BackSimulationApplication.executor": "Run",
+    "Maven.BackSimulation [install].executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
@@ -70,8 +58,8 @@
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/home/jad.ghandour/Bureau/City Manager",
     "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0"
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -80,10 +68,33 @@
       <recent name="com.example.BackSimulation.Model.MapObjects" />
     </key>
   </component>
+  <component name="RunManager">
+    <configuration name="BackSimulationApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.BackSimulation.BackSimulationApplication" />
+      <module name="BackSimulation" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.BackSimulation.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.BackSimulationApplication" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
         <option value="jdk-11.0.21-corretto-11.0.21-f644763e9732-a9dfd5e7" />
+        <option value="jdk-17.0.9-corretto-17.0.9-f644763e9732-220112af" />
+        <option value="jdk-17.0.9-graalvm-jdk-17.0.9-f644763e9732-d380895b" />
+        <option value="jdk-21.0.1-corretto-21.0.1-f644763e9732-9928ce45" />
       </set>
     </attachedChunks>
   </component>

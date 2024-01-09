@@ -1,14 +1,12 @@
 package com.example.BackSimulation.Model;
 
 public class TimeManager {
-    private int currentTick;
-    private int currentDay;
+    private int currentTick = 1;
+    private int currentDay = 1;
     private int ticksPerDay = 10;
 
 
     public TimeManager() {
-        currentTick=0;
-        currentDay=0;
     }
 
     public int getCurrentTick() {
@@ -37,14 +35,9 @@ public class TimeManager {
 
     public void advance(){
         setCurrentTick(getCurrentTick()+1);
-        if(getCurrentTick()>=getTicksPerDay()){
-            setCurrentTick(0);
+        if(getCurrentTick()>getTicksPerDay()){
+            setCurrentTick(1);
             setCurrentDay(getCurrentDay()+1);
         }
-    }
-
-    @Override
-    public String toString() {
-        return "Day "+getCurrentDay()+"; Tick "+getCurrentTick();
     }
 }

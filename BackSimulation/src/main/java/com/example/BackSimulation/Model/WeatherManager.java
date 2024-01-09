@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class WeatherManager {
     private Weather weather = Weather.Sunny;
-    private double changeRate = 0.2;
+    private double changeRate = 0.1;
 
     public Weather getWeather(){
         return this.weather;

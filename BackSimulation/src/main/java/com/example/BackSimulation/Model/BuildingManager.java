@@ -1,13 +1,15 @@
-package com.example.BackSimulation.Model.MapObjects;
+package com.example.BackSimulation.Model;
+
+import com.example.BackSimulation.Model.MapObjects.Building;
 
 import java.util.ArrayList;
 
-public class BuildingFactory {
+public class BuildingManager {
 
     private int idCounter;
     private ArrayList<Building> buildings;
 
-    public BuildingFactory() {
+    public BuildingManager() {
         this.idCounter = 0;
         buildings = new ArrayList<Building>();
     }
@@ -27,6 +29,7 @@ public class BuildingFactory {
     public void build(Building building){
         setIdCounter(getIdCounter()+1);
         building.setId(getIdCounter());
+        buildings.add(building);
 
     }
 
