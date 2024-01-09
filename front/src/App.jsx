@@ -1,20 +1,27 @@
-import useMousePosition from './assets/mousePosition/useMousePosition'
+import useMousePosition from './assets/mouse/useMousePosition'
 import './App.css'
-import Building from './assets/buildings/Building';
 
+import MapCanvas from './assets/canvas/MapCanvas';
 import ControlPanel from './assets/panel/ControlPanel';
 
-import Canvas from './assets/canvas/Canavas';
+import { setCursorObject } from './assets/mouse/mouseSlice';
+import {useDispatch} from 'react-redux';
+import { useSelector } from 'react-redux';
+
+
 
 
 function App() {
 
-  let nbAgent = 0
+
+  const cursorObject = useSelector( (state) => state.mouse.cursorObject)
 
   const { clientX, clientY } = useMousePosition();
 
   return (
     <>
+
+    {cursorObject}
     
     <div className='container'>
     <div className="row">
@@ -24,7 +31,8 @@ function App() {
       </div>
 
       <div className='col'>
-      <Canvas></Canvas>
+        <MapCanvas></MapCanvas>
+      {/* <Canvas></Canvas> */}
       </div>
 
     </div>

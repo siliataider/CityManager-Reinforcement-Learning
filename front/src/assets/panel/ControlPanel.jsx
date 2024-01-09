@@ -1,31 +1,38 @@
 import Building from "../buildings/Building";
 
-import Cursor from "../mousePosition/Cursor";
+import Cursor from "../mouse/Cursor";
+
+
 import { useState } from "react";
+import {useDispatch} from 'react-redux';
+import { setCursorObject } from "../mouse/mouseSlice";
+
 
 const ControlPanel = (props) => {
 
-    const [showBuildingCursor, setShowBuildingCursor] = useState(true)
+    const dispatch = useDispatch();
 
-    const [cursorObject, setCursorObject] = useState(<></>)
+    const [showBuildingCursor, setShowBuildingCursor] = useState(true)
 
     function switchCursor (){
 
         setShowBuildingCursor( !showBuildingCursor )
 
         let val = <></>
-        console.log(showBuildingCursor)
         if (showBuildingCursor){
-            val =  <Cursor building={true} ></Cursor>
+            val = <Cursor building={true} ></Cursor>
         }
 
-        setCursorObject( val )
+        dispatch(
+            setCursorObject(
+                val
+            )
+        )
     }
 
 
     return(
     <>
-        {cursorObject}
 
         <h1>Config :</h1>
 

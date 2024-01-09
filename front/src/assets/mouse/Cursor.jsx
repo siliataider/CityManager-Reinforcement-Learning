@@ -10,4 +10,4 @@ const Cursor = (props) => {
     
   };
   
-  export default Cursor;
+export default Cursor;

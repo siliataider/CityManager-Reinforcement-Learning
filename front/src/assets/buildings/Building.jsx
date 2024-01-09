@@ -5,7 +5,7 @@ const Building = (props) => {
     return(
         <div 
         style={{ 
-          position: "fixed",
+          //position: "fixed",
           top: 0,
           bottom: 0,
           left: 0,
