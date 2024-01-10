@@ -18,8 +18,7 @@ public class Simulator {
     @Scheduled(fixedRate = 5000)
     private void Cycle(){
         System.out.println(timeManager.getCurrentTick() + "; " + timeManager.getCurrentDay());
-        mapObjectManager.build(new Work(new Point(5,5)));
-        mapObjectManager.unbuild(2);
+        mapObjectManager.build(new Work(new Point(5,5),1800,45,9,17));
         System.out.println(mapObjectManager.getBuildings());
         timeManager.advance();
 

@@ -1,7 +1,5 @@
 package com.example.BackSimulation.Model.MapObjects;
 
-import com.example.BackSimulation.Model.Transaction;
-
 import java.awt.*;
 
 public class Building extends MapObject{
@@ -15,6 +13,21 @@ public class Building extends MapObject{
 
     public Building(Point coords) {
         super(0, coords, new Point(2,2), null);
+    }
+
+    public Building(Point coords, int openTime, int closeTime) {
+        super(0,coords,new Point(2,2),null);
+        this.openTime = openTime;
+        this.closeTime = closeTime;
+    }
+
+    public void setTransaction(Transaction transaction) {
+        this.transaction = transaction;
+    }
+
+    public void setTimes(int openTime,int closeTime){
+        this.openTime=openTime;
+        this.closeTime=closeTime;
     }
 
     @Override

@@ -18,6 +18,10 @@ public abstract class MapObject {
         return coords;
     }
 
+    public void setCoords(Point coords) {
+        this.coords = coords;
+    }
+
     public int getId(){
         return id;
     }
