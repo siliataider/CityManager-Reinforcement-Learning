@@ -4,12 +4,12 @@ export const mouseSlice = createSlice({
   name: 'mouse',
   initialState: {
     isDragging: false,
-    cursorObject: <></>,
+    cursorObject: null,
     buildingType: null,
     color: null,
   },
   reducers: {
-    switchMouseSate: (state, action) => {
+    switchIsDragging: (state, action) => {
         state.isDragging = !state.isDragging;
     },
 
@@ -25,6 +25,6 @@ export const mouseSlice = createSlice({
   },
 });
 
-export const { switchMouseSate, setCursorObject, setBuildingType } = mouseSlice.actions;
+export const { switchIsDragging, setCursorObject, setBuildingType } = mouseSlice.actions;
 
 export default mouseSlice.reducer;

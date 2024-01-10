@@ -1,7 +1,5 @@
 const Building = (props) => {
 
-    console.log(props)
-
     const size = 50;
 
     return(

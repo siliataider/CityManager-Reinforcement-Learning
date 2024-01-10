@@ -2,7 +2,7 @@
 
 
 import { useDispatch } from "react-redux";
-import { setCursorObject } from "../mouse/mouseSlice";
+import { setCursorObject, switchIsDragging } from "../mouse/mouseSlice";
 import { useSelector } from "react-redux";
 
   /** For making sure the context isn't `null` when trying to access it */
@@ -50,6 +50,7 @@ import { useSelector } from "react-redux";
     const dispatch = useDispatch();
 
     const color = useSelector( (state) => state.mouse.color)
+    const isDragging = useSelector( (state) => state.mouse.isDragging)
 
     const squareSize = 50;
     const canvasSize = 500;
@@ -57,25 +58,31 @@ import { useSelector } from "react-redux";
 
     // This is where all the magic happens:
     const handleClick = (ev) => {
-      const ctx = ev.target.getContext('2d');
-      assertIsContext(ctx);
-  
-      // Use the helper function to get XY coordinates:
-      const [x, y] = getXYCoords(ev, {w:squareSize, h:squareSize});
-  
-      // Again, these are static in your question, but could be in React state:
-      const lineWidth = 3;
-      const strokeRectOpts = {
-        lineWidth,
-        strokeStyle: color,
-        dimensions: [x, y, squareSize, squareSize],
-      };
-  
-      
-      // Finally, draw the rectangle stroke:
-      drawRect(ctx, strokeRectOpts);
 
-      dispatch(setCursorObject(<></>))
+      if(isDragging){
+        const ctx = ev.target.getContext('2d');
+        assertIsContext(ctx);
+    
+        // Use the helper function to get XY coordinates:
+        const [x, y] = getXYCoords(ev, {w:squareSize, h:squareSize});
+        
+        // Again, these are static in your question, but could be in React state:
+        const lineWidth = 3;
+        const strokeRectOpts = {
+          lineWidth,
+          strokeStyle: color,
+          dimensions: [x, y, squareSize, squareSize],
+        };
+    
+        
+        // Finally, draw the rectangle stroke:
+        drawRect(ctx, strokeRectOpts);
+  
+        dispatch(setCursorObject(null))
+        dispatch(switchIsDragging())
+
+      }
+
 
     };
   
