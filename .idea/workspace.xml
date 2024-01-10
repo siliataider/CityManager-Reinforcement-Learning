@@ -5,16 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7f9eb79d-fb74-48cb-a57d-e6d903cb34e2" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/MapObjects/Building.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/MapObjects/Building.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/MapObjects/Home.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/MapObjects/Home.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/MapObjects/MapObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/MapObjects/MapObject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/MapObjects/Resto.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/MapObjects/Resto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/MapObjects/Work.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/MapObjects/Work.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/TimeManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/TimeManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/MapObjects/Transaction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Simulator.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Simulator.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
