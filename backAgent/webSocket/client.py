@@ -1,3 +1,4 @@
+# see : https://websockets.readthedocs.io/en/stable/
 
 import asyncio
 from websockets.sync.client import connect

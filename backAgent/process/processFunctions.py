@@ -1,19 +1,20 @@
-from threading import Thread
-from queue import Queue
+from multiprocessing import Process
+from multiprocessing import Queue
+from multiprocessing import Lock
 
-def runThreads(agents, simulationConditions, nbProc = 3):
+def runProc(agents, simulationConditions, nbProc = 3):
 
     # Queues inits
     queueIN = Queue()
     queueOUT = Queue()
+    lock = Lock()
 
     #Process list
     process = []
     for i in range(nbProc):
         process.append( 
-            Thread(target=runAgent, args=(queueIN, queueOUT, simulationConditions)) 
+            Process(target=runAgent, args=(lock, queueIN, queueOUT, simulationConditions)) 
         )
-
 
     # Agents are added to queue
     for a in agents :
@@ -35,15 +36,18 @@ def runThreads(agents, simulationConditions, nbProc = 3):
     return(results)
 
 
-def runAgent(queueIN, queueOUT, simulationConditions):
+def runAgent(lock, queueIN, queueOUT, simulationConditions):
 
     #Making sure the queue is not empty
+    lock.acquire()
     while not queueIN.empty() :
         agent = queueIN.get(timeout=10) 
+        lock.release()
 
         # Training the agent
         res = agent.train(simulationConditions)
-        print("Learn method from Agent : " + res )
 
         # Return results of training
         queueOUT.put(res)
+        lock.acquire()
+    lock.release()

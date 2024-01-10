@@ -1,7 +1,8 @@
+from classes.rewardFunction import rewardFunction
+
 class Agent() :
     def __init__(self):
         # Attributs of the agents here !
-
         pass
 
     def train(self, simulationConditions) :

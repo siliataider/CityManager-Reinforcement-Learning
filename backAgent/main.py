@@ -1,8 +1,9 @@
-# see : https://websockets.readthedocs.io/en/stable/
 from websockets.server import serve
 import asyncio
 
-from threads.threadsFunctions import runThreads
+from time import time
+
+from process.processFunctions import runProc
 
 from classes.Agent import Agent
 from classes.SimulationConditions import SimulationConditions
@@ -16,7 +17,14 @@ for i in range(100):
 async def echo(websocket):
     async for message in websocket:
         simulationConditions = SimulationConditions(message)
-        res = runThreads(agents, simulationConditions)
+
+        tIN = time()
+        # if too much prints : https://stackoverflow.com/questions/8391411/how-to-block-calls-to-print
+        res = runProc(agents, simulationConditions)
+        tOUT = time()
+
+        print("Execution time : " + str(tOUT - tIN))
+
         await websocket.send(res)
 
 async def main():
