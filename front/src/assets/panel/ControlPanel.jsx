@@ -1,11 +1,11 @@
-import Building from "../buildings/Building";
-
 import Cursor from "../mouse/Cursor";
-
 
 import { useState } from "react";
 import {useDispatch} from 'react-redux';
-import { setCursorObject } from "../mouse/mouseSlice";
+import { setCursorObject, setBuildingType } from "../mouse/mouseSlice";
+
+import BuildingType from "../buildings/BuildingType";
+
 
 
 const ControlPanel = (props) => {
@@ -14,13 +14,19 @@ const ControlPanel = (props) => {
 
     const [showBuildingCursor, setShowBuildingCursor] = useState(true)
 
-    function switchCursor (){
+    function switchCursor (buildingType){
 
         setShowBuildingCursor( !showBuildingCursor )
 
         let val = <></>
         if (showBuildingCursor){
-            val = <Cursor building={true} ></Cursor>
+            val = <Cursor></Cursor>
+
+            dispatch(
+                setBuildingType(
+                    buildingType
+                )
+            )
         }
 
         dispatch(
@@ -40,14 +46,14 @@ const ControlPanel = (props) => {
         <button>+</button>
         <br></br>
 
-        <button onClick={ switchCursor }>New House</button>
+        <button onClick={ () => switchCursor(BuildingType.HOME) }>New House</button>
         <br></br>
 
-        <button onClick={ switchCursor }>New cantine</button>
+        <button onClick={ () => switchCursor(BuildingType.FOOD)}>New cantine</button>
         <br></br>
 
         
-        <button onClick={ switchCursor }>New office</button>
+        <button onClick={ () => switchCursor(BuildingType.JOB) }>New office</button>
         <br></br>
     </>
 

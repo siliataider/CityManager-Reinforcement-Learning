@@ -1,5 +1,7 @@
 const Building = (props) => {
 
+    console.log(props)
+
     const size = 50;
 
     return(
@@ -26,11 +28,10 @@ const Building = (props) => {
           }}
         >
           <rect
-
             width={""+size}
             height={""+size}
             fill="transparent"
-            stroke="red"
+            stroke={props.color}
             strokeWidth="10"
           />
         </svg>

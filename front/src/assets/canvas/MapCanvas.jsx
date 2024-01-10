@@ -3,6 +3,7 @@
 
 import { useDispatch } from "react-redux";
 import { setCursorObject } from "../mouse/mouseSlice";
+import { useSelector } from "react-redux";
 
   /** For making sure the context isn't `null` when trying to access it */
   function assertIsContext (ctx) {
@@ -48,6 +49,8 @@ import { setCursorObject } from "../mouse/mouseSlice";
 
     const dispatch = useDispatch();
 
+    const color = useSelector( (state) => state.mouse.color)
+
     const squareSize = 50;
     const canvasSize = 500;
 
@@ -64,7 +67,7 @@ import { setCursorObject } from "../mouse/mouseSlice";
       const lineWidth = 3;
       const strokeRectOpts = {
         lineWidth,
-        strokeStyle: 'red',
+        strokeStyle: color,
         dimensions: [x, y, squareSize, squareSize],
       };
   

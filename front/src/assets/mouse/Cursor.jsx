@@ -1,11 +1,14 @@
 import Building from "../buildings/Building";
 import useMousePosition from "./useMousePosition";
+import { useSelector } from "react-redux";
 
-const Cursor = (props) => {
+const Cursor = () => {
 
     const { clientX, clientY } = useMousePosition();
 
-    return <Building clientX={clientX} clientY={clientY}
+    const color = useSelector( (state) => state.mouse.color)
+
+    return <Building clientX={clientX} clientY={clientY} color={color}
     ></Building>;
     
   };
