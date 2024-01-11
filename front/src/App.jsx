@@ -5,6 +5,10 @@ import MapCanvas from './assets/canvas/MapCanvas';
 import GamePanel from './assets/panel/GamePanel';
 import CreationPanel from './assets/panel/CreationPanel'
 
+import BuildingCreatorWidget from './assets/widgets/BuildingCreatorWidget';
+
+import Popup from 'reactjs-popup';
+
 import { useSelector } from 'react-redux';
 
 
@@ -17,6 +21,28 @@ function App() {
     <>
 
     {cursorObject}
+
+
+    <Popup trigger=
+                {<button> Click to open modal </button>} 
+                modal nested>
+                {
+                    close => (
+                        <div className='modal'>
+                            <div className='content'>
+                                Welcome to GFG!!!
+                            </div>
+                            <div>
+                                <button onClick=
+                                    {() => close()}>
+                                        Close modal
+                                </button>
+                            </div>
+                        </div>
+                    )
+                }
+            </Popup>
+   
     
     <div className='container'>
     <div className="row">
@@ -33,6 +59,9 @@ function App() {
 
     </div>
     </div>
+
+
+
 
     </>
    
