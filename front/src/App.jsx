@@ -2,9 +2,20 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import SockJsClient from 'react-stomp';
+
+const SOCKET_URL = 'http://localhost:8080/ws-message';
 
 function App() {
   const [count, setCount] = useState(0)
+
+  let onConnected = () => {
+      console.log("Connected!!")
+    }
+
+  let onMessageReceived = () => {
+    console.log("Reçu!!");
+    }
 
   return (
     <>
@@ -28,6 +39,16 @@ function App() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
+      <div>
+         <SockJsClient
+           url={SOCKET_URL}
+           topics={['/topic/message']}
+           onConnect={onConnected}
+           onDisconnect={console.log("Disconnected!")}
+           onMessage={onMessageReceived}
+           debug={false}
+         />
+      </div>
     </>
   )
 }
