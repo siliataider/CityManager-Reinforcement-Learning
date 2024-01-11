@@ -2,7 +2,8 @@ import useMousePosition from './assets/mouse/useMousePosition'
 import './App.css'
 
 import MapCanvas from './assets/canvas/MapCanvas';
-import ControlPanel from './assets/panel/ControlPanel';
+import GamePanel from './assets/panel/GamePanel';
+import CreationPanel from './assets/panel/CreationPanel'
 
 import { useSelector } from 'react-redux';
 
@@ -21,7 +22,9 @@ function App() {
     <div className="row">
 
       <div className='col-4'>
-      <ControlPanel className="col" ></ControlPanel>
+      
+      <CreationPanel className="col"></CreationPanel>
+      {/* <GamePanel className="col"></GamePanel> */}
       </div>
 
       <div className='col'>
