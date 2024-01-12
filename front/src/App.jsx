@@ -9,10 +9,18 @@ import BuildingCreatorWidget from './assets/widgets/BuildingCreatorWidget';
 
 import Popup from 'reactjs-popup';
 
+
 import { useSelector } from 'react-redux';
 
 
+//import SockJsClient from 'react-stomp';
+
+
+
+
+
 function App() {
+
 
 
   const cursorObject = useSelector( (state) => state.mouse.cursorObject)
@@ -23,7 +31,7 @@ function App() {
     {cursorObject}
 
 
-    <Popup trigger=
+    {/* <Popup trigger=
                 {<button> Click to open modal </button>} 
                 modal nested>
                 {
@@ -42,7 +50,7 @@ function App() {
                     )
                 }
             </Popup>
-   
+    */}
     
     <div className='container'>
     <div className="row">
