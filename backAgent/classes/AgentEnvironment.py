@@ -1,15 +1,18 @@
 import random
 
 class AgentEnvironment:
-    def __init__(self):
+    def __init__(self, state):
         self.state = 0 
         self.time_step = 0
-        self.state_value = (0, 0, 0, 0, 0)
+        self.state_value = (state['timestamp'], state['weather'], state['hunger'], state['energy'], state['money'])
 
     def reset(self):
         self.state = 0
         self.time_step = 0
         self.state_value = (0, 0, 0, 0, 0)
+    
+    def set_state(self, state_value):
+        self.state_value = state_value
 
     def get_reward_and_next_state(self, action):
         timestamp, weather, hunger, energy, money = self.state_value
@@ -93,10 +96,12 @@ class AgentEnvironment:
 
         self.time_step += 1
 
+        '''
         # TODO remove timestamp and weather modif when using SimuCondition
         timestamp += 1
         if timestamp > 23:
             timestamp = 0
         weather = random.choice([0, 1])
+        '''
         return reward, (timestamp, weather, hunger, energy, money)
 

@@ -5,5 +5,5 @@ class AgentDQLearning(Agent) :
     def choose_action(self, state, exploration_rate):
         pass
 
-    def update_q_table(self, state, action, reward, next_state, learning_rate, discount_factor):
+    def train_model(self, state, action, reward, next_state_value, learning_rate, discount_factor):
         pass
