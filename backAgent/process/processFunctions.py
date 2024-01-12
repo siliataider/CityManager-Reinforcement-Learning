@@ -4,6 +4,18 @@ from multiprocessing import Lock
 
 def runProc(agents, simulationConditions, nbProc = 3):
 
+    # res = []
+
+    # for agent in agents:
+    #     # Training the agent
+    #     #agent.env.state_value = (simulationConditions.timestamp, simulationConditions.weather, *agent.env.state_value[2:])
+    #     print(f"agent: {simulationConditions.timestamp}")
+    #     agent.env.state_value = (simulationConditions.timestamp, simulationConditions.weather, *agent.env.state_value[2:])
+    #     res.append(agent.train(simulationConditions))
+        
+
+    # return(res)
+
     # Queues inits
     queueIN = Queue()
     queueOUT = Queue()
@@ -43,9 +55,12 @@ def runAgent(lock, queueIN, queueOUT, simulationConditions):
     while not queueIN.empty() :
         agent = queueIN.get(timeout=10) 
         lock.release()
-
+        
         # Training the agent
+        agent.env.state_value = (simulationConditions.timestamp, simulationConditions.weather, *agent.env.state_value[2:])
         res = agent.train(simulationConditions)
+
+        print(f"agent: {agent}")
 
         # Return results of training
         queueOUT.put(res)
