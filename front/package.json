@@ -11,11 +11,17 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.0.1",
+    "@stomp/stompjs": "^7.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-iframe": "^1.8.5",
     "react-redux": "^9.0.4",
-    "redux": "^5.0.1"
+    "react-stomp": "^5.1.0",
+    "react-stomp-hooks": "^2.2.1",
+    "reactjs-popup": "^2.0.6",
+    "redux": "^5.0.1",
+    "sockjs": "^0.3.24",
+    "sockjs-client": "^1.6.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",
