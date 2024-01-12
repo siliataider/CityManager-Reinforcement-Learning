@@ -7,7 +7,7 @@ import SockJsClient from 'react-stomp';
 const SOCKET_URL = 'http://localhost:8080/ws-message';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
 
   let onConnected = () => {
       console.log("Connected!!")

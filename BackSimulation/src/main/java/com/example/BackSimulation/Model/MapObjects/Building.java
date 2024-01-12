@@ -34,4 +34,16 @@ public class Building extends MapObject{
     public String toString() {
         return this.getClass().getSimpleName()+"; ("+getCoords().getX()+","+getCoords().getY()+")";
     }
+
+    public String toJSONString() {
+        String ret =
+                "{"
+                +"type:"+getClass().getSimpleName()+","
+                +"openTime:"+openTime+","
+                +"closeTime:"+closeTime+","
+                +"transaction:"+transaction.toJSONString()
+                +"}";
+
+        return ret;
+    }
 }
