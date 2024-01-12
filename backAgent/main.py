@@ -28,7 +28,7 @@ async def read_socket(websocket):
                 if data['agent_id'] % 2:
                     agent = AgentQLearning(num_actions=NUM_ACTION, num_states=NUM_STATE, env=env, agent_id=data['agent_id'])
                 else:
-                    agent = AgentQLearning(num_actions=NUM_ACTION, num_states=NUM_STATE, env=env, agent_id=data['agent_id'])
+                    agent = AgentDQLearning(num_actions=NUM_ACTION, num_states=NUM_STATE, env=env, agent_id=data['agent_id'])
                 agents.append(agent)
             print(agents)
             simulationConditions.set_list_agent(agents)

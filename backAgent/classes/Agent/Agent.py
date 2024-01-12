@@ -1,12 +1,15 @@
 import numpy as np
 from resources.variables import TABLE_ACTIONS, TABLE_STATES, DISCOUNT_FACTOR 
+from resources.methods import build_model
+from resources.wrappers import ModelWrapper
 
 class Agent() :
     def __init__(self, num_states, num_actions, env, agent_id):
-        # Attributs of the agents here !
+        # Attributs of the agents here
         self.num_states = num_states
         self.num_actions = num_actions
         self.q_table = np.zeros((num_states, num_actions))
+        self.model = ModelWrapper()
         self.env = env
         self.agent_id = agent_id
     
