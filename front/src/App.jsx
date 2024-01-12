@@ -1,55 +1,80 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import useMousePosition from './assets/mouse/useMousePosition'
 import './App.css'
 import SockJsClient from 'react-stomp';
 
 const SOCKET_URL = 'http://localhost:8080/ws-message';
 
+import MapCanvas from './assets/canvas/MapCanvas';
+import GamePanel from './assets/panel/GamePanel';
+import CreationPanel from './assets/panel/CreationPanel'
+
+import BuildingCreatorWidget from './assets/widgets/BuildingCreatorWidget';
+
+import Popup from 'reactjs-popup';
+
+
+import { useSelector } from 'react-redux';
+
+
+//import SockJsClient from 'react-stomp';
+
+
+
+
+
 function App() {
-  const [count, setCount] = useState(0);
 
-  let onConnected = () => {
-      console.log("Connected!!")
-    }
 
-  let onMessageReceived = () => {
-    console.log("Reçu!!");
-    }
+
+  const cursorObject = useSelector( (state) => state.mouse.cursorObject)
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+
+    {cursorObject}
+
+
+    {/* <Popup trigger=
+                {<button> Click to open modal </button>} 
+                modal nested>
+                {
+                    close => (
+                        <div className='modal'>
+                            <div className='content'>
+                                Welcome to GFG!!!
+                            </div>
+                            <div>
+                                <button onClick=
+                                    {() => close()}>
+                                        Close modal
+                                </button>
+                            </div>
+                        </div>
+                    )
+                }
+            </Popup>
+    */}
+    
+    <div className='container'>
+    <div className="row">
+
+      <div className='col-4'>
+      
+      <CreationPanel className="col"></CreationPanel>
+      {/* <GamePanel className="col"></GamePanel> */}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+
+      <div className='col'>
+        <MapCanvas></MapCanvas>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-      <div>
-         <SockJsClient
-           url={SOCKET_URL}
-           topics={['/topic/message']}
-           onConnect={onConnected}
-           onDisconnect={console.log("Disconnected!")}
-           onMessage={onMessageReceived}
-           debug={false}
-         />
-      </div>
+
+    </div>
+    </div>
+
+
     </>
+   
+
   )
 }
 
