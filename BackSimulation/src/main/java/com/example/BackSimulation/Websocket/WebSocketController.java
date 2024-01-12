@@ -19,11 +19,13 @@ public class WebSocketController {
 
     @PostMapping("/send")
     public ResponseEntity<Void> sendMessage(@RequestBody TextMessageDTO textMessageDTO) {
+        System.out.println("Je suis la");
         template.convertAndSend("/topic/message", textMessageDTO);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @MessageMapping("/sendMessage")
+
     public void receiveMessage(@Payload TextMessageDTO textMessageDTO) {
         // receive message from client
     }
@@ -31,6 +33,7 @@ public class WebSocketController {
 
     @SendTo("/topic/message")
     public TextMessageDTO broadcastMessage(@Payload TextMessageDTO textMessageDTO) {
+        System.out.println("Je suis lA1");
         return textMessageDTO;
     }
 }

@@ -12,8 +12,9 @@ import Popup from 'reactjs-popup';
 
 import { useSelector } from 'react-redux';
 
+import App_Stomp from './assets/socket/App_Stomp';
 
-//import SockJsClient from 'react-stomp';
+
 
 
 
@@ -22,11 +23,12 @@ import { useSelector } from 'react-redux';
 function App() {
 
 
-
   const cursorObject = useSelector( (state) => state.mouse.cursorObject)
 
   return (
     <>
+
+<App_Stomp></App_Stomp>
 
     {cursorObject}
 
