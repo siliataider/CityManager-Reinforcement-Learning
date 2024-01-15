@@ -50,7 +50,8 @@ async def read_socket(websocket):
         await websocket.send(json_data)
 
 async def main():
-    async with serve(read_socket, "localhost", 8765):
+    async with serve(read_socket, "", 8765):
         await asyncio.Future()  # run forever
 
+print("Starting Python Backend")
 asyncio.run(main())
