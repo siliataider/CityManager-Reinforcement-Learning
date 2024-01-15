@@ -1,9 +1,7 @@
 from .Agent import Agent
 import random
 import numpy as np
-from resources.variables import NUM_STATE
 from resources.methods import reshape_state
-from resources.methods import build_model
 from resources.wrappers import ModelWrapper
 
 class AgentDQLearning(Agent) :
