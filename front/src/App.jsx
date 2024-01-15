@@ -17,11 +17,12 @@ function App() {
 
     const[leftPanel, setLeftPanel] = useState(0)
 
+    const cursorObject = useSelector( (state) => state.mouse.cursorObject)
    
-
     const dispatch = useDispatch();
 
     useEffect(() =>{
+      // SOCKET INIT :
       // SEE : https://github.com/mrniko/netty-socketio-demo
       const newSocket = io(); 
 
@@ -31,12 +32,11 @@ function App() {
       });
 
      
-
+      // INIT OF THE LEFT PANEL :
       setLeftPanel(<CreationPanel nextPanelListener={setLeftPanel} className="col"></CreationPanel>)
 
     }, [])
 
-  const cursorObject = useSelector( (state) => state.mouse.cursorObject)
 
   return (
     <>

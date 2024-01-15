@@ -7,7 +7,7 @@ import { setAgents } from "../canvas/drawsSlice";
 
 
 
-const GamePanel = (props) => {
+const GamePanel = () => {
 
     const dispatch = useDispatch();
     const socket = useSelector( (state) => state.socket.socket);

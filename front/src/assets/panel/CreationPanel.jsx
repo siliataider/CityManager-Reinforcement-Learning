@@ -18,29 +18,23 @@ const CreationPanel = (props) => {
     const isDragging = useSelector( (state) => state.mouse.isDragging);
     const socket = useSelector( (state) => state.socket.socket);
 
+    /**
+     * Switch the cursore from dragging a building to not or the oposite
+     */
     function switchCursor (buildingType){
+    let val = null
 
-        let val = null
-        if (!isDragging){
-            val = <Cursor></Cursor>
+    if (!isDragging){
+        val = <Cursor></Cursor>
+        dispatch(setBuildingType(buildingType))
+    }
 
-            dispatch(
-                setBuildingType(
-                    buildingType
-                )
-            )
-        }
-
-        dispatch( switchIsDragging() );
-
-        dispatch(
-            setCursorObject(
-                val
-            )
-        )
+    dispatch( switchIsDragging() );
+    dispatch(setCursorObject(val))
     }
 
     /**
+     * Give some style to buttons
      * See more here : https://www.geeksforgeeks.org/how-to-disable-a-button-in-reactjs/
      */
     function getButtonStyle(color){
@@ -49,21 +43,24 @@ const CreationPanel = (props) => {
         };
     }
 
+    /**
+     * Aske the back to launch the simulation.
+     * If OK : switch the left panel
+     * Else : show an error message
+     */
     function saveAndStart(){
-        props.nextPanelListener(<GamePanel className="col"></GamePanel>)
         socket.on(socketEvents.saveAndStart, (message) => {
             if (message == "OK"){
-                console.log('GO simu!');
+                // Switch left panel
                 props.nextPanelListener(<GamePanel className="col"></GamePanel>)
-                // CHANGE PANEL
             }
             socket.off(socketEvents.saveAndStart)
         });
 
+        // Ask the back if the simulation can start
         socket.emit(socketEvents.saveAndStart, "START ?")
     }
     
-
 
     return(
     <>
