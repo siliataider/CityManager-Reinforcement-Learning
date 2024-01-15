@@ -12,7 +12,8 @@ def build_model():
   return model
 
 def reshape_state(state):
-  np.reshape(state, [1, NUM_STATE])
+
+  np.array(state).reshape(1, -1)
 
 def find_state_index(state):
   try:

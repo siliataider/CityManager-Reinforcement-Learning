@@ -4,6 +4,9 @@ import numpy as np
 from resources.methods import convert_value_to_state
 
 class AgentQLearning(Agent) :
+    def __init__(self, num_states, num_actions, env, agent_id):
+        super().__init__(num_states, num_actions, env, agent_id)  # Appel du constructeur de la classe mère
+        self.q_table = np.zeros((num_states, num_actions))
     
     def choose_action(self, state_value, exploration_rate):
         rand = random.random()
