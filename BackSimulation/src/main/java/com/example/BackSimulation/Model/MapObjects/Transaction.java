@@ -72,4 +72,32 @@ public class Transaction {
     public void setGivenQuantities(ArrayList<Integer> givenQuantities) {
         this.givenQuantities = givenQuantities;
     }
+
+    public String toJSONString() {
+        String takenJSON="{";
+        for(int i=0;i<taken.size();i++){
+            if(i>0){
+                takenJSON+=",";
+            }
+            takenJSON+=taken.get(i)+":"+takenQuantities.get(i);
+        }
+        takenJSON+="}";
+
+        String givenJSON="{";
+        for(int i=0;i<given.size();i++){
+            if(i>0){
+                givenJSON+=",";
+            }
+            givenJSON+=given.get(i)+":"+givenQuantities.get(i);
+        }
+        givenJSON+="}";
+
+        String ret =
+                "{"
+                +"taken:"+takenJSON+","
+                +"given:"+givenJSON
+                +"}";
+
+        return ret;
+    }
 }
