@@ -14,7 +14,7 @@
 	<name>BackSimulation</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>17</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -46,6 +46,7 @@
 			<artifactId>spring-websocket</artifactId>
 			<version>6.1.2</version>
 		</dependency>
+
 	</dependencies>
 
 	<build>

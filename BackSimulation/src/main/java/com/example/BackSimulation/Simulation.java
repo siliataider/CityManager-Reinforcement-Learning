@@ -8,10 +8,17 @@ import org.springframework.stereotype.Service;
 
 import com.corundumstudio.socketio.listener.*;
 import com.corundumstudio.socketio.*;
-
 import java.awt.*;
+import com.example.BackSimulation.Websocket.PythonWebSocketHandler;
+
 @Service
-public class Simulator {
+public class Simulation {
+    private final PythonWebSocketHandler webSocketHandler;
+
+    public Simulation(PythonWebSocketHandler webSocketHandler) {
+        this.webSocketHandler = webSocketHandler;
+
+    }
     private Point mapSize = new Point(50,50);
     private TimeManager timeManager = new TimeManager();
     private WeatherManager weatherManager = new WeatherManager();
@@ -19,8 +26,7 @@ public class Simulator {
     private MapObjectManager mapObjectManager = new MapObjectManager();
 
     @Scheduled(fixedRate = 5000)
-    private void Cycle(){
-
+    private void Cycle() throws Exception {
         // [VICK] This config needs to go somwere else :
         // [VICK] Use JAVA sdk 11 ! It doesn't work with 17 !
         // SOCKET IO CONFIG :
@@ -69,6 +75,9 @@ public class Simulator {
 
         mapObjectManager.build(new Work(new Point(5,5),1800,45,9,17));
         System.out.println(toJSONString());
+
+        webSocketHandler.broadcastMessage(sendDataToPython());
+
         timeManager.advance();
     }
 
@@ -84,5 +93,22 @@ public class Simulator {
         return ret;
     }
 
+    // TODO: remove this function (it is just for communication test)
+    public String sendDataToPython() {
+        String res = "{" +
+                "\"action\": 0, " +
+                "\"agents\": " + "[" +
+                "{" +
+                "\"agent_id\": 0, " +
+                "\"weather\":0, " +
+                "\"timestamp\": 8, " +
+                "\"hunger\": 0.5, " +
+                "\"energy\": 0.5, " +
+                "\"money\": 0.5 " +
+                "}" +
+                "]" +
+                "}";
+        return res;
+    }
 
 }
