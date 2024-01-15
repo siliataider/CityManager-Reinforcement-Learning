@@ -1,12 +1,9 @@
 // from https://stackoverflow.com/questions/70317280/remove-last-drawn-object-from-canvas
 
+import { useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import { useDispatch } from "react-redux";
 import { setCursorObject, switchIsDragging } from "../mouse/mouseSlice";
-import { useSelector } from "react-redux";
-import { useEffect } from "react";
-import { useRef } from "react";
-
 import { addBuildings } from "./drawsSlice";
 
 import { drawBuildings, drawAgents, clearCanavas } from "./canavasTools";
