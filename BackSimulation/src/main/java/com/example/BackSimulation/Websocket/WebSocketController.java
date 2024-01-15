@@ -18,9 +18,9 @@ public class WebSocketController {
     SimpMessagingTemplate template;
 
     @PostMapping("/send")
-    public ResponseEntity<Void> sendMessage(@RequestBody TextMessageDTO textMessageDTO) {
-        System.out.println("Je suis la");
+    public ResponseEntity<Void> sendMessage(@RequestBody String textMessageDTO) {
         template.convertAndSend("/topic/message", textMessageDTO);
+        System.out.println("Sent: "+textMessageDTO);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

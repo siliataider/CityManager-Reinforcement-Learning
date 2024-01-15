@@ -19,82 +19,80 @@ class AgentEnvironment:
         working_hours = 9 <= timestamp < 17
         reward = 0
 
-        if action == 0:  # Go home
+        if action == 0:  # Go Home
             if energy > 0.8:
-                reward -= 20
+                reward -= 0.20
             if hunger < 0.2:
-                reward -= 15
+                reward -= 0.15
             if working_hours:
                 if money < 0.2:
-                    reward -= 15
-                reward -= 50
+                    reward -= 0.15
+                reward -= 0.50
                 energy += 0.025
             else:
                 if energy < 0.2:
-                    reward += 30
+                    reward += 1
                 if weather:
-                    reward += 20
-                reward += 50
+                    reward += 1
+                reward += 1
                 energy += 0.05
-            hunger -= 0.05
+            hunger -= 0.025
 
-        elif action == 1:  # Go Work
+        elif action == 1:  # Go to Work
             if working_hours:
                 if energy < 0.2 or hunger < 0.2:
-                    if money > 0.8:
-                        reward -= 40
+                    if money > 0.8: 
+                        reward -= 0.40  
                     else:
-                        reward -= 20
+                        reward -= 0.20
                 if weather:
-                    reward += 20
+                    reward += 1
                 if money < 0.2:
-                    reward += 30
-                reward += 50
-                energy -= 0.075
-                money += 0.05
+                    reward += 1
+                reward += 1
+                energy -= 0.025
+                money += 0.1
             else:
                 if money > 0.8:
-                    reward -= 20
+                    reward -= 0.20
                 if energy < 0.2:
-                    reward -= 15
+                    reward -= 0.15
                 if hunger < 0.2:
-                    reward -= 15
-                reward -= 50
-                energy -= 0.2
-            hunger -= 0.075
+                    reward -= 0.15
+                reward -= 0.50
+                energy -= 0.05
+            hunger -= 0.05
 
-        elif action == 2:  # Go eat
+        elif action == 2:  # Go Eat
             if hunger > 0.8:
                 if money < 0.2:
-                    reward -= 30
-                reward -= 50
+                    reward -= 0.30
+                reward -= 0.50
             elif hunger < 0.2:
-                if money > 0.8:
-                    reward += 30
-                elif money < 0.2 :
-                    reward -= 30
-                reward += 50
+                if money < 0.2:
+                    reward -= 0.30
+                elif money > 0.8:
+                    reward += 1
+                reward += 1
             else:
-                if money > 0.8:
-                    reward += 30
-                elif money < 0.2:
-                    reward -= 30
-                reward += 35
+                if money < 0.2:
+                    reward -= 0.30
+                elif money > 0.8:
+                    reward += 0.30
+                reward += 0.35
 
             if weather:
-                reward -= 20
+                reward -= 0.20
             else:
-                reward += 20
+                reward += 1
 
             money -= 0.1
             hunger += 0.1
 
-        # Ensure hunger, energy, and money stay within 0-1 range
+        self.time_step += 1
         hunger = max(min(hunger, 1), 0)
         energy = max(min(energy, 1), 0)
         money = max(min(money, 1), 0)
-
-        self.time_step += 1
 
         '''
         # TODO remove timestamp and weather modif when using SimuCondition
@@ -103,5 +101,6 @@ class AgentEnvironment:
             timestamp = 0
         weather = random.choice([0, 1])
         '''
+        
         return reward, (timestamp, weather, hunger, energy, money)
 
