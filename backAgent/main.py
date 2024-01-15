@@ -6,7 +6,7 @@ from classes.Agent.AgentQLearning import AgentQLearning
 from classes.Agent.AgentDQLearning import AgentDQLearning
 from classes.SimulationConditions import SimulationConditions
 from classes.AgentEnvironment import AgentEnvironment
-from resources.variables import START_EXPLORATION_RATE, NUM_STATE, NUM_ACTION
+from resources.variables import START_EXPLORATION_RATE, NUM_STATE, NUM_STATE_DISCRETE, NUM_ACTION
 import json
 
 simulationConditions = SimulationConditions(exploration_rate=START_EXPLORATION_RATE)
@@ -23,7 +23,7 @@ async def read_socket(websocket):
             for data in decode_message['agents']:
                 env = AgentEnvironment(data)
                 if data['agent_id'] % 2:
-                    agent = AgentQLearning(num_actions=NUM_ACTION, num_states=NUM_STATE, env=env, agent_id=data['agent_id'])
+                    agent = AgentQLearning(num_actions=NUM_ACTION, num_states=NUM_STATE_DISCRETE, env=env, agent_id=data['agent_id'])
                 else:
                     agent = AgentDQLearning(num_actions=NUM_ACTION, num_states=NUM_STATE, env=env, agent_id=data['agent_id'])
                 agents.append(agent)
@@ -41,7 +41,7 @@ async def read_socket(websocket):
 
             simulationConditions.list_agent = res
 
-            print("Execution time : " + str(tOUT - tIN))
+            #print("Execution time : " + str(tOUT - tIN))
 
         anwser = ''
         for value in res:
