@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 
 import mouseReducer from './assets/mouse/mouseSlice';
-import drawsReducer from './assets/canvas/drawsSlice';
+import drawsReducer from './assets/canvas/drawSlice';
 import socketReducer from './assets/socket/socketSlice';
 
 
