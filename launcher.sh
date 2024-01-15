@@ -7,8 +7,8 @@ sudo docker run --name asi2-nginx-container --network host -v /tmp/nginx.conf:/e
 # To kill all dockers : docker stop $(docker ps -a -q)
 
 # Start the react front-end
-# cd front
-# npm install
-# npm run dev &
+cd front
+npm install
+npm run dev &
 
 echo "READY !"

@@ -10,6 +10,8 @@ import { useRef } from "react";
 import { addBuildings } from "./drawsSlice";
 
 import { drawBuildings, drawAgents, clearCanavas } from "./canavasTools";
+
+import socketEvents from "../socket/socketEvents";
   
 function MapCanvas () {
 
@@ -20,37 +22,53 @@ function MapCanvas () {
 
     const dispatch = useDispatch();
 
-    const color = useSelector( (state) => state.mouse.color)
-    const buildingType = useSelector( (state) => state.mouse.buildingType)
-    const isDragging = useSelector( (state) => state.mouse.isDragging)
+    const color = useSelector( (state) => state.mouse.color);
+    const buildingType = useSelector( (state) => state.mouse.buildingType);
+    const isDragging = useSelector( (state) => state.mouse.isDragging);
 
-    const buildings = useSelector((state) => state.draw.buildings)
+    const buildings = useSelector((state) => state.draw.buildings);
     useEffect( ()=> { 
       drawBuildings(buildings, canvasRef)
     }, [buildings])
 
-    const agents = useSelector((state)=> state.draw.agents)
+    const agents = useSelector((state)=> state.draw.agents);
     useEffect( ()=> { 
       clearCanavas(canvasRef)
       drawBuildings(buildings, canvasRef)
       drawAgents(agents, canvasRef)
     }, [agents])
 
+    const socket = useSelector((state) => state.socket.socket);
     // This is where all the magic happens:
     const handleClick = (ev) => {
 
       if(isDragging){
-        dispatch(addBuildings( {
+
+        //Building to draw :
+        const building = {
           buildingType: buildingType,
           x : ev.clientX,
           y : ev.clientY,
           color : color,
           size : squareSize
         } 
-          ))
 
-        dispatch(setCursorObject(null))
-        dispatch(switchIsDragging())
+          socket.on(socketEvents.new_building, (message) => {
+            if (message == 'OK'){
+              // draw building :
+              dispatch(addBuildings( building ))
+              // Switch back cursor :
+              dispatch(setCursorObject(null))
+              dispatch(switchIsDragging())
+            } else{
+              //TODO:
+              console.log("Placement invalide !");
+            }
+            // Delete listener :
+            socket.off(socketEvents.new_building)
+          });
+          socket.emit(socketEvents.new_building, building)
+
       }
     };
   

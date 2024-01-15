@@ -15,37 +15,44 @@ import {io} from 'socket.io-client';
 
 import { useSelector } from 'react-redux';
 
+import socketEvents from './assets/socket/socketEvents';
 
+import { useDispatch } from 'react-redux';
+import { setSocket } from './assets/socket/socketSlice';
 
+import { useState } from 'react';
 
 
 
 function App() {
-    console.log("LO");
 
-      const newSocket = io();
+    const[leftPanel, setLeftPanel] = useState(0)
 
-      console.log("gf")
-  
-      newSocket.on('connect', () => {
-        console.log('Connected with socket ID:');
+   
+
+    const dispatch = useDispatch();
+
+    useEffect(() =>{
+      // SEE : https://github.com/mrniko/netty-socketio-demo
+      const newSocket = io(); 
+
+      newSocket.on(socketEvents.connect, () => {
+        console.log('Socket Connected !');
+        dispatch( setSocket(newSocket) );
       });
 
-      newSocket.on('eventFromBack', ()=>{
-        console.log("OUI")
-      })
+     
 
+      setLeftPanel(<CreationPanel nextPanelListener={setLeftPanel} className="col"></CreationPanel>)
 
-
+    }, [])
 
   const cursorObject = useSelector( (state) => state.mouse.cursorObject)
 
   return (
     <>
 
-
     {cursorObject}
-
 
     {/* <Popup trigger=
                 {<button> Click to open modal </button>} 
@@ -72,8 +79,7 @@ function App() {
     <div className="row">
 
       <div className='col-4'>
-      
-      <CreationPanel className="col"></CreationPanel>
+      {leftPanel}
       {/* <GamePanel className="col"></GamePanel> */}
       </div>
 
@@ -83,8 +89,6 @@ function App() {
 
     </div>
     </div>
-
-
 
 
     </>

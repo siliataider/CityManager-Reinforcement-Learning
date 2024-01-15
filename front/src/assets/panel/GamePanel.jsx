@@ -6,11 +6,24 @@ import { setCursorObject, setBuildingType, switchIsDragging } from "../mouse/mou
 
 import BuildingType from "../buildings/BuildingType";
 
+import socketEvents from "../socket/socketEvents";
+import { setAgents } from "../canvas/drawsSlice";
+import { useEffect } from "react";
+
 
 
 const GamePanel = (props) => {
 
-    
+    const dispatch = useDispatch();
+    const socket = useSelector( (state) => state.socket.socket);
+
+    useEffect(() =>{
+        socket.on(socketEvents.refresh_agents, (message) => {
+            dispatch( setAgents( JSON.parse(message)) );
+        });
+      }, [])
+
+
     return(
     <>
         <h1>Config :</h1>

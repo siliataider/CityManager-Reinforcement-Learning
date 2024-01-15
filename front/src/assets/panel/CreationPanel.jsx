@@ -5,6 +5,9 @@ import {useDispatch, useSelector} from 'react-redux';
 import { setCursorObject, setBuildingType, switchIsDragging } from "../mouse/mouseSlice";
 
 import BuildingType from "../buildings/BuildingType";
+import socketEvents from "../socket/socketEvents";
+
+import GamePanel from "./GamePanel";
 
 
 
@@ -12,7 +15,8 @@ const CreationPanel = (props) => {
 
     const dispatch = useDispatch();
 
-    const isDragging = useSelector( (state) => state.mouse.isDragging)
+    const isDragging = useSelector( (state) => state.mouse.isDragging);
+    const socket = useSelector( (state) => state.socket.socket);
 
     function switchCursor (buildingType){
 
@@ -45,6 +49,21 @@ const CreationPanel = (props) => {
         };
     }
 
+    function saveAndStart(){
+        props.nextPanelListener(<GamePanel className="col"></GamePanel>)
+        socket.on(socketEvents.saveAndStart, (message) => {
+            if (message == "OK"){
+                console.log('GO simu!');
+                props.nextPanelListener(<GamePanel className="col"></GamePanel>)
+                // CHANGE PANEL
+            }
+            socket.off(socketEvents.saveAndStart)
+        });
+
+        socket.emit(socketEvents.saveAndStart, "START ?")
+    }
+    
+
 
     return(
     <>
@@ -71,7 +90,7 @@ const CreationPanel = (props) => {
         >New office</button>
         <br></br>
 
-        <button>Save & Start</button>
+        <button onClick={saveAndStart}>Save & Start</button>
         <br></br>
     </>
     );
