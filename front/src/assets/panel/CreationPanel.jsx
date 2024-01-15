@@ -8,7 +8,7 @@ import BuildingType from "../buildings/BuildingType";
 
 
 
-const ControlPanel = (props) => {
+const CreationPanel = (props) => {
 
     const dispatch = useDispatch();
 
@@ -78,4 +78,4 @@ const ControlPanel = (props) => {
     
   };
   
-  export default ControlPanel;
+  export default CreationPanel;
