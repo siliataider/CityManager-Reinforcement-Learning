@@ -9,11 +9,11 @@ import BuildingCreatorWidget from './assets/widgets/BuildingCreatorWidget';
 
 import Popup from 'reactjs-popup';
 
+import { useEffect } from 'react';
+
+import {io} from 'socket.io-client';
 
 import { useSelector } from 'react-redux';
-
-import App_Stomp from './assets/socket/App_Stomp';
-
 
 
 
@@ -21,6 +21,21 @@ import App_Stomp from './assets/socket/App_Stomp';
 
 
 function App() {
+    console.log("LO");
+
+      const newSocket = io();
+
+      console.log("gf")
+  
+      newSocket.on('connect', () => {
+        console.log('Connected with socket ID:');
+      });
+
+      newSocket.on('eventFromBack', ()=>{
+        console.log("OUI")
+      })
+
+
 
 
   const cursorObject = useSelector( (state) => state.mouse.cursorObject)
@@ -28,7 +43,6 @@ function App() {
   return (
     <>
 
-<App_Stomp></App_Stomp>
 
     {cursorObject}
 
