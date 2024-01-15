@@ -21,7 +21,6 @@ public class Simulator {
     @Scheduled(fixedRate = 5000)
     private void Cycle(){
 
-
         // [VICK] This config needs to go somwere else :
         // [VICK] Use JAVA sdk 11 ! It doesn't work with 17 !
         // SOCKET IO CONFIG :
@@ -67,9 +66,22 @@ public class Simulator {
         //[VICK] not socket stuff here :
 
         System.out.println(timeManager.getCurrentTick() + "; " + timeManager.getCurrentDay());
+
         mapObjectManager.build(new Work(new Point(5,5),1800,45,9,17));
-        System.out.println(mapObjectManager.getBuildings());
+        System.out.println(toJSONString());
         timeManager.advance();
+    }
+
+    public String toJSONString(){
+        String ret =
+                "{"
+                +"mapSize:{x:"+mapSize.getX()+",y:"+mapSize.getY()+"},"
+                +"time:"+timeManager.toJSONString()+","
+                +"weather:"+weatherManager.toJSONString()+","
+                +"mapObjects:"+mapObjectManager.toJSONString()
+                +"}";
+
+        return ret;
     }
 
 

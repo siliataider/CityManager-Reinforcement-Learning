@@ -56,4 +56,22 @@ public class MapObjectManager {
             }
         }
     }
+
+    public String toJSONString() {
+        String buildingsJSON = "[";
+        for(int i=0;i<buildings.size();i++){
+            if(i>0){
+                buildingsJSON+=",";
+            }
+            buildingsJSON+=buildings.get(i).toJSONString();
+        }
+        buildingsJSON+="]";
+
+        String ret =
+                "{"
+                +"buildings:"+buildingsJSON
+                +"}";
+
+        return ret;
+    }
 }

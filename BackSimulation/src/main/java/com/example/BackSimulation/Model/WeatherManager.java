@@ -47,4 +47,11 @@ public class WeatherManager {
         return getWeather();
 
     }
+
+    public String toJSONString() {
+        String ret =
+                weather.toString();
+
+        return ret;
+    }
 }
