@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { setCursorObject, switchIsDragging } from "../mouse/mouseSlice";
-import { addBuildings } from "./drawsSlice";
+import { addBuildings } from "./drawSlice";
 
 import { drawBuildings, drawAgents, clearCanavas } from "./canavasTools";
 

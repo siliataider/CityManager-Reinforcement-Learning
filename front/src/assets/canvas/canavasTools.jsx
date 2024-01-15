@@ -1,4 +1,6 @@
- /** For making sure the context isn't `null` when trying to access it */
+// from https://stackoverflow.com/questions/70317280/remove-last-drawn-object-from-canvas
+
+/** For making sure the context isn't `null` when trying to access it */
 function assertIsContext (ctx) {
     if (!ctx) throw new Error('Canvas context not found');
   }

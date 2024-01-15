@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import socketEvents from "../socket/socketEvents";
 
-import { setAgents } from "../canvas/drawsSlice";
+import { setAgents } from "../canvas/drawSlice";
 
 
 
