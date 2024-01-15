@@ -1,4 +1,18 @@
-from resources.variables import TABLE_STATES
+import tensorflow as tf
+import numpy as np
+from resources.variables import TABLE_STATES, NUM_STATE, NUM_ACTION
+
+def build_model():
+  num_units = 100
+  model = tf.keras.Sequential()
+  model.add(tf.keras.layers.Dense(num_units, input_dim=NUM_STATE, activation="relu"))
+  model.add(tf.keras.layers.Dense(num_units, activation="relu"))
+  model.add(tf.keras.layers.Dense(NUM_ACTION))
+  model.compile(loss="mse", optimizer=tf.keras.optimizers.Adam(learning_rate=0.001))
+  return model
+
+def reshape_state(state):
+  return np.array(state).reshape(1, -1) 
 
 def find_state_index(state):
   try:
