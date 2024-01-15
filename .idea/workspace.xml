@@ -5,12 +5,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="07fbec91-0c86-47d8-ac4b-2ba1d8072e5e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Websocket/SimulationDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backAgent/resources/test.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backAgent/resources/wrappers.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BackSimulation/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BackSimulation/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Simulator.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Simulator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Websocket/WebSocketConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Websocket/WebSocketConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Websocket/WebSocketController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Websocket/WebSocketController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backAgent/classes/Agent/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/backAgent/classes/Agent/Agent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backAgent/classes/Agent/AgentDQLearning.py" beforeDir="false" afterPath="$PROJECT_DIR$/backAgent/classes/Agent/AgentDQLearning.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backAgent/classes/Agent/AgentQLearning.py" beforeDir="false" afterPath="$PROJECT_DIR$/backAgent/classes/Agent/AgentQLearning.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backAgent/classes/AgentEnvironment.py" beforeDir="false" afterPath="$PROJECT_DIR$/backAgent/classes/AgentEnvironment.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backAgent/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/backAgent/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backAgent/process/processFunctions.py" beforeDir="false" afterPath="$PROJECT_DIR$/backAgent/process/processFunctions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backAgent/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/backAgent/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backAgent/resources/methods.py" beforeDir="false" afterPath="$PROJECT_DIR$/backAgent/resources/methods.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backAgent/resources/variables.py" beforeDir="false" afterPath="$PROJECT_DIR$/backAgent/resources/variables.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backAgent/webSocket/client.py" beforeDir="false" afterPath="$PROJECT_DIR$/backAgent/webSocket/client.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/front/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/front/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/front/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/App.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/main.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/main.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/launcher.sh" beforeDir="false" afterPath="$PROJECT_DIR$/launcher.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nginx.conf" beforeDir="false" afterPath="$PROJECT_DIR$/nginx.conf" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,7 +74,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "jad",
+    "git-widget-placeholder": "Merging jad",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/home/jad.ghandour/Bureau/City Manager",
     "project.structure.last.edited": "SDKs",
@@ -127,7 +146,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="jad" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>

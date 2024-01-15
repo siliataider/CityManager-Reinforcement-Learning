@@ -10,7 +10,7 @@ def hello():
         data = {
             'action': 0, 
             'agents': [
-                {'agent_id': 0, 'weather':0, 'timestamp': 8, 'hunger': 0.5, 'energy': 0.5, 'money': 0.5 }
+                {'agent_id': 0, 'weather':0, 'timestamp': 8, 'hunger': 0.5, 'energy': 0.5, 'money': 0.5 },
             ]
         }
         json_data = json.dumps(data)
@@ -29,7 +29,7 @@ def all_good(data):
 
 hello()
 
-for i in range(100):
+for i in range(50):
     data = {'action': 1, 'data': {'weather':random.choice([0, 1]), 'timestamp': (8+i) % 24, 'tick': 0+i}}
     all_good(data)
 
