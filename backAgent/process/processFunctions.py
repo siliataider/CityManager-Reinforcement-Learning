@@ -57,10 +57,7 @@ def runAgent(lock, queueIN, queueOUT, simulationConditions):
         lock.release()
         
         # Training the agent
-        agent.env.state_value = (simulationConditions.timestamp, simulationConditions.weather, *agent.env.state_value[2:])
         res = agent.train(simulationConditions)
-
-        print(f"agent: {agent}")
 
         # Return results of training
         queueOUT.put(res)

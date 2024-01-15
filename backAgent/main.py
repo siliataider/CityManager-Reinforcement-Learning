@@ -30,16 +30,11 @@ async def read_socket(websocket):
                 else:
                     agent = AgentQLearning(num_actions=NUM_ACTION, num_states=NUM_STATE, env=env, agent_id=data['agent_id'])
                 agents.append(agent)
-            print(agents)
             simulationConditions.set_list_agent(agents)
             res = 'agent créés'
 
         elif decode_message['action'] == 1:
             simulationConditions.set_simulation_conditions(decode_message['data'])
-
-            print('---------------------------------------------------')
-            print(decode_message['data'])
-            print(simulationConditions.timestamp)
 
             tIN = time()
             # if too much prints : https://stackoverflow.com/questions/8391411/how-to-block-calls-to-print
@@ -51,7 +46,10 @@ async def read_socket(websocket):
 
             print("Execution time : " + str(tOUT - tIN))
 
-        json_data = json.dumps('ok')
+        anwser = ''
+        for value in res:
+            anwser += f"{value} / "
+        json_data = json.dumps(anwser)
         await websocket.send(json_data)
 
 async def main():
