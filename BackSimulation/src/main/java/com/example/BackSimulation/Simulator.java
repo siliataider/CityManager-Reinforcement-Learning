@@ -51,7 +51,7 @@ public class Simulator {
         //[VICK] this needs to be removed :
         // Some sleeps since the cycle is looping :
         try {
-            Thread.sleep(1000);
+            Thread.sleep(1000000000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
