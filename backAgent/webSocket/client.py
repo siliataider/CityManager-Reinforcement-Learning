@@ -5,7 +5,7 @@ from websockets.sync.client import connect
 import random
 
 def hello():
-    with connect("ws://localhost:8765") as websocket:
+    with connect("ws://localhost:8080/py-message/topic") as websocket:
         #data = {'action': 1, 'data': {'weather':0, 'timestamp': 8, 'tick': 0}}
         data = {
             'action': 0, 
@@ -15,6 +15,7 @@ def hello():
         }
         json_data = json.dumps(data)
         websocket.send(json_data)
+        websocket.send("Hola")
         message = websocket.recv()
         print(f"Received: {message}")
 
