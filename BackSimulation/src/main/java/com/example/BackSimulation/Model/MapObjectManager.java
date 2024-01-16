@@ -1,7 +1,7 @@
 package com.example.BackSimulation.Model;
 
-import com.example.BackSimulation.Model.MapObjects.Agent;
-import com.example.BackSimulation.Model.MapObjects.Building;
+import com.example.BackSimulation.DTO.BuildingDTO;
+import com.example.BackSimulation.Model.MapObjects.*;
 
 import java.util.ArrayList;
 
@@ -32,6 +32,21 @@ public class MapObjectManager {
         setIdCounter(getIdCounter()+1);
         building.setId(getIdCounter());
         buildings.add(building);
+    }
+
+    public void build(BuildingDTO building){
+        setIdCounter(getIdCounter()+1);
+        switch(building.getType()){
+            case Work :
+                Work work = new Work(building.getCoords(),building.getOpenTime(),building.getCloseTime());
+                buildings.add(work);
+            case Home :
+                Home home = new Home(building.getCoords(),building.getOpenTime(),building.getCloseTime());
+                buildings.add(home);
+            case Resto :
+                Resto resto = new Resto(building.getCoords(),building.getOpenTime(),building.getCloseTime());
+                buildings.add(resto);
+        }
 
     }
 

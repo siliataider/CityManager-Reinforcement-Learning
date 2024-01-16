@@ -5,31 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="07fbec91-0c86-47d8-ac4b-2ba1d8072e5e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backAgent/resources/test.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backAgent/resources/wrappers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/City Manager.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/City Manager.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BackSimulation/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BackSimulation/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/BackSimulationApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/BackSimulationApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/DTO/BuildingDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/DTO/BuildingDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/Enums/BuildingType.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/Enums/BuildingType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/MapObjectManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/MapObjectManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/MapObjects/Home.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/MapObjects/Home.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/MapObjects/Resto.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/MapObjects/Resto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/MapObjects/Work.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/MapObjects/Work.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Simulation.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Simulation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Simulator.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Simulator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Websocket/WebSocketConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Websocket/WebSocketConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Websocket/WebSocketController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Websocket/WebSocketController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backAgent/classes/Agent/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/backAgent/classes/Agent/Agent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backAgent/classes/Agent/AgentDQLearning.py" beforeDir="false" afterPath="$PROJECT_DIR$/backAgent/classes/Agent/AgentDQLearning.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backAgent/classes/Agent/AgentQLearning.py" beforeDir="false" afterPath="$PROJECT_DIR$/backAgent/classes/Agent/AgentQLearning.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backAgent/classes/AgentEnvironment.py" beforeDir="false" afterPath="$PROJECT_DIR$/backAgent/classes/AgentEnvironment.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backAgent/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/backAgent/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backAgent/process/processFunctions.py" beforeDir="false" afterPath="$PROJECT_DIR$/backAgent/process/processFunctions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backAgent/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/backAgent/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backAgent/resources/methods.py" beforeDir="false" afterPath="$PROJECT_DIR$/backAgent/resources/methods.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backAgent/resources/variables.py" beforeDir="false" afterPath="$PROJECT_DIR$/backAgent/resources/variables.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backAgent/webSocket/client.py" beforeDir="false" afterPath="$PROJECT_DIR$/backAgent/webSocket/client.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/front/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/front/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/front/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/App.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/main.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/main.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/launcher.sh" beforeDir="false" afterPath="$PROJECT_DIR$/launcher.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nginx.conf" beforeDir="false" afterPath="$PROJECT_DIR$/nginx.conf" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,13 +26,27 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Enum" />
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;JadGhandour&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="4a61c4fb-e2ce-43fd-af29-8607b309003b" />
+        <option name="url" value="https://github.com/siliataider/CityManager-Reinforcement-Learning" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -64,32 +65,35 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Application.BackSimulationApplication.executor": "Run",
-    "Application.WebSocketClient.executor": "Run",
-    "Maven.BackSimulation [install].executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "Merging jad",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/jad.ghandour/Bureau/City Manager",
-    "project.structure.last.edited": "SDKs",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Application.BackSimulationApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.WebSocketClient.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.BackSimulation [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.BackSimulation [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.BackSimulation [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.BackSimulation [verify].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;jad&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/jad.ghandour/Bureau/City Manager&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.repository.indices&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.example.BackSimulation.Model" />
       <recent name="com.example.BackSimulation.Model.MapObjects" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.WebSocketClient">
+  <component name="RunManager" selected="Application.BackSimulationApplication">
     <configuration name="BackSimulationApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.BackSimulation.BackSimulationApplication" />
       <module name="BackSimulation" />
@@ -118,15 +122,15 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.WebSocketClient" />
         <item itemvalue="Application.BackSimulationApplication" />
+        <item itemvalue="Application.WebSocketClient" />
       </list>
     </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="jdk-19.0.2-corretto-19.0.2-e1d2075fd9a7-8c05fb1b" />
+        <option value="jdk-19.0.2-corretto-19.0.2-4caba194b151-6ca9ab15" />
       </set>
     </attachedChunks>
   </component>

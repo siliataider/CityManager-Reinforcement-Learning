@@ -11,4 +11,10 @@ public class Resto extends Building {
         Transaction transaction = new Transaction(Stats.Food,nutriments,Stats.Money,cost);
         setTransaction(transaction);
     }
+
+    public Resto(Point coords, int openTime,int closeTime){
+        super(coords,openTime,closeTime);
+        Transaction transaction = new Transaction(Stats.Food,10,Stats.Money,10);
+        setTransaction(transaction);
+    }
 }
