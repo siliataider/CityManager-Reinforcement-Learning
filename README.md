@@ -13,3 +13,14 @@ CityManager-Reinforcement-Learning<br>
 ├── backAgent (Python backend) <br>
 ├── BackSimulation (Java backend)<br>
 └── front (React frontend)
+
+## Deployment Dashbooard
+https://dashboard.render.com/
+
+### Deployment React
+https://citymanagerreact.onrender.com
+
+### Deployment Python
+https://citymanagerpython.onrender.com
+
+### Deployment Java
