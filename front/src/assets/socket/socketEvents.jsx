@@ -1,8 +1,8 @@
 const socketEvents = {
     connect : 'connect',
-    new_building:"new building",
-    run_simulation:"run simulation",
-    refresh_agents:"refresh agent",
+    new_building:"build",
+    run_simulation:"start",
+    refresh_agents:"updateAgent",
 }
 
 export default socketEvents;

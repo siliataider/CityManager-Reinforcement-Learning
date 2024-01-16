@@ -47,11 +47,13 @@ function MapCanvas () {
 
         //Building to draw :
         const building = {
-          buildingType: buildingType,
+          type: buildingType,
           x : ev.clientX,
           y : ev.clientY,
           color : color,
-          size : squareSize
+          size : squareSize,
+          openTime : 8,
+          closeTime :20,
         }
 
         /**
@@ -60,7 +62,8 @@ function MapCanvas () {
          * if not an error message is displayed
          */
         socket.on(socketEvents.new_building, (message) => {
-          if (message == 'OK'){
+          data = JSON.parse(message);
+          if (data.response == 'ok'){
             // draw building :
             dispatch(addBuildings( building ))
             // Switch back cursor :
@@ -68,11 +71,12 @@ function MapCanvas () {
             dispatch(switchIsDragging())
           } else{
             //TODO:
-            console.log("Placement invalide !");
+            console.log(data.message);
           }
           // Delete listener :
           socket.off(socketEvents.new_building)
         });
+        console.log(building)
 
         // Send the building to back
         socket.emit(socketEvents.new_building, building)
