@@ -50,10 +50,10 @@ def runAgent(lock, queueIN, queueOUT, simulationConditions):
         lock.release()
 
         # Training the agent
-        res = agent.train(simulationConditions)
-        print(f"agent: {agent}")
+        res, action = agent.train(simulationConditions)
+        #print(f"agent: {agent}")
 
         # Return results of training
-        queueOUT.put(res)
+        queueOUT.put((res, action))
         lock.acquire()
     lock.release()

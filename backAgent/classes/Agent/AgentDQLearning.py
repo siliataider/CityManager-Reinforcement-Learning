@@ -3,6 +3,7 @@ import random
 import numpy as np
 from resources.methods import reshape_state
 from resources.wrappers import ModelWrapper
+import tensorflow as tf
 
 class AgentDQLearning(Agent) :
     def __init__(self, num_states, num_actions, env, agent_id):
@@ -25,4 +26,9 @@ class AgentDQLearning(Agent) :
         Qs_next = self.model.model.predict(next_state, verbose=0)[0]
         target[action] = reward + discount_factor * np.max(Qs_next)
         self.model.model.fit(state, np.array([target]), epochs=1, verbose=0)
-        
+    
+    def save_model(self):
+        self.model.model.save('dql_model_agent_' + self.agent_id +'.h5')
+    
+    def load_model(self, model):
+        self.model.model = tf.keras.models.load_model(model)

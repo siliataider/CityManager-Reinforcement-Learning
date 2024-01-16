@@ -43,8 +43,14 @@ class Agent() :
         #average_rewards.append(total_reward / max_time_steps)
         print(f"exploration_rate: {simulationConditions.exploration_rate}, action: {action}")
         
-        return(self)
-    
+        return self, action
+
+    def save_model(self):
+        raise NotImplementedError("La méthode 'save_model' doit être implémentée par les sous-classes.")
+
+    def load_model(self, model):
+        raise NotImplementedError("La méthode 'load_model' doit être implémentée par les sous-classes.")
+
     def choose_action(self, state_value, exploration_rate):
         raise NotImplementedError("La méthode 'choose_action' doit être implémentée par les sous-classes.")
             

@@ -79,6 +79,7 @@ public class Simulator {
 
         newServer.start(); // Start serveur
         return newServer;
+
     }
 
     private void startSimulation(StartDTO start) throws Exception {

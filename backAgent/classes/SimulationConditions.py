@@ -24,3 +24,28 @@ class SimulationConditions() :
     
     def set_list_agent(self, list_agent):
         self.list_agent = list_agent
+
+    def get_agents_info(self):
+        agents_list = []
+        for agent in self.list_agent:
+            agent_info = self.get_one_agent_info(agent=agent)
+            agents_list.append(agent_info)
+
+        return agents_list
+
+    def get_one_agent_info(self, agent, action=''):
+
+        (timestamp, weather, hunger, energy, money) = agent.env.state_value
+        agent_info = {
+                'id': agent.agent_id,
+                'state': {
+                    'hunger': hunger,
+                    'energy': energy,
+                    'money': money
+                }
+            }
+        
+        if action:
+            agent_info['action'] = action
+
+        return agent_info

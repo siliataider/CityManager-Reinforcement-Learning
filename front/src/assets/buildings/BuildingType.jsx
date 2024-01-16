@@ -1,7 +1,7 @@
 const BuildingType = {
-    FOOD:["FOOD", "red"],
-    JOB:["JOB", "green"],
-    HOME:["HOME", "blue"],   
+    FOOD:["resto", "red"],
+    JOB:["work", "green"],
+    HOME:["home", "blue"],   
 }
 
 export default BuildingType;
