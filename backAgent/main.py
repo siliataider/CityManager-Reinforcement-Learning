@@ -1,4 +1,5 @@
 import websockets
+from websockets import serve
 import asyncio
 from time import time
 from process.processFunctions import runProc
@@ -76,6 +77,7 @@ async def read_socket(websocket):
         await websocket.send(anwser)
 
 
+# Run python backend as client
 async def connect_to_websocket():
     uri = "wss://citymanagerjava.onrender.com/websocket-endpoint" 
     async with websockets.connect(uri) as websocket:
@@ -83,5 +85,11 @@ async def connect_to_websocket():
             # Envoyez et recevez des messages ici
             await read_socket(websocket)
 
+# Run python backend as server
+async def listen_to_websocket():
+    async with serve(read_socket, "", 8765):
+        await asyncio.Future()  # run forever
+
 if __name__ == "__main__":
-    asyncio.get_event_loop().run_until_complete(connect_to_websocket())
+    #asyncio.get_event_loop().run_until_complete(connect_to_websocket())
+    asyncio.run(listen_to_websocket())
