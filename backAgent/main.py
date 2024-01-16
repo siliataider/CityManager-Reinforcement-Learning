@@ -7,6 +7,7 @@ from classes.Agent.AgentDQLearning import AgentDQLearning
 from classes.SimulationConditions import SimulationConditions
 from classes.AgentEnvironment import AgentEnvironment
 from resources.variables import START_EXPLORATION_RATE, NUM_STATE, NUM_ACTION, NUM_STATE_DISCRETE
+from resources.methods import load_and_save_model
 import json
 
 simulationConditions = SimulationConditions(exploration_rate=START_EXPLORATION_RATE)
@@ -14,6 +15,7 @@ simulationConditions = SimulationConditions(exploration_rate=START_EXPLORATION_R
 #connect to socket :
 async def read_socket(websocket):
     async for message in websocket:
+        print('='*100)
         anwser = ''
         decode_message = json.loads(message)
 
@@ -35,7 +37,6 @@ async def read_socket(websocket):
                     'agentList': simulationConditions.get_agents_info()
                 }
             }
-            anwser = json.dumps(anwser)
 
         elif decode_message['event'] == 'updateAgent':
             simulationConditions.set_simulation_conditions(decode_message['data'])
@@ -61,27 +62,23 @@ async def read_socket(websocket):
 
             print("Execution time : " + str(tOUT - tIN))
 
-            anwser = json.dumps(anwser)
+        elif decode_message['event'] in ['loadAgent', 'saveAgent']:
+            anwser = load_and_save_model(event=decode_message['event'], simulationConditions=simulationConditions, message_data=decode_message['data'])
 
-        elif decode_message['event'] == 2:
-            agent_object = None
-            for agent in simulationConditions.list_agent:
-                if agent.id == decode_message['agent_id']:
-                    agent_object = agent
-            if agent_object != None:
-                res = agent_object.save_model()
-            else: 
-                anwser = 'Agent not found'
-
+        anwser = json.dumps(anwser)
         await websocket.send(anwser)
 
 
-async def connect_to_websocket():
-    uri = "ws://localhost:8080/websocket-endpoint"        
+async def handle_client():
+    uri = "ws://localhost:8080/websocket-endpoint"
     async with websockets.connect(uri) as websocket:
         while True:
             # Envoyez et recevez des messages ici
             await read_socket(websocket)
 
 if __name__ == "__main__":
-    asyncio.get_event_loop().run_until_complete(connect_to_websocket())
+    start_server = websockets.serve(read_socket, "localhost", 8765)
+
+    #asyncio.get_event_loop().run_until_complete(connect_to_websocket())
+    asyncio.get_event_loop().run_until_complete(start_server)
+    asyncio.get_event_loop().run_forever()

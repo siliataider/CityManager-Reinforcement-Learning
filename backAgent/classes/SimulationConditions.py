@@ -1,4 +1,4 @@
-from resources.variables import FINAL_EXPLORATION_RATE, START_EXPLORATION_RATE, EPLORATION_RATE_DECAY_STEPS, MAX_TIME_STEP
+from resources.variables import FINAL_EXPLORATION_RATE, START_EXPLORATION_RATE, EPLORATION_RATE_DECAY_STEPS, MAX_TIME_STEP, TABLE_ACTIONS
 
 
 class SimulationConditions() :
@@ -28,12 +28,12 @@ class SimulationConditions() :
     def get_agents_info(self):
         agents_list = []
         for agent in self.list_agent:
-            agent_info = self.get_one_agent_info(agent=agent)
+            agent_info = self.get_one_agent_info(agent=agent, action=None)
             agents_list.append(agent_info)
 
         return agents_list
 
-    def get_one_agent_info(self, agent, action=''):
+    def get_one_agent_info(self, agent, action):
 
         (timestamp, weather, hunger, energy, money) = agent.env.state_value
         agent_info = {
@@ -45,7 +45,7 @@ class SimulationConditions() :
                 }
             }
         
-        if action:
-            agent_info['action'] = action
+        if action != None:
+            agent_info['action'] = TABLE_ACTIONS[action]
 
         return agent_info
