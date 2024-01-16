@@ -1,84 +1,32 @@
 package com.example.BackSimulation;
 
 import com.example.BackSimulation.Model.*;
-import com.example.BackSimulation.Model.MapObjects.Work;
 
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Service;
-
-import com.corundumstudio.socketio.listener.*;
-import com.corundumstudio.socketio.*;
 import java.awt.*;
-import com.example.BackSimulation.Websocket.PythonWebSocketHandler;
-
-@Service
 public class Simulation {
-    private final PythonWebSocketHandler webSocketHandler;
 
-    public Simulation(PythonWebSocketHandler webSocketHandler) {
-        this.webSocketHandler = webSocketHandler;
-
-    }
     private Point mapSize = new Point(50,50);
     private TimeManager timeManager = new TimeManager();
     private WeatherManager weatherManager = new WeatherManager();
 
     private MapObjectManager mapObjectManager = new MapObjectManager();
 
-    @Scheduled(fixedRate = 5000)
-    private void Cycle() throws Exception {
-        // [VICK] This config needs to go somwere else :
-        // [VICK] Use JAVA sdk 11 ! It doesn't work with 17 !
-        // SOCKET IO CONFIG :
-        Configuration config = new Configuration();
-        config.setHostname("localhost");
-        config.setPort(5050);
+    public TimeManager getTimeManager() {
+        return timeManager;
+    }
 
-        // SEE : https://github.com/mrniko/netty-socketio/issues/254
-        SocketConfig socketConfig = new SocketConfig();
-        socketConfig.setReuseAddress(true); // The port will stay bussy after the end of the execution othewise
+    public WeatherManager getWeatherManager() {
+        return weatherManager;
+    }
 
-        config.setSocketConfig(socketConfig);
+    public MapObjectManager getMapObjectManager() {
+        return mapObjectManager;
+    }
 
-        final SocketIOServer server = new SocketIOServer(config);
-
-        // LISTENER WHERE EVENT IS RECIVED
-        server.addEventListener("eventFromFront", String.class, new DataListener<String>() {
-            @Override
-            public void onData(SocketIOClient client, String data, AckRequest ackRequest) {
-                // DO SOMTHING HERE !
-                System.out.println(data);
-            }
-        });
-
-
-        server.start(); // Start serveur
-
-        //[VICK] this needs to be removed :
-        // Some sleeps since the cycle is looping :
-        try {
-            Thread.sleep(1000000000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
-
-        // Send message
-        server.getBroadcastOperations().sendEvent("eventFromBack", "your message ");
-
-        //[VICK] this is probably not usefull in the project
-        server.stop(); // Stop serveur
-
+    private void Cycle(){
         //[VICK] not socket stuff here :
-
-        System.out.println(timeManager.getCurrentTick() + "; " + timeManager.getCurrentDay());
-
-        mapObjectManager.build(new Work(new Point(5,5),1800,45,9,17));
-        System.out.println(toJSONString());
-
-        webSocketHandler.broadcastMessage(sendDataToPython());
-
         timeManager.advance();
+        weatherManager.changeWeather();
     }
 
     public String toJSONString(){
@@ -94,21 +42,6 @@ public class Simulation {
     }
 
     // TODO: remove this function (it is just for communication test)
-    public String sendDataToPython() {
-        String res = "{" +
-                "\"action\": 0, " +
-                "\"agents\": " + "[" +
-                "{" +
-                "\"agent_id\": 0, " +
-                "\"weather\":0, " +
-                "\"timestamp\": 8, " +
-                "\"hunger\": 0.5, " +
-                "\"energy\": 0.5, " +
-                "\"money\": 0.5 " +
-                "}" +
-                "]" +
-                "}";
-        return res;
-    }
+
 
 }

@@ -11,4 +11,10 @@ public class Work extends Building {
         Transaction transaction = new Transaction(Stats.Money,salary,Stats.Energy,energy);
         setTransaction(transaction);
     }
+
+    public Work(Point coords,int openTime,int closeTime){
+        super(coords,openTime,closeTime);
+        Transaction transaction = new Transaction(Stats.Money,10,Stats.Energy,10);
+        setTransaction(transaction);
+    }
 }
