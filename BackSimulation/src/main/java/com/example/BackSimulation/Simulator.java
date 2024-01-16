@@ -3,12 +3,19 @@ package com.example.BackSimulation;
 import com.corundumstudio.socketio.*;
 import com.corundumstudio.socketio.listener.DataListener;
 import com.example.BackSimulation.DTO.BuildingDTO;
+import com.example.BackSimulation.DTO.StartDTO;
 import com.example.BackSimulation.Websocket.PythonWebSocketHandler;
 import com.google.gson.Gson;
+import org.springframework.stereotype.Service;
 
+@Service
 public class Simulator {
 
-    private final PythonWebSocketHandler webSocketHandler = new PythonWebSocketHandler();
+    private final PythonWebSocketHandler webSocketHandler;
+
+    public Simulator(PythonWebSocketHandler webSocketHandler){
+        this.webSocketHandler = webSocketHandler;
+    }
 
     private SocketIOServer server = initServer();
     private Simulation simulation = new Simulation();
@@ -38,15 +45,15 @@ public class Simulator {
                     simulation.getMapObjectManager().build(building);
                     server.getBroadcastOperations().sendEvent("build",
                             "{" +
-                                    "response: ok," +
-                                    "message: Successfully built!" +
+                                    "'response': 'ok'," +
+                                    "'message': 'Successfully built!'," +
                                     "}");
                 }
                 catch(Exception e){
                     server.getBroadcastOperations().sendEvent("build",
                             "{" +
-                                    "response: notok,"
-                                    +"message: " +"error building: "+e
+                                    "'response': 'notok',"
+                                    +"'message': " +"'error building: "+e+"'"
                                     +"}");
                 }
             }
@@ -55,7 +62,18 @@ public class Simulator {
         newServer.addEventListener("start", String.class, new DataListener<String>() {
             @Override
             public void onData(SocketIOClient client, String data, AckRequest ackRequest) {
-                //START SIMULATION
+                try{
+                    Gson gson = new Gson();
+                    StartDTO start = gson.fromJson(data, StartDTO.class);
+                    startSimulation(start);
+                }
+                catch(Exception e){
+                    server.getBroadcastOperations().sendEvent("start",
+                            "{"
+                                    +"'response': notok,"
+                                    +"'message': " +"'error building: "+e+"'"
+                                    +"}");
+                }
             }
         });
 
@@ -63,21 +81,33 @@ public class Simulator {
         return newServer;
     }
 
-    public String sendDataToPython() {
-        String res = "{" +
-                "\"action\": 0, " +
-                "\"agents\": " + "[" +
-                "{" +
-                "\"agent_id\": 0, " +
-                "\"weather\":0, " +
-                "\"timestamp\": 8, " +
-                "\"hunger\": 0.5, " +
-                "\"energy\": 0.5, " +
-                "\"money\": 0.5 " +
-                "}" +
-                "]" +
-                "}";
-        return res;
+    private void startSimulation(StartDTO start) throws Exception {
+        boolean verified = simulation.verify(start.getnAgents());
+        if(verified){
+            server.removeAllListeners("build");
+            server.removeAllListeners("start");
+
+            server.getBroadcastOperations().sendEvent("start",
+                    "{"
+                            +"'response':'ok',"
+                            +"'message': 'Starting...',"
+                            +"'weather': " +simulation.getWeatherManager().getWeather().getValue()+","
+                            +"'timestamp': " + simulation.getTimeManager().getCurrentTick()
+                            +"}");
+
+            webSocketHandler.broadcastMessage("{" +
+                    "'event': 'createAgent'," +
+                    "'data': {" +
+                    "'nbAgent': " + start.getnAgents() + "," +
+                    "'timeStamp': " + simulation.getTimeManager().getCurrentTick() +"," +
+                    "'weather': " + simulation.getWeatherManager().getWeather().getValue() +
+                    "}" +
+                    "}"
+            );
+
+
+        }
     }
+
 
 }
