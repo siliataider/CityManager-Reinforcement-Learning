@@ -1,16 +1,10 @@
 package com.example.BackSimulation;
 
 import com.example.BackSimulation.Model.*;
-import com.example.BackSimulation.Model.MapObjects.Work;
 
-import jakarta.annotation.PostConstruct;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Service;
-
-import com.corundumstudio.socketio.listener.*;
-import com.corundumstudio.socketio.*;
 import java.awt.*;
 public class Simulation {
+
     private Point mapSize = new Point(50,50);
     private TimeManager timeManager = new TimeManager();
     private WeatherManager weatherManager = new WeatherManager();
@@ -46,6 +40,8 @@ public class Simulation {
 
         return ret;
     }
+
+    // TODO: remove this function (it is just for communication test)
 
 
 }

@@ -3,23 +3,18 @@ package com.example.BackSimulation;
 import com.corundumstudio.socketio.*;
 import com.corundumstudio.socketio.listener.DataListener;
 import com.example.BackSimulation.DTO.BuildingDTO;
-import com.example.BackSimulation.Model.MapObjects.Building;
-import com.example.BackSimulation.Model.MapObjects.Work;
+import com.example.BackSimulation.Websocket.PythonWebSocketHandler;
 import com.google.gson.Gson;
-import jakarta.annotation.PostConstruct;
-import org.springframework.boot.autoconfigure.info.ProjectInfoProperties;
-
-import java.awt.*;
 
 public class Simulator {
+
+    private final PythonWebSocketHandler webSocketHandler = new PythonWebSocketHandler();
 
     private SocketIOServer server = initServer();
     private Simulation simulation = new Simulation();
 
     private SocketIOServer initServer(){
-
         // [VICK] This config needs to go somwere else :
-        // [VICK] Use JAVA sdk 11 ! It doesn't work with 17 !
         // SOCKET IO CONFIG :
         Configuration config = new Configuration();
         config.setHostname("localhost");
@@ -54,9 +49,24 @@ public class Simulator {
         });
 
         newServer.start(); // Start serveur
-
         return newServer;
     }
 
+    public String sendDataToPython() {
+        String res = "{" +
+                "\"action\": 0, " +
+                "\"agents\": " + "[" +
+                "{" +
+                "\"agent_id\": 0, " +
+                "\"weather\":0, " +
+                "\"timestamp\": 8, " +
+                "\"hunger\": 0.5, " +
+                "\"energy\": 0.5, " +
+                "\"money\": 0.5 " +
+                "}" +
+                "]" +
+                "}";
+        return res;
+    }
 
 }

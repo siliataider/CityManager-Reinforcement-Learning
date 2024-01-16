@@ -1,4 +1,4 @@
-from websockets.server import serve
+import websockets
 import asyncio
 from time import time
 from process.processFunctions import runProc
@@ -6,7 +6,7 @@ from classes.Agent.AgentQLearning import AgentQLearning
 from classes.Agent.AgentDQLearning import AgentDQLearning
 from classes.SimulationConditions import SimulationConditions
 from classes.AgentEnvironment import AgentEnvironment
-from resources.variables import START_EXPLORATION_RATE, NUM_STATE, NUM_STATE_DISCRETE, NUM_ACTION
+from resources.variables import START_EXPLORATION_RATE, NUM_STATE, NUM_ACTION
 import json
 
 simulationConditions = SimulationConditions(exploration_rate=START_EXPLORATION_RATE)
@@ -23,7 +23,7 @@ async def read_socket(websocket):
             for data in decode_message['agents']:
                 env = AgentEnvironment(data)
                 if data['agent_id'] % 2:
-                    agent = AgentQLearning(num_actions=NUM_ACTION, num_states=NUM_STATE_DISCRETE, env=env, agent_id=data['agent_id'])
+                    agent = AgentQLearning(num_actions=NUM_ACTION, num_states=NUM_STATE, env=env, agent_id=data['agent_id'])
                 else:
                     agent = AgentDQLearning(num_actions=NUM_ACTION, num_states=NUM_STATE, env=env, agent_id=data['agent_id'])
                 agents.append(agent)
@@ -41,7 +41,7 @@ async def read_socket(websocket):
 
             simulationConditions.list_agent = res
 
-            #print("Execution time : " + str(tOUT - tIN))
+            print("Execution time : " + str(tOUT - tIN))
 
         anwser = ''
         for value in res:
@@ -49,8 +49,14 @@ async def read_socket(websocket):
         json_data = json.dumps(anwser)
         await websocket.send(json_data)
 
-async def main():
-    async with serve(read_socket, "localhost", 8765):
-        await asyncio.Future()  # run forever
+clients = set()
 
-asyncio.run(main())
+async def connect_to_websocket():
+    uri = "ws://localhost:8080/websocket-endpoint"        
+    async with websockets.connect(uri) as websocket:
+        while True:
+            # Envoyez et recevez des messages ici
+            await read_socket(websocket)
+
+if __name__ == "__main__":
+    asyncio.get_event_loop().run_until_complete(connect_to_websocket())

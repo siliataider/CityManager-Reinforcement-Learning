@@ -1,6 +1,5 @@
 import useMousePosition from './assets/mouse/useMousePosition'
 import './App.css'
-import SockJsClient from 'react-stomp';
 
 const SOCKET_URL = 'http://localhost:8080/ws-message';
 

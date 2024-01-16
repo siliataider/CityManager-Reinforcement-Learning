@@ -11,9 +11,9 @@ public class BuildingDTO {
     private int openTime;
     private int closeTime;
 
-    public BuildingDTO(BuildingType type, Point coords, int openTime, int closeTime) {
-        this.type = type;
-        this.coords = coords;
+    public BuildingDTO(String type, int x, int y, int openTime, int closeTime) {
+        this.type = BuildingType.valueOf(type);
+        this.coords = new Point(x, y);
         this.openTime = openTime;
         this.closeTime = closeTime;
     }
