@@ -40,12 +40,15 @@ public class MapObjectManager {
             case work :
                 Work work = new Work(building.getCoords(),building.getOpenTime(),building.getCloseTime());
                 buildings.add(work);
+                break;
             case home :
                 Home home = new Home(building.getCoords(),building.getOpenTime(),building.getCloseTime());
                 buildings.add(home);
+                break;
             case resto :
                 Resto resto = new Resto(building.getCoords(),building.getOpenTime(),building.getCloseTime());
                 buildings.add(resto);
+                break;
         }
 
     }

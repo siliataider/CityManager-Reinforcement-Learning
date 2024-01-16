@@ -45,15 +45,15 @@ public class Simulator {
                     simulation.getMapObjectManager().build(building);
                     server.getBroadcastOperations().sendEvent("build",
                             "{" +
-                                    "'response': 'ok'," +
-                                    "'message': 'Successfully built!'," +
+                                    "\"response\": \"ok\","+
+                                    "\"message\": \"Successfully built!\"" +
                                     "}");
                 }
                 catch(Exception e){
                     server.getBroadcastOperations().sendEvent("build",
                             "{" +
-                                    "'response': 'notok',"
-                                    +"'message': " +"'error building: "+e+"'"
+                                    "\"response\": \"notok\","
+                                    +"\"message\": " +"\"error building: "+e+"\""
                                     +"}");
                 }
             }
@@ -65,13 +65,15 @@ public class Simulator {
                 try{
                     Gson gson = new Gson();
                     StartDTO start = gson.fromJson(data, StartDTO.class);
+                    System.out.println(start);
+                    System.out.println(data);
                     startSimulation(start);
                 }
                 catch(Exception e){
                     server.getBroadcastOperations().sendEvent("start",
                             "{"
-                                    +"'response': notok,"
-                                    +"'message': " +"'error building: "+e+"'"
+                                    +"\"response\": notok,"
+                                    +"\"message\": " +"\"error building: "+e+"\""
                                     +"}");
                 }
             }
@@ -84,29 +86,36 @@ public class Simulator {
 
     private void startSimulation(StartDTO start) throws Exception {
         boolean verified = simulation.verify(start.getnAgents());
+        System.out.println("nAgents: "+start.getnAgents()+"." + verified);
         if(verified){
             server.removeAllListeners("build");
             server.removeAllListeners("start");
 
             server.getBroadcastOperations().sendEvent("start",
                     "{"
-                            +"'response':'ok',"
-                            +"'message': 'Starting...',"
-                            +"'weather': " +simulation.getWeatherManager().getWeather().getValue()+","
-                            +"'timestamp': " + simulation.getTimeManager().getCurrentTick()
+                            +"\"response\":\"ok\","
+                            +"\"message\": \"Starting...\","
+                            +"\"weather\": " +simulation.getWeatherManager().getWeather().getValue()+","
+                            +"\"timestamp\": " + simulation.getTimeManager().getCurrentTick()
                             +"}");
 
             webSocketHandler.broadcastMessage("{" +
-                    "'event': 'createAgent'," +
-                    "'data': {" +
-                    "'nbAgent': " + start.getnAgents() + "," +
-                    "'timeStamp': " + simulation.getTimeManager().getCurrentTick() +"," +
-                    "'weather': " + simulation.getWeatherManager().getWeather().getValue() +
+                    "\"event\": \"createAgent\"," +
+                    "\"data\": {" +
+                    "\"nbAgent\": " + start.getnAgents() + "," +
+                    "\"timestamp\": " + simulation.getTimeManager().getCurrentTick() +"," +
+                    "\"weather\": " + simulation.getWeatherManager().getWeather().getValue() +
                     "}" +
                     "}"
             );
 
-
+        }
+        else{
+            server.getBroadcastOperations().sendEvent("start",
+                    "{"
+                            +"\"response\": \"notok\","
+                            +"\"message\": " +"\"error building: Conditions aren't met.\""
+                            +"}");
         }
     }
 
