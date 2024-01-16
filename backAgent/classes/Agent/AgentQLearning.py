@@ -25,3 +25,9 @@ class AgentQLearning(Agent) :
         self.q_table[state, action] += learning_rate * (reward + discount_factor * self.q_table[next_state, best_next_action] - self.q_table[state, action])
         #print(self.q_table)
         self.env.state = next_state
+
+    def save_model(self):
+        np.save('q_table_agent_' + self.agent_id + '.npy', self.q_table)
+    
+    def load_model(self, model):
+        self.q_table = np.load(model)
