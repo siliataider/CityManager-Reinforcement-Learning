@@ -41,7 +41,5 @@ public class Simulation {
         return ret;
     }
 
-    // TODO: remove this function (it is just for communication test)
-
 
 }

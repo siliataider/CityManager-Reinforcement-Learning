@@ -37,13 +37,13 @@ public class MapObjectManager {
     public void build(BuildingDTO building){
         setIdCounter(getIdCounter()+1);
         switch(building.getType()){
-            case Work :
+            case work :
                 Work work = new Work(building.getCoords(),building.getOpenTime(),building.getCloseTime());
                 buildings.add(work);
-            case Home :
+            case home :
                 Home home = new Home(building.getCoords(),building.getOpenTime(),building.getCloseTime());
                 buildings.add(home);
-            case Resto :
+            case resto :
                 Resto resto = new Resto(building.getCoords(),building.getOpenTime(),building.getCloseTime());
                 buildings.add(resto);
         }

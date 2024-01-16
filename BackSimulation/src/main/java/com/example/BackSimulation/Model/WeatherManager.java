@@ -20,6 +20,8 @@ public class WeatherManager {
     public WeatherManager() {
     }
 
+
+
     public void changeWeather(){
         Random r = new Random();
         double selector = r.nextDouble();
@@ -30,6 +32,13 @@ public class WeatherManager {
     }
 
     private Weather rollWeather(){
+        if (getWeather() == Weather.Sunny){
+            return Weather.Rainy;
+        }
+        return Weather.Sunny;
+    }
+
+    /*private Weather rollWeather(){
         Weather[] weathers = Weather.values();
 
         double total = 1;
@@ -46,7 +55,7 @@ public class WeatherManager {
 
         return getWeather();
 
-    }
+    }*/
 
     public String toJSONString() {
         String ret =
@@ -54,4 +63,5 @@ public class WeatherManager {
 
         return ret;
     }
+
 }

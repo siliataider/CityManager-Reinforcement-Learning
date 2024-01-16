@@ -34,9 +34,20 @@ public class Simulator {
             public void onData(SocketIOClient client, String data, AckRequest ackRequest) {
                 Gson gson = new Gson();
                 BuildingDTO building = gson.fromJson(data, BuildingDTO.class);
-                try{simulation.getMapObjectManager().build(building);}
+                try{
+                    simulation.getMapObjectManager().build(building);
+                    server.getBroadcastOperations().sendEvent("build",
+                            "{" +
+                                    "response: ok," +
+                                    "message: Successfully built!" +
+                                    "}");
+                }
                 catch(Exception e){
-                    server.getBroadcastOperations().sendEvent("eventFromBack", "Error building: "+e);
+                    server.getBroadcastOperations().sendEvent("build",
+                            "{" +
+                                    "response: notok,"
+                                    +"message: " +"error building: "+e
+                                    +"}");
                 }
             }
         });
