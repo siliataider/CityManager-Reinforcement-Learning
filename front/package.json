@@ -11,9 +11,9 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.0.1",
+    "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-iframe": "^1.8.5",
     "react-redux": "^9.0.4",
     "reactjs-popup": "^2.0.6",
     "redux": "^5.0.1",

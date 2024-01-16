@@ -1,10 +1,13 @@
-import Cursor from "../mouse/Cursor";
-
-import { useState } from "react";
 import {useDispatch, useSelector} from 'react-redux';
+
 import { setCursorObject, setBuildingType, switchIsDragging } from "../mouse/mouseSlice";
 
 import BuildingType from "../buildings/BuildingType";
+import socketEvents from "../socket/socketEvents";
+
+import GamePanel from "./GamePanel";
+
+import Cursor from "../mouse/Cursor";
 
 
 
@@ -12,31 +15,26 @@ const CreationPanel = (props) => {
 
     const dispatch = useDispatch();
 
-    const isDragging = useSelector( (state) => state.mouse.isDragging)
+    const isDragging = useSelector( (state) => state.mouse.isDragging);
+    const socket = useSelector( (state) => state.socket.socket);
 
+    /**
+     * Switch the cursore from dragging a building to not or the oposite
+     */
     function switchCursor (buildingType){
+    let val = null
 
-        let val = null
-        if (!isDragging){
-            val = <Cursor></Cursor>
+    if (!isDragging){
+        val = <Cursor></Cursor>
+        dispatch(setBuildingType(buildingType))
+    }
 
-            dispatch(
-                setBuildingType(
-                    buildingType
-                )
-            )
-        }
-
-        dispatch( switchIsDragging() );
-
-        dispatch(
-            setCursorObject(
-                val
-            )
-        )
+    dispatch( switchIsDragging() );
+    dispatch(setCursorObject(val))
     }
 
     /**
+     * Give some style to buttons
      * See more here : https://www.geeksforgeeks.org/how-to-disable-a-button-in-reactjs/
      */
     function getButtonStyle(color){
@@ -45,6 +43,31 @@ const CreationPanel = (props) => {
         };
     }
 
+    /**
+     * Aske the back to launch the simulation.
+     * If OK : switch the left panel
+     * Else : show an error message
+     */
+    function saveAndStart(){
+        socket.on(socketEvents.saveAndStart, (message) => {
+            data = JSON.parse(message);
+            if (data.response == "ok"){
+                // Switch left panel
+                props.nextPanelListener(<GamePanel className="col"></GamePanel>)
+            }else {
+                console.log(data.message)
+            }
+            socket.off(socketEvents.saveAndStart)
+        });
+
+        const startMessage = {nbAgent : 10}
+
+        console.log(startMessage)
+
+        // Ask the back if the simulation can start
+        socket.emit(socketEvents.saveAndStart, JSON.stringify(startMessage))
+    }
+    
 
     return(
     <>
@@ -71,7 +94,7 @@ const CreationPanel = (props) => {
         >New office</button>
         <br></br>
 
-        <button>Save & Start</button>
+        <button onClick={saveAndStart}>Save & Start</button>
         <br></br>
     </>
     );

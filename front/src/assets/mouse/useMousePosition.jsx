@@ -1,4 +1,4 @@
-//  from https://medium.com/@jaredloson/custom-javascript-cursor-in-react-d7ffefb2db38
+// from https://medium.com/@jaredloson/custom-javascript-cursor-in-react-d7ffefb2db38
 
 import { useState, useEffect } from "react";
 

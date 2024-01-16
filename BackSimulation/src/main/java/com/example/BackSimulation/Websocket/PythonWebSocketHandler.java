@@ -11,6 +11,9 @@ public class PythonWebSocketHandler extends TextWebSocketHandler {
     // Utilisez un ensemble pour stocker les sessions des clients connectés
     private final Set<WebSocketSession> sessions = new CopyOnWriteArraySet<>();
 
+    public PythonWebSocketHandler() {
+    }
+
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         // Gérez les messages reçus ici
