@@ -28,4 +28,6 @@ jobs:
         file: ./Dockerfile
 
     - name: Deploy to Render
-      run: curl -X POST -H 'Authorization: Bearer ${{ secrets.RENDER_API_KEY }}' -d '' https://api.render.com/deploy/srv-cmj4au6n7f5s73a7dvu0?key=a578AouEmQE
+      run: >
+        curl -X POST -H 'Authorization: Bearer ${{ secrets.RENDER_API_KEY }}' -d '' 
+        https://api.render.com/deploy/srv-cmj4au6n7f5s73a7dvu0?key=a578AouEmQE
