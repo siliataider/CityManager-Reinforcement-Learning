@@ -50,6 +50,7 @@ public class Simulator {
 
         newServer.start(); // Start serveur
         return newServer;
+
     }
 
     public String sendDataToPython() {

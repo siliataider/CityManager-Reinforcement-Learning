@@ -1,53 +1,47 @@
-import useMousePosition from './assets/mouse/useMousePosition'
 import './App.css'
 
-const SOCKET_URL = 'http://localhost:8080/ws-message';
+import { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 import MapCanvas from './assets/canvas/MapCanvas';
-import GamePanel from './assets/panel/GamePanel';
 import CreationPanel from './assets/panel/CreationPanel'
 
-import BuildingCreatorWidget from './assets/widgets/BuildingCreatorWidget';
-
-import Popup from 'reactjs-popup';
-
-import { useEffect } from 'react';
-
 import {io} from 'socket.io-client';
-
-import { useSelector } from 'react-redux';
-
-
+import socketEvents from './assets/socket/socketEvents';
+import { setSocket } from './assets/socket/socketSlice';
 
 
 
 
 function App() {
-    console.log("LO");
 
-      const newSocket = io();
+    const[leftPanel, setLeftPanel] = useState(0)
 
-      console.log("gf")
-  
-      newSocket.on('connect', () => {
-        console.log('Connected with socket ID:');
+    const cursorObject = useSelector( (state) => state.mouse.cursorObject)
+   
+    const dispatch = useDispatch();
+
+    useEffect(() =>{
+      // SOCKET INIT :
+      // SEE : https://github.com/mrniko/netty-socketio-demo
+      const newSocket = io(); 
+
+      newSocket.on(socketEvents.connect, () => {
+        console.log('Socket Connected !');
+        dispatch( setSocket(newSocket) );
       });
 
-      newSocket.on('eventFromBack', ()=>{
-        console.log("OUI")
-      })
+     
+      // INIT OF THE LEFT PANEL :
+      setLeftPanel(<CreationPanel nextPanelListener={setLeftPanel} className="col"></CreationPanel>)
 
+    }, [])
 
-
-
-  const cursorObject = useSelector( (state) => state.mouse.cursorObject)
 
   return (
     <>
 
-
     {cursorObject}
-
 
     {/* <Popup trigger=
                 {<button> Click to open modal </button>} 
@@ -74,8 +68,7 @@ function App() {
     <div className="row">
 
       <div className='col-4'>
-      
-      <CreationPanel className="col"></CreationPanel>
+      {leftPanel}
       {/* <GamePanel className="col"></GamePanel> */}
       </div>
 

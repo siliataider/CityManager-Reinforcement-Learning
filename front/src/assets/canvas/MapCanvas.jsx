@@ -1,56 +1,86 @@
 // from https://stackoverflow.com/questions/70317280/remove-last-drawn-object-from-canvas
 
+import { useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import { useDispatch } from "react-redux";
 import { setCursorObject, switchIsDragging } from "../mouse/mouseSlice";
-import { useSelector } from "react-redux";
-import { useEffect } from "react";
-import { useRef } from "react";
-
-import { addBuildings } from "./drawsSlice";
+import { addBuildings } from "./drawSlice";
 
 import { drawBuildings, drawAgents, clearCanavas } from "./canavasTools";
+
+import socketEvents from "../socket/socketEvents";
   
 function MapCanvas () {
+  // SOME CONSTANTS :
 
   const squareSize = 50;
     const canvasSize = 500;
 
+    // REF of the canvas is used whene the context can't be fetched
     const canvasRef = useRef(null);
 
+    // VAR FROM SLICES
     const dispatch = useDispatch();
 
-    const color = useSelector( (state) => state.mouse.color)
-    const buildingType = useSelector( (state) => state.mouse.buildingType)
-    const isDragging = useSelector( (state) => state.mouse.isDragging)
+    const color = useSelector( (state) => state.mouse.color);
+    const buildingType = useSelector( (state) => state.mouse.buildingType);
+    const isDragging = useSelector( (state) => state.mouse.isDragging);
 
-    const buildings = useSelector((state) => state.draw.buildings)
-    useEffect( ()=> { 
-      drawBuildings(buildings, canvasRef)
-    }, [buildings])
+    const socket = useSelector((state) => state.socket.socket);
 
-    const agents = useSelector((state)=> state.draw.agents)
+    // AGENTS AND BUILDING LISTS
+    const buildings = useSelector((state) => state.draw.buildings);
+    const agents = useSelector((state)=> state.draw.agents);
+
+    // REFRESH THE CANAVS WHENE NEW BUILDING OF AGENTS
     useEffect( ()=> { 
       clearCanavas(canvasRef)
       drawBuildings(buildings, canvasRef)
       drawAgents(agents, canvasRef)
-    }, [agents])
+    }, [agents, agents])
 
-    // This is where all the magic happens:
+    /**
+     * if possible will add a building on the canvas
+     */
     const handleClick = (ev) => {
-
       if(isDragging){
-        dispatch(addBuildings( {
-          buildingType: buildingType,
+
+        //Building to draw :
+        const building = {
+          type: buildingType,
           x : ev.clientX,
           y : ev.clientY,
           color : color,
-          size : squareSize
-        } 
-          ))
+          size : squareSize,
+          openTime : 8,
+          closeTime :20,
+        }
 
-        dispatch(setCursorObject(null))
-        dispatch(switchIsDragging())
+        /**
+         * Will wait for the back to validate the postion o a new building
+         * if ok : the building is addded to the canavs
+         * if not an error message is displayed
+         */
+        socket.on(socketEvents.new_building, (message) => {
+          data = JSON.parse(message);
+          if (data.response == 'ok'){
+            // draw building :
+            dispatch(addBuildings( building ))
+            // Switch back cursor :
+            dispatch(setCursorObject(null))
+            dispatch(switchIsDragging())
+          } else{
+            //TODO:
+            console.log(data.message);
+          }
+          // Delete listener :
+          socket.off(socketEvents.new_building)
+        });
+        console.log(building)
+
+        // Send the building to back
+        socket.emit(socketEvents.new_building, building)
+
       }
     };
   

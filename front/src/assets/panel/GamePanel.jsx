@@ -1,16 +1,34 @@
-import Cursor from "../mouse/Cursor";
-
-import { useState } from "react";
+import { useEffect } from "react";
 import {useDispatch, useSelector} from 'react-redux';
-import { setCursorObject, setBuildingType, switchIsDragging } from "../mouse/mouseSlice";
 
-import BuildingType from "../buildings/BuildingType";
+import socketEvents from "../socket/socketEvents";
+
+import { setAgents } from "../canvas/drawSlice";
 
 
 
-const GamePanel = (props) => {
+const GamePanel = () => {
 
-    
+    const dispatch = useDispatch();
+    const socket = useSelector( (state) => state.socket.socket);
+
+    useEffect(() =>{
+        socket.on(socketEvents.refresh_agents, (message) => {
+          data = JSON.parse(message)
+          agentList = [];
+          for (const agent of data.agentList){
+            agentList.push({
+                id: agent.id,
+                x : agent.x,
+                y : agent.y,
+                color : "red",
+                size : 10,
+            })
+          }
+          dispatch( setAgents( agentList) );
+        });
+      }, [])
+
     return(
     <>
         <h1>Config :</h1>
