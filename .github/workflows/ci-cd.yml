@@ -18,14 +18,14 @@ jobs:
         distribution: 'adopt'
 
     - name: Build with Maven
-      run: cd BackSimulation && mvn -e clean package
+      run: cd BackSimulation && mvn clean package
 
     - name: Build and Push Docker Image
       uses: docker/build-push-action@v2
       with:
         push: true
         tags: siliataider/backsimulation:latest
-        file: ./Dockerfile
+        file: ./BackSimulation/Dockerfile
 
     - name: Deploy to Render
       run: >
