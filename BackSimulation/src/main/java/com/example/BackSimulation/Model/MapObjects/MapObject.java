@@ -4,14 +4,12 @@ import java.awt.Point;
 public abstract class MapObject {
     private int id;
     private Point coords;
-    private Point size;
+    private Point size = new Point(1,1);
     private Object affichage;
 
-    public MapObject(int id, Point coords, Point size, Object affichage) {
+    public MapObject(int id, Point coords) {
         this.id = id;
         this.coords = coords;
-        this.size = size;
-        this.affichage = affichage;
     }
 
     public Point getCoords() {

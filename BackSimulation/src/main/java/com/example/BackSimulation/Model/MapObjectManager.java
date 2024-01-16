@@ -1,8 +1,11 @@
 package com.example.BackSimulation.Model;
 
+import com.example.BackSimulation.DTO.AgentDTO;
 import com.example.BackSimulation.DTO.BuildingDTO;
+import com.example.BackSimulation.Model.Enums.BuildingType;
 import com.example.BackSimulation.Model.MapObjects.*;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public class MapObjectManager {
@@ -18,6 +21,19 @@ public class MapObjectManager {
 
     public ArrayList<Building> getBuildings() {
         return buildings;
+    }
+
+    public void setAgents(ArrayList<AgentDTO> agentDTOList) {
+        ArrayList<Agent> trueAgents = new ArrayList<Agent>();
+
+        for(int i = 0; i<agentDTOList.size(); i++){
+            Point coords = getByType("Home").getCoords();
+            if(agentDTOList.get(i).getAction() != null){
+                System.out.println("c'est pas null");
+                coords = getByType(agentDTOList.get(i).getAction()).getCoords();
+            }
+            trueAgents.add(new Agent(agentDTOList.get(i).getId(),coords));
+        }
     }
 
     private int getIdCounter() {
@@ -73,6 +89,15 @@ public class MapObjectManager {
                 agents.remove(i);
             }
         }
+    }
+
+    public Building getByType(String type){
+        for(int i = 0; i < buildings.size(); i++){
+            if(buildings.get(i).getClass().getSimpleName() == "type"){
+                return buildings.get(i);
+            }
+        }
+        return null;
     }
 
     public String toJSONString() {

@@ -3,10 +3,14 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 import org.springframework.web.socket.CloseStatus;
+
+import java.net.http.WebSocket;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 public class PythonWebSocketHandler extends TextWebSocketHandler {
+
+    private WebSocketListener listener;
 
     // Utilisez un ensemble pour stocker les sessions des clients connectés
     private final Set<WebSocketSession> sessions = new CopyOnWriteArraySet<>();
@@ -14,11 +18,14 @@ public class PythonWebSocketHandler extends TextWebSocketHandler {
     public PythonWebSocketHandler() {
     }
 
+    public void setListener(WebSocketListener listener) {
+        this.listener = listener;
+    }
+
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         // Gérez les messages reçus ici
-        System.out.println("Message reçu: " + message.getPayload());
-
+        listener.run(message.getPayload());
         // Traitez le message et envoyez une réponse
         String responseMessage = processMessage(message.getPayload());
     }
