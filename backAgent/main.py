@@ -77,7 +77,7 @@ async def read_socket(websocket):
 
 
 async def connect_to_websocket():
-    uri = "ws://localhost:8080/websocket-endpoint"        
+    uri = "wss://citymanagerjava.onrender.com/websocket-endpoint" 
     async with websockets.connect(uri) as websocket:
         while True:
             # Envoyez et recevez des messages ici
