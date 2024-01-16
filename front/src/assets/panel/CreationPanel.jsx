@@ -65,7 +65,7 @@ const CreationPanel = (props) => {
         console.log(startMessage)
 
         // Ask the back if the simulation can start
-        socket.emit(socketEvents.saveAndStart, startMessage)
+        socket.emit(socketEvents.saveAndStart, JSON.stringify(startMessage))
     }
     
 

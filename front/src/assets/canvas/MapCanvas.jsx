@@ -79,8 +79,7 @@ function MapCanvas () {
         console.log(building)
 
         // Send the building to back
-        socket.emit(socketEvents.new_building, building)
-
+        socket.emit(socketEvents.new_building, JSON.stringify(building))
       }
     };
   
