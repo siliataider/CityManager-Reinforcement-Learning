@@ -37,7 +37,7 @@ function MapCanvas () {
       clearCanavas(canvasRef)
       drawBuildings(buildings, canvasRef)
       drawAgents(agents, canvasRef)
-    }, [agents, agents])
+    }, [buildings, agents])
 
     /**
      * if possible will add a building on the canvas
@@ -62,9 +62,11 @@ function MapCanvas () {
          * if not an error message is displayed
          */
         socket.on(socketEvents.new_building, (message) => {
-          data = JSON.parse(message);
+          console.log(message)
+          let data = JSON.parse(message);
           if (data.response == 'ok'){
             // draw building :
+            console.log(building);
             dispatch(addBuildings( building ))
             // Switch back cursor :
             dispatch(setCursorObject(null))
