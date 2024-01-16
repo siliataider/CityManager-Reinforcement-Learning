@@ -6,7 +6,7 @@ from classes.Agent.AgentQLearning import AgentQLearning
 from classes.Agent.AgentDQLearning import AgentDQLearning
 from classes.SimulationConditions import SimulationConditions
 from classes.AgentEnvironment import AgentEnvironment
-from resources.variables import START_EXPLORATION_RATE, NUM_STATE, NUM_ACTION
+from resources.variables import START_EXPLORATION_RATE, NUM_STATE, NUM_ACTION, NUM_STATE_DISCRETE
 import json
 
 simulationConditions = SimulationConditions(exploration_rate=START_EXPLORATION_RATE)
@@ -14,23 +14,30 @@ simulationConditions = SimulationConditions(exploration_rate=START_EXPLORATION_R
 #connect to socket :
 async def read_socket(websocket):
     async for message in websocket:
-        res = ''
+        anwser = ''
         decode_message = json.loads(message)
 
-        if decode_message['action'] == 0:
+        if decode_message['event'] == 'createAgent':
             # init agents :
             agents = []
-            for data in decode_message['agents']:
-                env = AgentEnvironment(data)
-                if data['agent_id'] % 2:
-                    agent = AgentQLearning(num_actions=NUM_ACTION, num_states=NUM_STATE, env=env, agent_id=data['agent_id'])
+            data = decode_message['data']
+            for index in range(data['nbAgent']):
+                env = AgentEnvironment(timestamp=data['timestamp'], weather=data['weather'])
+                if index % 2:
+                    agent = AgentQLearning(num_actions=NUM_ACTION, num_states=NUM_STATE_DISCRETE, env=env, agent_id=index)
                 else:
-                    agent = AgentDQLearning(num_actions=NUM_ACTION, num_states=NUM_STATE, env=env, agent_id=data['agent_id'])
+                    agent = AgentDQLearning(num_actions=NUM_ACTION, num_states=NUM_STATE, env=env, agent_id=index)
                 agents.append(agent)
             simulationConditions.set_list_agent(agents)
-            res = 'agent créés'
+            anwser = {
+                'event': 'createAgent',
+                'data': {
+                    'agentList': simulationConditions.get_agents_info()
+                }
+            }
+            anwser = json.dumps(anwser)
 
-        elif decode_message['action'] == 1:
+        elif decode_message['event'] == 'updateAgent':
             simulationConditions.set_simulation_conditions(decode_message['data'])
 
             tIN = time()
@@ -38,18 +45,36 @@ async def read_socket(websocket):
             simulationConditions.set_exploration_learning_rate()
             res = runProc(simulationConditions.list_agent, simulationConditions)
             tOUT = time()
-
-            simulationConditions.list_agent = res
+            
+            new_list_agent = []
+            anwser = {
+                'event': 'updateAgent',
+                'data': {
+                    'agentList': []
+                }
+            }
+            for one_agent in res:
+                agent_object, action = one_agent
+                new_list_agent.append(agent_object)
+                anwser['data']['agentList'].append(simulationConditions.get_one_agent_info(agent=agent_object, action=action))
+            simulationConditions.list_agent = new_list_agent
 
             print("Execution time : " + str(tOUT - tIN))
 
-        anwser = ''
-        for value in res:
-            anwser += f"{value} / "
-        json_data = json.dumps(anwser)
-        await websocket.send(json_data)
+            anwser = json.dumps(anwser)
 
-clients = set()
+        elif decode_message['event'] == 2:
+            agent_object = None
+            for agent in simulationConditions.list_agent:
+                if agent.id == decode_message['agent_id']:
+                    agent_object = agent
+            if agent_object != None:
+                res = agent_object.save_model()
+            else: 
+                anwser = 'Agent not found'
+
+        await websocket.send(anwser)
+
 
 async def connect_to_websocket():
     uri = "ws://localhost:8080/websocket-endpoint"        

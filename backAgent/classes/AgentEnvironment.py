@@ -1,18 +1,20 @@
 import random
 
 class AgentEnvironment:
-    def __init__(self, state):
+    def __init__(self, timestamp, weather):
         self.state = 0 
         self.time_step = 0
-        self.state_value = (state['timestamp'], state['weather'], state['hunger'], state['energy'], state['money'])
+        self.state_value = self.init_state(timestamp=timestamp, weather=weather)
 
     def reset(self):
         self.state = 0
         self.time_step = 0
         self.state_value = (0, 0, 0, 0, 0)
     
-    def set_state(self, state_value):
-        self.state_value = state_value
+    def init_state(self, timestamp, weather):
+        hunger, energy, money = [round(random.uniform(0, 1), 1) for _ in range(3)]
+        state = (timestamp, weather, hunger, energy, money) #TODO, hunger, energy et money random pour le moment
+        return state
 
     def get_reward_and_next_state(self, action):
         timestamp, weather, hunger, energy, money = self.state_value
