@@ -1,28 +1,20 @@
 package com.example.BackSimulation;
 
-import com.example.BackSimulation.Model.*;
-import com.example.BackSimulation.Model.MapObjects.Work;
-
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Service;
-
-import com.corundumstudio.socketio.listener.*;
 import com.corundumstudio.socketio.*;
+import com.corundumstudio.socketio.listener.DataListener;
+import com.example.BackSimulation.DTO.BuildingDTO;
+import com.example.BackSimulation.Websocket.PythonWebSocketHandler;
+import com.google.gson.Gson;
 
-import java.awt.*;
-@Service
 public class Simulator {
-    private Point mapSize = new Point(50,50);
-    private TimeManager timeManager = new TimeManager();
-    private WeatherManager weatherManager = new WeatherManager();
 
-    private MapObjectManager mapObjectManager = new MapObjectManager();
+    private final PythonWebSocketHandler webSocketHandler = new PythonWebSocketHandler();
 
-    @Scheduled(fixedRate = 5000)
-    private void Cycle(){
+    private SocketIOServer server = initServer();
+    private Simulation simulation = new Simulation();
 
+    private SocketIOServer initServer(){
         // [VICK] This config needs to go somwere else :
-        // [VICK] Use JAVA sdk 11 ! It doesn't work with 17 !
         // SOCKET IO CONFIG :
         Configuration config = new Configuration();
         config.setHostname("localhost");
@@ -34,55 +26,48 @@ public class Simulator {
 
         config.setSocketConfig(socketConfig);
 
-        final SocketIOServer server = new SocketIOServer(config);
+        SocketIOServer newServer = new SocketIOServer(config);
 
         // LISTENER WHERE EVENT IS RECIVED
-        server.addEventListener("eventFromFront", String.class, new DataListener<String>() {
+        newServer.addEventListener("build", String.class, new DataListener<String>() {
             @Override
             public void onData(SocketIOClient client, String data, AckRequest ackRequest) {
-                // DO SOMTHING HERE !
-                System.out.println(data);
+                Gson gson = new Gson();
+                BuildingDTO building = gson.fromJson(data, BuildingDTO.class);
+                try{simulation.getMapObjectManager().build(building);}
+                catch(Exception e){
+                    server.getBroadcastOperations().sendEvent("eventFromBack", "Error building: "+e);
+                }
             }
         });
 
+        newServer.addEventListener("start", String.class, new DataListener<String>() {
+            @Override
+            public void onData(SocketIOClient client, String data, AckRequest ackRequest) {
+                //START SIMULATION
+            }
+        });
 
-        server.start(); // Start serveur
+        newServer.start(); // Start serveur
+        return newServer;
 
-        //[VICK] this needs to be removed :
-        // Some sleeps since the cycle is looping :
-        try {
-            Thread.sleep(10000000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
-
-        // Send message
-        server.getBroadcastOperations().sendEvent("eventFromBack", "your message ");
-
-        //[VICK] this is probably not usefull in the project
-        server.stop(); // Stop serveur
-
-        //[VICK] not socket stuff here :
-
-        System.out.println(timeManager.getCurrentTick() + "; " + timeManager.getCurrentDay());
-
-        mapObjectManager.build(new Work(new Point(5,5),1800,45,9,17));
-        System.out.println(toJSONString());
-        timeManager.advance();
     }
 
-    public String toJSONString(){
-        String ret =
-                "{"
-                +"mapSize:{x:"+mapSize.getX()+",y:"+mapSize.getY()+"},"
-                +"time:"+timeManager.toJSONString()+","
-                +"weather:"+weatherManager.toJSONString()+","
-                +"mapObjects:"+mapObjectManager.toJSONString()
-                +"}";
-
-        return ret;
+    public String sendDataToPython() {
+        String res = "{" +
+                "\"action\": 0, " +
+                "\"agents\": " + "[" +
+                "{" +
+                "\"agent_id\": 0, " +
+                "\"weather\":0, " +
+                "\"timestamp\": 8, " +
+                "\"hunger\": 0.5, " +
+                "\"energy\": 0.5, " +
+                "\"money\": 0.5 " +
+                "}" +
+                "]" +
+                "}";
+        return res;
     }
-
 
 }

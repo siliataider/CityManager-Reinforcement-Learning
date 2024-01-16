@@ -1,8 +1,11 @@
 #!/bin/bash
 
+# Install python requirements
+pip install -r backAgent/requirements.txt
+
 # Start Nginx reverse proxy container
 cp ./nginx.conf /tmp/
-sudo docker run --name asi2-nginx-container --network host -v /tmp/nginx.conf:/etc/nginx/nginx.conf:ro --rm nginx &
+sudo docker run --name citymanager-nginx-container --network host -v /tmp/nginx.conf:/etc/nginx/nginx.conf:ro --rm nginx &
 
 # To kill all dockers : docker stop $(docker ps -a -q)
 

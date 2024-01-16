@@ -5,20 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="07fbec91-0c86-47d8-ac4b-2ba1d8072e5e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Websocket/PythonWebSocketHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BackSimulation/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BackSimulation/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/MapObjectManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/MapObjectManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/MapObjects/Building.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/MapObjects/Building.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/MapObjects/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/MapObjects/Transaction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/TimeManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/TimeManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/WeatherManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/WeatherManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/DTO/BuildingDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/DTO/BuildingDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Simulation.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Simulation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Simulator.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Simulator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Websocket/WebSocketController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Websocket/WebSocketController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BackSimulation/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/BackSimulation/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Websocket/WebSocketConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Websocket/WebSocketConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Websocket/WebSocketController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backAgent/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/backAgent/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backAgent/resources/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/backAgent/resources/test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/front/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/front/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/App.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/launcher.sh" beforeDir="false" afterPath="$PROJECT_DIR$/launcher.sh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,8 +39,25 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;JadGhandour&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="4a61c4fb-e2ce-43fd-af29-8607b309003b" />
+        <option name="url" value="https://github.com/siliataider/CityManager-Reinforcement-Learning" />
+      </UrlAndAccount>
+    </option>
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
@@ -55,14 +75,18 @@
     "ASKED_ADD_EXTERNAL_FILES": "true",
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Application.BackSimulationApplication.executor": "Run",
+    "Application.WebSocketClient.executor": "Run",
+    "Maven.BackSimulation [clean].executor": "Run",
     "Maven.BackSimulation [install].executor": "Run",
+    "Maven.BackSimulation [package].executor": "Run",
+    "Maven.BackSimulation [verify].executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "jad",
+    "git-widget-placeholder": "Merging jad",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/home/jad.ghandour/Bureau/City Manager",
-    "project.structure.last.edited": "Project",
+    "project.structure.last.edited": "SDKs",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices"
@@ -74,9 +98,22 @@
       <recent name="com.example.BackSimulation.Model.MapObjects" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.BackSimulationApplication">
     <configuration name="BackSimulationApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.BackSimulation.BackSimulationApplication" />
+      <module name="BackSimulation" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.BackSimulation.Websocket.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="WebSocketClient" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.BackSimulation.Websocket.WebSocketClient" />
       <module name="BackSimulation" />
       <extension name="coverage">
         <pattern>
@@ -91,13 +128,14 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.BackSimulationApplication" />
+        <item itemvalue="Application.WebSocketClient" />
       </list>
     </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="jdk-19.0.2-corretto-19.0.2-f644763e9732-f4b396da" />
+        <option value="jdk-19.0.2-corretto-19.0.2-4caba194b151-6ca9ab15" />
       </set>
     </attachedChunks>
   </component>
@@ -117,7 +155,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="jad" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>

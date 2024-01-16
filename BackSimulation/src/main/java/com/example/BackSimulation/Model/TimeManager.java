@@ -3,7 +3,7 @@ package com.example.BackSimulation.Model;
 public class TimeManager {
     private int currentTick = 0;
     private int currentDay = 1;
-    private int totalTicks = 0
+    private int totalTicks = 0;
     private int ticksPerDay = 24;
 
 
