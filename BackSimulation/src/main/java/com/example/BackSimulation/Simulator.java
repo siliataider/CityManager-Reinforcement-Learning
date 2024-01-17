@@ -15,7 +15,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.awt.*;
-
+import com.corundumstudio.socketio.Configuration;
+import com.corundumstudio.socketio.SocketIOServer;
 
 @Service
 public class Simulator {
@@ -34,7 +35,7 @@ public class Simulator {
         // [VICK] This config needs to go somwere else :
         // SOCKET IO CONFIG :
         Configuration config = new Configuration();
-        config.setHostname("localhost");
+        config.setHostname("0.0.0.0");
         config.setPort(5050);
 
         // SEE : https://github.com/mrniko/netty-socketio/issues/254
@@ -44,6 +45,12 @@ public class Simulator {
         config.setSocketConfig(socketConfig);
 
         SocketIOServer newServer = new SocketIOServer(config);
+
+        newServer.addConnectListener(client -> {
+            // Enable CORS for all origins
+            BroadcastOperations broadcastOperations = newServer.getBroadcastOperations();
+            broadcastOperations.sendEvent("setOrigin", "https://citymanagerreact.onrender.com/");
+        });
 
         // LISTENER WHERE EVENT IS RECIVED
         newServer.addEventListener("build", String.class, new DataListener<String>() {
@@ -230,7 +237,7 @@ public class Simulator {
 
         simulation.getTimeManager().advance();
 
-        Thread.sleep(1000);
+        //Thread.sleep(1000);
         System.out.println("rebelotte");
 
         sendMessageToPython("{" +
