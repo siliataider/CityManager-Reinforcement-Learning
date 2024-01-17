@@ -15,7 +15,7 @@ CityManager-Reinforcement-Learning<br>
 └── front (React frontend)
 
 ## Application entry point
-[https://dashboard.render.com/](https://citymanager.onrender.com)
+https://citymanager.onrender.com
 
 ### Deployment React
 https://citymanagerreact.onrender.com
