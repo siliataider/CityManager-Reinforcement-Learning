@@ -22,19 +22,23 @@ public class Simulator {
 
     private WebSocketClient pythonWebSocketClient;
 
+    private boolean go = false;
+
+    private SocketIOServer server = initServer();
+    private Simulation simulation = new Simulation();
+
     public Simulator() {
         // Initialisez le client WebSocket Python dans le constructeur
         initPythonWebSocketClient();
     }
-
-    private SocketIOServer server = initServer();
-    private Simulation simulation = new Simulation();
 
     private SocketIOServer initServer(){
         System.out.println("initServer");
         // [VICK] This config needs to go somwere else :
         // SOCKET IO CONFIG :
         Configuration config = new Configuration();
+
+        config.setHostname("");
         config.setPort(5050);
         //config.setOrigin("*"); // Permettre toutes les origines (à restreindre en production)
 
@@ -46,8 +50,24 @@ public class Simulator {
 
         SocketIOServer newServer = new SocketIOServer(config);
 
-        // LISTENER WHERE EVENT IS RECIVED
-        newServer.addEventListener("build", String.class, new DataListener<String>() {
+        addListeners(newServer);
+
+        System.out.println("newserver");
+        System.out.println(newServer);
+        System.out.println(newServer.getConfiguration().getHostname());
+        System.out.println(newServer.getConfiguration().getOrigin());
+        System.out.println(newServer.getConfiguration().getPort());
+        System.out.println(newServer.getConfiguration());
+        System.out.println(newServer.getAllClients());
+
+        newServer.start(); // Start serveur
+        go = true;
+        return newServer;
+
+    }
+
+    private void addListeners(SocketIOServer rawServer){
+        rawServer.addEventListener("build", String.class, new DataListener<String>() {
             @Override
             public void onData(SocketIOClient client, String data, AckRequest ackRequest) {
                 Gson gson = new Gson();
@@ -70,7 +90,9 @@ public class Simulator {
                 }
             }
         });
-        newServer.addEventListener("start", String.class, new DataListener<String>() {
+
+
+        rawServer.addEventListener("start", String.class, new DataListener<String>() {
             @Override
             public void onData(SocketIOClient client, String data, AckRequest ackRequest) {
                 try{
@@ -88,34 +110,24 @@ public class Simulator {
             }
         });
 
-        newServer.addConnectListener(new ConnectListener() {
+
+        rawServer.addConnectListener(new ConnectListener() {
             @Override
             public void onConnect(SocketIOClient client) {
                 System.out.println("Client connected: " + client.getSessionId());
-                System.out.println(newServer.getAllClients());
+                System.out.println(rawServer.getAllClients());
 
-                // Logique supplémentaire à exécuter lors de la connexion...
-
-                // Vous pouvez également envoyer un message au client s'il est nécessaire
-                client.sendEvent("connectionResponse", "Welcome to the server!");
             }
         });
 
-        System.out.println("newserver");
-        System.out.println(newServer);
-        System.out.println(newServer.getConfiguration().getHostname());
-        System.out.println(newServer.getConfiguration().getOrigin());
-        System.out.println(newServer.getConfiguration().getPort());
-        System.out.println(newServer.getConfiguration());
-        System.out.println(newServer.getAllClients());
 
-        newServer.start(); // Start serveur
-        return newServer;
 
     }
+
     private void initPythonWebSocketClient() {
         try {
-            pythonWebSocketClient = new WebSocketClient(new URI("wss://citymanagerpython.onrender.com")) {
+            //"wss://citymanagerpython.onrender.com"
+            pythonWebSocketClient = new WebSocketClient(new URI("ws://localhost:8765")) {
                 @Override
                 public void onOpen(ServerHandshake handshakedata) {
                     System.out.println("Connected to Python WebSocket server");
@@ -135,12 +147,15 @@ public class Simulator {
                         Double weirdId = (Double) agentListRaw.get(i).get("id");
                         int id = weirdId.intValue();
                         String action = (String) agentListRaw.get(i).get("action");
+                        String algo = (String) agentListRaw.get(i).get("algo");
                         LinkedTreeMap<String,Double> state = (LinkedTreeMap<String, Double>) agentListRaw.get(i).get("state");
-                        agentList.add(new AgentDTO(id,action,state));
+                        agentList.add(new AgentDTO(id,action,algo,state));
                     }
 
                     try {
-                        cycle(agentList);
+                        if(go){
+                            cycle(agentList);
+                        }
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
@@ -171,6 +186,33 @@ public class Simulator {
             server.removeAllListeners("build");
             server.removeAllListeners("start");
 
+            server.addEventListener("stop", String.class, new DataListener<String>() {
+                @Override
+                public void onData(SocketIOClient client, String data, AckRequest ackRequest) {
+                    try{
+                        server.getBroadcastOperations().sendEvent("stop",
+                                "{"
+                                        +"\"response\": \"ok\","
+                                        +"\"message\": " +"\"Stopping simulation...\""
+                                        +"}");
+                        go = false;
+                        stopSimulation();
+
+
+
+                    }
+                    catch(Exception e){
+                        server.getBroadcastOperations().sendEvent("stop",
+                                "{"
+                                        +"\"response\": notok,"
+                                        +"\"message\": " +"\"error stopping: "+e+"\""
+                                        +"}");
+                    }
+                }
+            });
+
+            go = true;
+
             server.getBroadcastOperations().sendEvent("start",
                     "{"
                             +"\"response\":\"ok\","
@@ -197,32 +239,6 @@ public class Simulator {
                             +"\"message\": " +"\"error building: Conditions aren't met.\""
                             +"}");
         }
-
-        server.addEventListener("stop", String.class, new DataListener<String>() {
-            @Override
-            public void onData(SocketIOClient client, String data, AckRequest ackRequest) {
-                try{
-                    sendMessageToPython("{" +
-                            "\"event\": \"stop\"," +
-                            "}"
-                    );
-                    server.getBroadcastOperations().sendEvent("stop",
-                            "{"
-                                    +"\"response\": ok,"
-                                    +"\"message\": " +"\"Stopping simulation...\""
-                                    +"}");
-                }
-                catch(Exception e){
-                    server.getBroadcastOperations().sendEvent("stop",
-                            "{"
-                                    +"\"response\": notok,"
-                                    +"\"message\": " +"\"error stopping: "+e+"\""
-                                    +"}");
-                }
-            }
-        });
-
-
     }
 
     // Méthode pour envoyer des messages au serveur Python
@@ -239,7 +255,7 @@ public class Simulator {
         }
     }
 
-    public void cycle(ArrayList<AgentDTO> agentList) throws InterruptedException {
+    private void cycle(ArrayList<AgentDTO> agentList) throws InterruptedException {
         simulation.getMapObjectManager().setAgents(agentList);
         System.out.println(simulation.getMapObjectManager().getAgents());
 
@@ -263,7 +279,11 @@ public class Simulator {
                 "}" +
                 "}"
         );
+    }
 
-
+    private void stopSimulation(){
+        server.removeAllListeners("stop");
+        addListeners(server);
+        simulation = new Simulation();
     }
 }

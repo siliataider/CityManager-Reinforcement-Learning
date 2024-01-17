@@ -11,14 +11,20 @@ export const drawSlice = createSlice({
         state.agents = action.payload;
     },
 
+
     addBuildings: (state, action) =>{
         state.buildings.push( action.payload );
         console.log(state.buildings)
+    },
+
+    clearMapObjects: (state) => {
+      state.buildings = []
+      state.agents = []
     },
     
   },
 });
 
-export const { setAgents, addBuildings} = drawSlice.actions;
+export const { setAgents, addBuildings, clearMapObjects} = drawSlice.actions;
 
 export default drawSlice.reducer;

@@ -54,7 +54,7 @@ const CreationPanel = (props) => {
             const data = JSON.parse(message);
             if (data.response == "ok"){
                 // Switch left panel
-                props.nextPanelListener(<GamePanel className="col"></GamePanel>)
+                props.nextPanelListener(<GamePanel nextPanelListener={props.nextPanelListener} className="col"></GamePanel>)
             }else {
                 console.log(data.message)
             }

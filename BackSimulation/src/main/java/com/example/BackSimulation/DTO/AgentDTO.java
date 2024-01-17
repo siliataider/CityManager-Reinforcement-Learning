@@ -8,11 +8,14 @@ public class AgentDTO {
     @Nullable
     private String action;
 
+    private String algo;
+
     private LinkedTreeMap<String,Double> state;
 
-    public AgentDTO(int id, String action, LinkedTreeMap<String,Double> state) {
+    public AgentDTO(int id, String action, String algo, LinkedTreeMap<String,Double> state) {
         this.id = id;
         this.action = action;
+        this.algo = algo;
         this.state = state;
     }
 
@@ -32,6 +35,10 @@ public class AgentDTO {
         this.action = action;
     }
 
+    public String getAlgo() {
+        return algo;
+    }
+
     public LinkedTreeMap<String, Double> getState() {
         return state;
     }
@@ -43,4 +50,6 @@ public class AgentDTO {
                 ", action='" + action + '\'' +
                 '}';
     }
+
+
 }
