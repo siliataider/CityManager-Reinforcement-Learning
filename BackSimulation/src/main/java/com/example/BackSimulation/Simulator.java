@@ -35,8 +35,11 @@ public class Simulator {
         // [VICK] This config needs to go somwere else :
         // SOCKET IO CONFIG :
         Configuration config = new Configuration();
-        config.setHostname("0.0.0.0");
+        config.setHostname("citymanagerjava.onrender.com");
         config.setPort(5050);
+        
+        // Ajoutez le middleware CORS ici
+        config.setOrigin("*");
 
         // SEE : https://github.com/mrniko/netty-socketio/issues/254
         SocketConfig socketConfig = new SocketConfig();
@@ -45,12 +48,6 @@ public class Simulator {
         config.setSocketConfig(socketConfig);
 
         SocketIOServer newServer = new SocketIOServer(config);
-
-        newServer.addConnectListener(client -> {
-            // Enable CORS for all origins
-            BroadcastOperations broadcastOperations = newServer.getBroadcastOperations();
-            broadcastOperations.sendEvent("setOrigin", "https://citymanagerreact.onrender.com/");
-        });
 
         // LISTENER WHERE EVENT IS RECIVED
         newServer.addEventListener("build", String.class, new DataListener<String>() {
