@@ -121,8 +121,9 @@ public class Simulator {
                         Double weirdId = (Double) agentListRaw.get(i).get("id");
                         int id = weirdId.intValue();
                         String action = (String) agentListRaw.get(i).get("action");
+                        String algo = (String) agentListRaw.get(i).get("algo");
                         LinkedTreeMap<String,Double> state = (LinkedTreeMap<String, Double>) agentListRaw.get(i).get("state");
-                        agentList.add(new AgentDTO(id,action,state));
+                        agentList.add(new AgentDTO(id,action,algo,state));
                     }
 
                     try {

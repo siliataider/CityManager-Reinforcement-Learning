@@ -3,8 +3,9 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import socketEvents from "../socket/socketEvents";
 
-import { setAgents } from "../canvas/drawSlice";
+import { clearMapObjects, setAgents } from "../canvas/drawSlice";
 import CreationPanel from "./CreationPanel";
+import { clearCanavas } from "../canvas/canavasTools";
 
 
 
@@ -23,6 +24,7 @@ const GamePanel = (props) => {
           }else {
               console.log(data.message)
           }
+          dispatch(clearMapObjects())
           socket.off(socketEvents.stop)
       });
 
@@ -45,7 +47,7 @@ const GamePanel = (props) => {
                 id: agent.id,
                 x : agent.state.x,
                 y : agent.state.y,
-                color : "red",
+                color : agent.color,
                 size : 10,
             })
           }

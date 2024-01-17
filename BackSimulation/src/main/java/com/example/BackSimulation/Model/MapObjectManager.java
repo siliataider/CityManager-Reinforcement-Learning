@@ -35,8 +35,9 @@ public class MapObjectManager {
             if(agentDTOList.get(i).getAction() != null){
                 coords = getByType(agentDTOList.get(i).getAction()).getCoords();
             }
+            String algo = agentDTOList.get(i).getAlgo();
             State state = new State(agentDTOList.get(i).getState(), coords.getX(), coords.getY());
-            trueAgents.add(new Agent(agentDTOList.get(i).getId(), coords, state));
+            trueAgents.add(new Agent(agentDTOList.get(i).getId(), coords, state, algo));
         }
 
         agents = trueAgents;
