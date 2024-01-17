@@ -27,6 +27,7 @@ function App() {
       const newSocket = io(); 
       //const newSocket = io('wss://citymanagerreact.onrender.com');
       console.log("init connection depuis react: ", newSocket)
+
       newSocket.on(socketEvents.connect, () => {
         console.log('Socket Connected !');
         dispatch( setSocket(newSocket) );

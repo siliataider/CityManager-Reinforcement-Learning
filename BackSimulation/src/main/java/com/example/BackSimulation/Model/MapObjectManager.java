@@ -33,11 +33,11 @@ public class MapObjectManager {
         for(int i = 0; i<agentDTOList.size(); i++){
             Point coords = getByType("Home").getCoords();
             if(agentDTOList.get(i).getAction() != null){
-                System.out.println("c'est pas null");
                 coords = getByType(agentDTOList.get(i).getAction()).getCoords();
             }
+            String algo = agentDTOList.get(i).getAlgo();
             State state = new State(agentDTOList.get(i).getState(), coords.getX(), coords.getY());
-            trueAgents.add(new Agent(agentDTOList.get(i).getId(), coords, state));
+            trueAgents.add(new Agent(agentDTOList.get(i).getId(), coords, state, algo));
         }
 
         agents = trueAgents;
