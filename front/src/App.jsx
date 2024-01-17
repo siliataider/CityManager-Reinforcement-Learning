@@ -25,6 +25,7 @@ function App() {
       // SOCKET INIT :
       // SEE : https://github.com/mrniko/netty-socketio-demo
       const newSocket = io(); 
+      //const newSocket = io('wss://citymanagerreact.onrender.com');
 
       newSocket.on(socketEvents.connect, () => {
         console.log('Socket Connected !');
