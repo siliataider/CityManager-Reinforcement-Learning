@@ -1,5 +1,7 @@
 .idea/
 **/__pycache__/
 *.pyc
+.idea/workspace.xml
+
 
 front/package-lock.json
