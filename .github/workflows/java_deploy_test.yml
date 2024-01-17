@@ -1,7 +1,7 @@
 name: Java CI/CD
 
 on:
-  push:
+  pull_request:
     branches: [ main ]
     paths:
       - 'BackSimulation/**'
@@ -54,12 +54,3 @@ jobs:
       run: >
         curl -X POST -H 'Authorization: Bearer ${{ secrets.RENDER_API_KEY }}' -d '' 
         https://api.render.com/deploy/srv-cmj4au6n7f5s73a7dvu0?key=a578AouEmQE
-
-  test:
-    runs-on: ubuntu-latest
-    needs: deploy 
-
-    steps:
-    - uses: actions/checkout@v2
-
-    - name: test
