@@ -74,3 +74,27 @@ def create_visu_q_table(q_table):
   # Afficher le nouveau tableau
   for row in combined_array:
       print(row)
+
+
+def load_and_save_model(event, simulationConditions, message_data):
+  agent_object = None
+  for agent in simulationConditions.list_agent:
+      if agent.agent_id == message_data['id']:
+          agent_object = agent
+  if agent_object == None:
+      message = 'Not Found'
+  else:
+      if event == 'saveAgent':
+        agent_object.save_model(filename=message_data['filename'])
+        message = 'Agent saved'
+      elif event == 'loadAgent':
+        agent_object.load_model(filename=message_data['filename'])
+        message = 'Agent Loaded'
+
+  anwser = {
+      'event': event,
+      'data': {
+          'message': message,
+      }
+  }
+  return anwser
