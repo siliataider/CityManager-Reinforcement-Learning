@@ -1,6 +1,7 @@
 package com.example.BackSimulation;
 
 import com.corundumstudio.socketio.*;
+import com.corundumstudio.socketio.listener.ConnectListener;
 import com.corundumstudio.socketio.listener.DataListener;
 import com.example.BackSimulation.DTO.AgentDTO;
 import com.example.BackSimulation.DTO.AgentListDTO;
@@ -30,9 +31,11 @@ public class Simulator {
     private Simulation simulation = new Simulation();
 
     private SocketIOServer initServer(){
+        System.out.println("initServer");
         // [VICK] This config needs to go somwere else :
         // SOCKET IO CONFIG :
         Configuration config = new Configuration();
+        config.setHostname("0.0.0.0");
         config.setPort(5050);
         config.setOrigin("*"); // Permettre toutes les origines (à restreindre en production)
 
@@ -68,7 +71,6 @@ public class Simulator {
                 }
             }
         });
-
         newServer.addEventListener("start", String.class, new DataListener<String>() {
             @Override
             public void onData(SocketIOClient client, String data, AckRequest ackRequest) {
@@ -86,6 +88,27 @@ public class Simulator {
                 }
             }
         });
+
+        newServer.addConnectListener(new ConnectListener() {
+            @Override
+            public void onConnect(SocketIOClient client) {
+                System.out.println("Client connected: " + client.getSessionId());
+                System.out.println(newServer.getAllClients());
+
+                // Logique supplémentaire à exécuter lors de la connexion...
+
+                // Vous pouvez également envoyer un message au client s'il est nécessaire
+                client.sendEvent("connectionResponse", "Welcome to the server!");
+            }
+        });
+
+        System.out.println("newserver");
+        System.out.println(newServer);
+        System.out.println(newServer.getConfiguration().getHostname());
+        System.out.println(newServer.getConfiguration().getOrigin());
+        System.out.println(newServer.getConfiguration().getPort());
+        System.out.println(newServer.getConfiguration());
+        System.out.println(newServer.getAllClients());
 
         newServer.start(); // Start serveur
         return newServer;
