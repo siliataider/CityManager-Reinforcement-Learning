@@ -6,28 +6,27 @@ import com.example.BackSimulation.DTO.AgentDTO;
 import com.example.BackSimulation.DTO.AgentListDTO;
 import com.example.BackSimulation.DTO.BuildingDTO;
 import com.example.BackSimulation.DTO.StartDTO;
-import com.example.BackSimulation.Model.MapObjects.Agent;
-import com.example.BackSimulation.Websocket.PythonWebSocketHandler;
-import com.example.BackSimulation.Websocket.WebSocketListener;
 import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
+import org.java_websocket.handshake.ServerHandshake;
 import org.springframework.stereotype.Service;
-
-import java.awt.*;
-import java.net.http.WebSocket;
+import org.java_websocket.client.WebSocketClient;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.awt.*;
+
 
 @Service
-public class Simulator implements WebSocketListener {
+public class Simulator {
 
-    private final PythonWebSocketHandler webSocketHandler;
+    private WebSocketClient pythonWebSocketClient;
 
-    public Simulator(PythonWebSocketHandler webSocketHandler){
-        this.webSocketHandler = webSocketHandler;
-
-        this.webSocketHandler.setListener(this);
-
+    public Simulator() {
+        // Initialisez le client WebSocket Python dans le constructeur
+        initPythonWebSocketClient();
     }
+
     private SocketIOServer server = initServer();
     private Simulation simulation = new Simulation();
 
@@ -93,6 +92,51 @@ public class Simulator implements WebSocketListener {
         return newServer;
 
     }
+    private void initPythonWebSocketClient() {
+        try {
+            pythonWebSocketClient = new WebSocketClient(new URI("ws://localhost:8765")) {
+                @Override
+                public void onOpen(ServerHandshake handshakedata) {
+                    System.out.println("Connected to Python WebSocket server");
+                    // Vous pouvez envoyer des messages au serveur ici si nécessaire
+                }
+
+                @Override
+                public void onMessage(String message) {
+                    System.out.println("Received message from Python server: " + message);
+                    Gson gson = new Gson();
+                    AgentListDTO agentListDTO = gson.fromJson(message, AgentListDTO.class);
+                    ArrayList<LinkedTreeMap> agentListRaw = agentListDTO.getData().get("agentList");
+
+                    ArrayList<AgentDTO> agentList = new ArrayList<AgentDTO>();
+
+                    for(int i = 0; i<agentListRaw.size(); i++) {
+                        Double weirdId = (Double) agentListRaw.get(i).get("id");
+                        int id = weirdId.intValue();
+                        String action = (String) agentListRaw.get(i).get("action");
+                        agentList.add(new AgentDTO(id,action));
+                    }
+
+                    cycle(agentList);
+                }
+
+                @Override
+                public void onClose(int code, String reason, boolean remote) {
+                    System.out.println("Connection closed with code " + code + " and reason: " + reason);
+                }
+
+                @Override
+                public void onError(Exception ex) {
+                    System.out.println("Error in WebSocket connection:");
+                    ex.printStackTrace();
+                }
+            };
+
+            pythonWebSocketClient.connect();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+    }
 
     private void startSimulation(StartDTO start) throws Exception {
         boolean verified = simulation.verify(start.getnAgents());
@@ -109,7 +153,7 @@ public class Simulator implements WebSocketListener {
                             +"\"timestamp\": " + simulation.getTimeManager().getCurrentTick()
                             +"}");
 
-            webSocketHandler.broadcastMessage("{" +
+            sendMessageToPython("{" +
                     "\"event\": \"createAgent\"," +
                     "\"data\": {" +
                     "\"nbAgent\": " + start.getnAgents() + "," +
@@ -132,7 +176,7 @@ public class Simulator implements WebSocketListener {
             @Override
             public void onData(SocketIOClient client, String data, AckRequest ackRequest) {
                 try{
-                    webSocketHandler.broadcastMessage("{" +
+                    sendMessageToPython("{" +
                             "\"event\": \"stop\"," +
                             "}"
                     );
@@ -155,25 +199,22 @@ public class Simulator implements WebSocketListener {
 
     }
 
-    public void cycle(ArrayList<AgentDTO> agentList){
-        simulation.getMapObjectManager().setAgents(agentList);
+    // Méthode pour envoyer des messages au serveur Python
+    private void sendMessageToPython(String message) {
+        if (pythonWebSocketClient != null && pythonWebSocketClient.isOpen()) {
+            pythonWebSocketClient.send(message);
+        }
     }
 
-    @Override
-    public void run(String agents) {
-        Gson gson = new Gson();
-        AgentListDTO agentListDTO = gson.fromJson(agents, AgentListDTO.class);
-        ArrayList<LinkedTreeMap> agentListRaw = agentListDTO.getData().get("agentList");
-
-        ArrayList<AgentDTO> agentList = new ArrayList<AgentDTO>();
-
-        for(int i = 0; i<agentListRaw.size(); i++) {
-            Double weirdId = (Double) agentListRaw.get(i).get("id");
-            int id = weirdId.intValue();
-            String action = (String) agentListRaw.get(i).get("action");
-            agentList.add(new AgentDTO(id,action));
+    // Méthode pour fermer la connexion WebSocket avec le serveur Python
+    private void closePythonWebSocket() {
+        if (pythonWebSocketClient != null && pythonWebSocketClient.isOpen()) {
+            pythonWebSocketClient.close();
         }
+    }
 
-        this.cycle(agentList);
+    public void cycle(ArrayList<AgentDTO> agentList){
+        simulation.getMapObjectManager().setAgents(agentList);
+        System.out.println(simulation.getMapObjectManager().getAgents());
     }
 }
