@@ -7,16 +7,16 @@ public class Building extends MapObject{
     private int closeTime;
     private Transaction transaction;
 
-    public Building(int id, Point coords, Point size, Object affichage) {
-        super(id, coords, size, affichage);
+    public Building(int id, Point coords) {
+        super(id, coords);
     }
 
     public Building(Point coords) {
-        super(0, coords, new Point(2,2), null);
+        super(0, coords);
     }
 
     public Building(Point coords, int openTime, int closeTime) {
-        super(0,coords,new Point(2,2),null);
+        super(0,coords);
         this.openTime = openTime;
         this.closeTime = closeTime;
     }

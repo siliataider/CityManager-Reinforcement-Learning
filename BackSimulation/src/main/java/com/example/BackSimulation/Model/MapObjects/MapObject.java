@@ -5,7 +5,7 @@ public abstract class MapObject {
     private int id;
     private Point coords;
     private Point size = new Point(1,1);
-    private Object affichage;
+    private Object affichage = null;
 
     public MapObject(int id, Point coords) {
         this.id = id;
@@ -26,5 +26,13 @@ public abstract class MapObject {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "MapObject{" +
+                "id=" + id +
+                ", coords=" + coords +
+                '}';
     }
 }

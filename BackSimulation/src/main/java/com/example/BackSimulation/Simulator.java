@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
 import org.springframework.stereotype.Service;
 
+import java.awt.*;
 import java.net.http.WebSocket;
 import java.util.ArrayList;
 
@@ -51,6 +52,7 @@ public class Simulator implements WebSocketListener {
             public void onData(SocketIOClient client, String data, AckRequest ackRequest) {
                 Gson gson = new Gson();
                 BuildingDTO building = gson.fromJson(data, BuildingDTO.class);
+                building.setCoords(new Point(building.getX(),building.getY()));
                 try{
                     simulation.getMapObjectManager().build(building);
                     server.getBroadcastOperations().sendEvent("build",

@@ -23,6 +23,10 @@ public class MapObjectManager {
         return buildings;
     }
 
+    public ArrayList<Agent> getAgents() {
+        return agents;
+    }
+
     public void setAgents(ArrayList<AgentDTO> agentDTOList) {
         ArrayList<Agent> trueAgents = new ArrayList<Agent>();
 
@@ -34,6 +38,8 @@ public class MapObjectManager {
             }
             trueAgents.add(new Agent(agentDTOList.get(i).getId(),coords));
         }
+
+        agents = trueAgents;
     }
 
     private int getIdCounter() {
@@ -93,11 +99,11 @@ public class MapObjectManager {
 
     public Building getByType(String type){
         for(int i = 0; i < buildings.size(); i++){
-            if(buildings.get(i).getClass().getSimpleName() == "type"){
+            if(buildings.get(i).getClass().getSimpleName().equals(type)){
                 return buildings.get(i);
             }
         }
-        return null;
+        return new Building(new Point(1,1));
     }
 
     public String toJSONString() {
