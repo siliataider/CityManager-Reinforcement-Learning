@@ -3,9 +3,11 @@ name: Java CI/CD
 on:
   push:
     branches: [ main ]
+    paths:
+      - 'BackSimulation/**'
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,6 +21,13 @@ jobs:
 
     - name: Build with Maven
       run: cd BackSimulation && mvn clean package
+
+  dockerize:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+    - uses: actions/checkout@v2
 
     - name: Login to Docker Hub
       uses: docker/login-action@v1
@@ -34,7 +43,23 @@ jobs:
         context: ./BackSimulation
         file: ./BackSimulation/Dockerfile
         
+  deploy:
+    runs-on: ubuntu-latest
+    needs: dockerize
+
+    steps:
+    - uses: actions/checkout@v2
+
     - name: Deploy to Render
       run: >
         curl -X POST -H 'Authorization: Bearer ${{ secrets.RENDER_API_KEY }}' -d '' 
         https://api.render.com/deploy/srv-cmj4au6n7f5s73a7dvu0?key=a578AouEmQE
+
+  test:
+    runs-on: ubuntu-latest
+    needs: deploy 
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: test
