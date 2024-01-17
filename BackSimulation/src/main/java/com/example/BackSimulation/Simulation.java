@@ -3,6 +3,9 @@ package com.example.BackSimulation;
 import com.example.BackSimulation.Model.*;
 
 import java.awt.*;
+import java.util.Dictionary;
+import java.util.HashMap;
+
 public class Simulation {
 
     private Point mapSize = new Point(50,50);
@@ -23,11 +26,29 @@ public class Simulation {
         return mapObjectManager;
     }
 
-    private void Cycle(){
-        //[VICK] not socket stuff here :
+    public boolean verify(int nAgents){
+        HashMap<String,Boolean> hasBuildings = new HashMap<String,Boolean>();
+        hasBuildings.put("Work",false);
+        hasBuildings.put("Home",false);
+        hasBuildings.put("Resto",false);
+
+        for(int i = 0; i<mapObjectManager.getBuildings().size(); i++){
+            hasBuildings.put(mapObjectManager.getBuildings().get(i).getClass().getSimpleName(),true);
+        }
+
+        if(nAgents>=1 & hasBuildings.get("Work") & hasBuildings.get("Home") & hasBuildings.get("Resto")){
+            return true;
+        }
+        return false;
+    }
+
+    private void cycle(){
         timeManager.advance();
         weatherManager.changeWeather();
+        System.out.println("Simulation Progress");
     }
+
+
 
     public String toJSONString(){
         String ret =
@@ -40,8 +61,6 @@ public class Simulation {
 
         return ret;
     }
-
-    // TODO: remove this function (it is just for communication test)
 
 
 }

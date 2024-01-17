@@ -49,8 +49,9 @@ const CreationPanel = (props) => {
      * Else : show an error message
      */
     function saveAndStart(){
-        socket.on(socketEvents.saveAndStart, (message) => {
-            data = JSON.parse(message);
+        socket.on(socketEvents.run_simulation, (message) => {
+            console.log(message);
+            const data = JSON.parse(message);
             if (data.response == "ok"){
                 // Switch left panel
                 props.nextPanelListener(<GamePanel className="col"></GamePanel>)
@@ -60,12 +61,12 @@ const CreationPanel = (props) => {
             socket.off(socketEvents.saveAndStart)
         });
 
-        const startMessage = {nbAgent : 10}
+        const startMessage = {nAgents : 10}
 
         console.log(startMessage)
 
         // Ask the back if the simulation can start
-        socket.emit(socketEvents.saveAndStart, JSON.stringify(startMessage))
+        socket.emit(socketEvents.run_simulation, JSON.stringify(startMessage))
     }
     
 

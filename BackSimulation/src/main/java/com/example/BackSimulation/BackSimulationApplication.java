@@ -8,8 +8,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableScheduling
 public class BackSimulationApplication {
 
-	private Simulator simulator = new Simulator();
-
 	public static void main(String[] args) {
 		SpringApplication.run(BackSimulationApplication.class, args);
 	}

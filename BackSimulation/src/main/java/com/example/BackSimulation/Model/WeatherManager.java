@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class WeatherManager {
     private Weather weather = Weather.Sunny;
-    private double changeRate = 0.1;
+    private double changeRate = 0.05;
 
     public Weather getWeather(){
         return this.weather;
@@ -15,11 +15,11 @@ public class WeatherManager {
     public void setWeather(Weather weather) {
         this.weather = weather;
     }
-
-
+    public void setChangeRate(double changeRate){
+        this.changeRate = changeRate;
+    }
     public WeatherManager() {
     }
-
     public void changeWeather(){
         Random r = new Random();
         double selector = r.nextDouble();
@@ -30,6 +30,15 @@ public class WeatherManager {
     }
 
     private Weather rollWeather(){
+        if (getWeather() == Weather.Sunny){
+            setChangeRate(0.1);
+            return Weather.Rainy;
+        }
+        setChangeRate(0.05);
+        return Weather.Sunny;
+    }
+
+    /*private Weather rollWeather(){
         Weather[] weathers = Weather.values();
 
         double total = 1;
@@ -46,7 +55,7 @@ public class WeatherManager {
 
         return getWeather();
 
-    }
+    }*/
 
     public String toJSONString() {
         String ret =
@@ -54,4 +63,5 @@ public class WeatherManager {
 
         return ret;
     }
+
 }

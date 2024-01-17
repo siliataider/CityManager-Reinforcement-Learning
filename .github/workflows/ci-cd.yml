@@ -10,6 +10,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+
     - name: Set up JDK 17
       uses: actions/setup-java@v2
       with:
@@ -17,17 +18,23 @@ jobs:
         distribution: 'adopt'
 
     - name: Build with Maven
-      run: cd BackSimulation && mvn -e clean package
+      run: cd BackSimulation && mvn clean package
+
+    - name: Login to Docker Hub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKER_HUB_USERNAME }}
+        password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
     - name: Build and Push Docker Image
       uses: docker/build-push-action@v2
       with:
         push: true
         tags: siliataider/backsimulation:latest
-        file: ./Dockerfile
-
+        context: ./BackSimulation
+        file: ./BackSimulation/Dockerfile
+        
     - name: Deploy to Render
-      run: curl -X POST -d '' https://api.render.com/v1/services/srv-cmj4au6n7f5s73a7dvu0/deploy
-      env:
-        RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
-
+      run: >
+        curl -X POST -H 'Authorization: Bearer ${{ secrets.RENDER_API_KEY }}' -d '' 
+        https://api.render.com/deploy/srv-cmj4au6n7f5s73a7dvu0?key=a578AouEmQE

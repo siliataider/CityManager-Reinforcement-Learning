@@ -1,8 +1,11 @@
 package com.example.BackSimulation.Model;
 
+import com.example.BackSimulation.DTO.AgentDTO;
 import com.example.BackSimulation.DTO.BuildingDTO;
+import com.example.BackSimulation.Model.Enums.BuildingType;
 import com.example.BackSimulation.Model.MapObjects.*;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public class MapObjectManager {
@@ -18,6 +21,25 @@ public class MapObjectManager {
 
     public ArrayList<Building> getBuildings() {
         return buildings;
+    }
+
+    public ArrayList<Agent> getAgents() {
+        return agents;
+    }
+
+    public void setAgents(ArrayList<AgentDTO> agentDTOList) {
+        ArrayList<Agent> trueAgents = new ArrayList<Agent>();
+
+        for(int i = 0; i<agentDTOList.size(); i++){
+            Point coords = getByType("Home").getCoords();
+            if(agentDTOList.get(i).getAction() != null){
+                System.out.println("c'est pas null");
+                coords = getByType(agentDTOList.get(i).getAction()).getCoords();
+            }
+            trueAgents.add(new Agent(agentDTOList.get(i).getId(),coords));
+        }
+
+        agents = trueAgents;
     }
 
     private int getIdCounter() {
@@ -37,15 +59,18 @@ public class MapObjectManager {
     public void build(BuildingDTO building){
         setIdCounter(getIdCounter()+1);
         switch(building.getType()){
-            case Work :
+            case work :
                 Work work = new Work(building.getCoords(),building.getOpenTime(),building.getCloseTime());
                 buildings.add(work);
-            case Home :
+                break;
+            case home :
                 Home home = new Home(building.getCoords(),building.getOpenTime(),building.getCloseTime());
                 buildings.add(home);
-            case Resto :
+                break;
+            case resto :
                 Resto resto = new Resto(building.getCoords(),building.getOpenTime(),building.getCloseTime());
                 buildings.add(resto);
+                break;
         }
 
     }
@@ -70,6 +95,15 @@ public class MapObjectManager {
                 agents.remove(i);
             }
         }
+    }
+
+    public Building getByType(String type){
+        for(int i = 0; i < buildings.size(); i++){
+            if(buildings.get(i).getClass().getSimpleName().equals(type)){
+                return buildings.get(i);
+            }
+        }
+        return new Building(new Point(1,1));
     }
 
     public String toJSONString() {

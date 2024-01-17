@@ -2,14 +2,32 @@ package com.example.BackSimulation;
 
 import com.corundumstudio.socketio.*;
 import com.corundumstudio.socketio.listener.DataListener;
+import com.example.BackSimulation.DTO.AgentDTO;
+import com.example.BackSimulation.DTO.AgentListDTO;
 import com.example.BackSimulation.DTO.BuildingDTO;
+import com.example.BackSimulation.DTO.StartDTO;
+import com.example.BackSimulation.Model.MapObjects.Agent;
 import com.example.BackSimulation.Websocket.PythonWebSocketHandler;
+import com.example.BackSimulation.Websocket.WebSocketListener;
 import com.google.gson.Gson;
+import com.google.gson.internal.LinkedTreeMap;
+import org.springframework.stereotype.Service;
 
-public class Simulator {
+import java.awt.*;
+import java.net.http.WebSocket;
+import java.util.ArrayList;
 
-    private final PythonWebSocketHandler webSocketHandler = new PythonWebSocketHandler();
+@Service
+public class Simulator implements WebSocketListener {
 
+    private final PythonWebSocketHandler webSocketHandler;
+
+    public Simulator(PythonWebSocketHandler webSocketHandler){
+        this.webSocketHandler = webSocketHandler;
+
+        this.webSocketHandler.setListener(this);
+
+    }
     private SocketIOServer server = initServer();
     private Simulation simulation = new Simulation();
 
@@ -34,9 +52,21 @@ public class Simulator {
             public void onData(SocketIOClient client, String data, AckRequest ackRequest) {
                 Gson gson = new Gson();
                 BuildingDTO building = gson.fromJson(data, BuildingDTO.class);
-                try{simulation.getMapObjectManager().build(building);}
+                building.setCoords(new Point(building.getX(),building.getY()));
+                try{
+                    simulation.getMapObjectManager().build(building);
+                    server.getBroadcastOperations().sendEvent("build",
+                            "{" +
+                                    "\"response\": \"ok\","+
+                                    "\"message\": \"Successfully built!\"" +
+                                    "}");
+                }
                 catch(Exception e){
-                    server.getBroadcastOperations().sendEvent("eventFromBack", "Error building: "+e);
+                    server.getBroadcastOperations().sendEvent("build",
+                            "{" +
+                                    "\"response\": \"notok\","
+                                    +"\"message\": " +"\"error building: "+e+"\""
+                                    +"}");
                 }
             }
         });
@@ -44,7 +74,18 @@ public class Simulator {
         newServer.addEventListener("start", String.class, new DataListener<String>() {
             @Override
             public void onData(SocketIOClient client, String data, AckRequest ackRequest) {
-                //START SIMULATION
+                try{
+                    Gson gson = new Gson();
+                    StartDTO start = gson.fromJson(data, StartDTO.class);
+                    startSimulation(start);
+                }
+                catch(Exception e){
+                    server.getBroadcastOperations().sendEvent("start",
+                            "{"
+                                    +"\"response\": notok,"
+                                    +"\"message\": " +"\"error building: "+e+"\""
+                                    +"}");
+                }
             }
         });
 
@@ -53,21 +94,86 @@ public class Simulator {
 
     }
 
-    public String sendDataToPython() {
-        String res = "{" +
-                "\"action\": 0, " +
-                "\"agents\": " + "[" +
-                "{" +
-                "\"agent_id\": 0, " +
-                "\"weather\":0, " +
-                "\"timestamp\": 8, " +
-                "\"hunger\": 0.5, " +
-                "\"energy\": 0.5, " +
-                "\"money\": 0.5 " +
-                "}" +
-                "]" +
-                "}";
-        return res;
+    private void startSimulation(StartDTO start) throws Exception {
+        boolean verified = simulation.verify(start.getnAgents());
+        System.out.println("nAgents: "+start.getnAgents()+"." + verified);
+        if(verified){
+            server.removeAllListeners("build");
+            server.removeAllListeners("start");
+
+            server.getBroadcastOperations().sendEvent("start",
+                    "{"
+                            +"\"response\":\"ok\","
+                            +"\"message\": \"Starting...\","
+                            +"\"weather\": " +simulation.getWeatherManager().getWeather().getValue()+","
+                            +"\"timestamp\": " + simulation.getTimeManager().getCurrentTick()
+                            +"}");
+
+            webSocketHandler.broadcastMessage("{" +
+                    "\"event\": \"createAgent\"," +
+                    "\"data\": {" +
+                    "\"nbAgent\": " + start.getnAgents() + "," +
+                    "\"timestamp\": " + simulation.getTimeManager().getCurrentTick() +"," +
+                    "\"weather\": " + simulation.getWeatherManager().getWeather().getValue() +
+                    "}" +
+                    "}"
+            );
+
+        }
+        else{
+            server.getBroadcastOperations().sendEvent("start",
+                    "{"
+                            +"\"response\": \"notok\","
+                            +"\"message\": " +"\"error building: Conditions aren't met.\""
+                            +"}");
+        }
+
+        server.addEventListener("stop", String.class, new DataListener<String>() {
+            @Override
+            public void onData(SocketIOClient client, String data, AckRequest ackRequest) {
+                try{
+                    webSocketHandler.broadcastMessage("{" +
+                            "\"event\": \"stop\"," +
+                            "}"
+                    );
+                    server.getBroadcastOperations().sendEvent("stop",
+                            "{"
+                                    +"\"response\": ok,"
+                                    +"\"message\": " +"\"Stopping simulation...\""
+                                    +"}");
+                }
+                catch(Exception e){
+                    server.getBroadcastOperations().sendEvent("stop",
+                            "{"
+                                    +"\"response\": notok,"
+                                    +"\"message\": " +"\"error stopping: "+e+"\""
+                                    +"}");
+                }
+            }
+        });
+
+
     }
 
+    public void cycle(ArrayList<AgentDTO> agentList){
+        simulation.getMapObjectManager().setAgents(agentList);
+    }
+
+    @Override
+    public void run(String agents) {
+        Gson gson = new Gson();
+        AgentListDTO agentListDTO = gson.fromJson(agents, AgentListDTO.class);
+        ArrayList<LinkedTreeMap> agentListRaw = agentListDTO.getData().get("agentList");
+
+        ArrayList<AgentDTO> agentList = new ArrayList<AgentDTO>();
+
+        for(int i = 0; i<agentListRaw.size(); i++) {
+            Double weirdId = (Double) agentListRaw.get(i).get("id");
+            int id = weirdId.intValue();
+            String action = (String) agentListRaw.get(i).get("action");
+            agentList.add(new AgentDTO(id,action));
+        }
+
+        this.cycle(agentList);
+    }
 }

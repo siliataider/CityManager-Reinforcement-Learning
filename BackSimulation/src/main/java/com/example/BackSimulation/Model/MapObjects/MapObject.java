@@ -4,14 +4,12 @@ import java.awt.Point;
 public abstract class MapObject {
     private int id;
     private Point coords;
-    private Point size;
-    private Object affichage;
+    private Point size = new Point(1,1);
+    private Object affichage = null;
 
-    public MapObject(int id, Point coords, Point size, Object affichage) {
+    public MapObject(int id, Point coords) {
         this.id = id;
         this.coords = coords;
-        this.size = size;
-        this.affichage = affichage;
     }
 
     public Point getCoords() {
@@ -28,5 +26,13 @@ public abstract class MapObject {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "MapObject{" +
+                "id=" + id +
+                ", coords=" + coords +
+                '}';
     }
 }

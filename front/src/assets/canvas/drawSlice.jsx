@@ -13,6 +13,7 @@ export const drawSlice = createSlice({
 
     addBuildings: (state, action) =>{
         state.buildings.push( action.payload );
+        console.log(state.buildings)
     },
     
   },
