@@ -16,7 +16,8 @@ jobs:
     - name: Deploy to Render
       run: >
         curl -X POST -H 'Authorization: Bearer ${{ secrets.RENDER_API_KEY }}' -d '' 
-        https://api.render.com/deploy/srv-cmj4au6n7f5s73a7dvu0?key=a578AouEmQE
+        https://api.render.com/deploy/srv-cmikfaq1hbls738fek40?key=JPyNNIsvXdk
+        
   
   test-server:
     runs-on: ubuntu-latest
