@@ -27,8 +27,8 @@ class AgentDQLearning(Agent) :
         target[action] = reward + discount_factor * np.max(Qs_next)
         self.model.model.fit(state, np.array([target]), epochs=1, verbose=0)
     
-    def save_model(self):
-        self.model.model.save('dql_model_agent_' + self.agent_id +'.h5')
+    def save_model(self, filename):
+        self.model.model.save('./models/'+filename+'.keras')
     
-    def load_model(self, model):
-        self.model.model = tf.keras.models.load_model(model)
+    def load_model(self, filename):
+        self.model.model = tf.keras.models.load_model('./models/' + filename)

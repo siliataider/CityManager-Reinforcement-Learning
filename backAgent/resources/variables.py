@@ -110,9 +110,9 @@ TABLE_STATES = {
 }
 
 TABLE_ACTIONS = {
-    0: 'Go Home',
-    1: 'Go Work',
-    2: 'Go Eat'
+    0: 'Home',
+    1: 'Work',
+    2: 'Resto'
 }
 
 DISCOUNT_FACTOR = 0.9

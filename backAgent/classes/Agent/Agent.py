@@ -20,7 +20,7 @@ class Agent() :
 
         next_state_value = (simulationConditions.timestamp, simulationConditions.weather, *next_state_value[2:])
         # Mise à jour de la table Q
-        #print(f"state value : {self.env.state_value}, next_state_value: {next_state_value}")
+
         self.train_model(self.env.state_value, action, reward, next_state_value, simulationConditions.learning_rate, DISCOUNT_FACTOR)
 
         #print(f"REWARD: {reward}, action: {action}")
@@ -30,7 +30,6 @@ class Agent() :
         #print("------------------------------------------------------------------------------")
         
         # Mettre à jour l'état actuel
-        #self.env.set_state(next_state_value)
         self.env.state_value = next_state_value
 
         # total_reward += reward
@@ -41,14 +40,14 @@ class Agent() :
         break
         '''
         #average_rewards.append(total_reward / max_time_steps)
-        print(f"exploration_rate: {simulationConditions.exploration_rate}, action: {action}")
+        #print(f"exploration_rate: {simulationConditions.exploration_rate}, action: {action}")
         
         return self, action
 
-    def save_model(self):
+    def save_model(self, filename):
         raise NotImplementedError("La méthode 'save_model' doit être implémentée par les sous-classes.")
 
-    def load_model(self, model):
+    def load_model(self, filename):
         raise NotImplementedError("La méthode 'load_model' doit être implémentée par les sous-classes.")
 
     def choose_action(self, state_value, exploration_rate):
