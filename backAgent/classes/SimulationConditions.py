@@ -10,12 +10,14 @@ class SimulationConditions() :
         self.exploration_rate = exploration_rate
         self.learning_rate = 1 - exploration_rate
         self.list_agent = []
+
+    def __str__(self) -> str:
+        return f"simulationCondition: exploration_rate => {self.exploration_rate}, learning_rate => {self.learning_rate}, is_new_episode: {self.is_new_episode}"
     
     def set_exploration_learning_rate(self):
         if (self.is_new_episode):
             self.exploration_rate = max(FINAL_EXPLORATION_RATE, self.exploration_rate - (START_EXPLORATION_RATE - FINAL_EXPLORATION_RATE) / EPLORATION_RATE_DECAY_STEPS)
             self.learning_rate = 1 - self.exploration_rate
-            self.is_new_episode = False
     
     def set_simulation_conditions(self, message):
         self.weather = message['weather']
@@ -42,7 +44,8 @@ class SimulationConditions() :
                     'hunger': hunger,
                     'energy': energy,
                     'money': money
-                }
+                },
+                'reward_moyen': agent.env.reward_moy
             }
         
         if action != None:

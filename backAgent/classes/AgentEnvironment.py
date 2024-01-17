@@ -1,15 +1,18 @@
 import random
+from resources.variables import MAX_TIME_STEP
 
 class AgentEnvironment:
     def __init__(self, timestamp, weather):
         self.state = 0 
-        self.time_step = 0
         self.state_value = self.init_state(timestamp=timestamp, weather=weather)
+        self.reward_moy = []
+        self.total_reward = 0
 
     def reset(self):
         self.state = 0
-        self.time_step = 0
         self.state_value = (0, 0, 0, 0, 0)
+        self.reward_moy = []
+        self.total_reward = 0
     
     def init_state(self, timestamp, weather):
         hunger, energy, money = [round(random.uniform(0, 1), 1) for _ in range(3)]
@@ -91,7 +94,6 @@ class AgentEnvironment:
             money -= 0.1
             hunger += 0.1
 
-        self.time_step += 1
         hunger = max(min(hunger, 1), 0)
         energy = max(min(energy, 1), 0)
         money = max(min(money, 1), 0)
@@ -106,3 +108,9 @@ class AgentEnvironment:
         
         return reward, (timestamp, weather, hunger, energy, money)
 
+    def calul_reward_moyen(self, reward, is_new_episode):
+        if is_new_episode:
+            self.reward_moy.append(self.total_reward/ MAX_TIME_STEP)
+            self.total_reward = 0
+        self.total_reward += reward
+        #print(f"total reward: {self.total_reward}")
