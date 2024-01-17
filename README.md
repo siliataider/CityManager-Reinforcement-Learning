@@ -14,8 +14,8 @@ CityManager-Reinforcement-Learning<br>
 ├── BackSimulation (Java backend)<br>
 └── front (React frontend)
 
-## Deployment Dashbooard
-https://dashboard.render.com/
+## Application entry point
+https://citymanager.onrender.com
 
 ### Deployment React
 https://citymanagerreact.onrender.com

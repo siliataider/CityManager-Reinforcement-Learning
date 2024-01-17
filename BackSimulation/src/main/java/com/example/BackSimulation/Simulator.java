@@ -16,7 +16,6 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.awt.*;
 
-
 @Service
 public class Simulator {
 
@@ -241,7 +240,7 @@ public class Simulator {
 
         simulation.getTimeManager().advance();
 
-        Thread.sleep(1000);
+        //Thread.sleep(1000);
         System.out.println("rebelotte");
 
         sendMessageToPython("{" +
