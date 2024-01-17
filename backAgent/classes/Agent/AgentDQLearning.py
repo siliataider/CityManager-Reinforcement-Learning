@@ -9,6 +9,7 @@ class AgentDQLearning(Agent) :
     def __init__(self, num_states, num_actions, env, agent_id):
         super().__init__(num_states, num_actions, env, agent_id)  # Appel du constructeur de la classe mère
         self.model = ModelWrapper()
+        self.algo = 'DQL'
 
     def choose_action(self, state_value, exploration_rate):
         state = reshape_state(state_value)

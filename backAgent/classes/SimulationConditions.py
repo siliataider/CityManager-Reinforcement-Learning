@@ -45,6 +45,7 @@ class SimulationConditions() :
                     'energy': energy,
                     'money': money
                 },
+                'algo': agent.algo,
                 'reward_moyen': agent.env.reward_moy
             }
         
