@@ -217,6 +217,10 @@ public class Simulator {
     public void cycle(ArrayList<AgentDTO> agentList){
         simulation.getMapObjectManager().setAgents(agentList);
         System.out.println(simulation.getMapObjectManager().getAgents());
-
+        server.getBroadcastOperations().sendEvent("updateAgent","{" +
+                "\"agentList\": " + simulation.getMapObjectManager().agentsToJSONString() + "," +
+                "\"weather\": " + simulation.getWeatherManager().getWeather().getValue() +"," +
+                "\"timestamp\": " + simulation.getTimeManager().getCurrentTick() +
+                "}");
     }
 }

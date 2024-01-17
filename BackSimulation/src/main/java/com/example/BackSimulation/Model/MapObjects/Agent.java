@@ -24,4 +24,12 @@ public class Agent extends MapObject{
                 "state=" + state +
                 '}';
     }
+
+    public String toJSONString() {
+        String ret = "{" +
+                "\"id\": " + getId() + "," +
+                "\"state\": " + state.toJSONString() +
+                "}";
+        return ret;
+    }
 }
