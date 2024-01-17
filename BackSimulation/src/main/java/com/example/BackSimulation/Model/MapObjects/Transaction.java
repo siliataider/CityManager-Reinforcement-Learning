@@ -6,25 +6,25 @@ import java.util.ArrayList;
 
 public class Transaction {
     private ArrayList<Stats> taken;
-    private ArrayList<Integer> takenQuantities;
+    private ArrayList<Double> takenQuantities;
     private ArrayList<Stats> given;
-    private ArrayList<Integer> givenQuantities;
+    private ArrayList<Double> givenQuantities;
 
     public Transaction(){
         taken = new ArrayList<Stats>();
-        takenQuantities = new ArrayList<Integer>();
+        takenQuantities = new ArrayList<Double>();
         given = new ArrayList<Stats>();
-        givenQuantities = new ArrayList<Integer>();
+        givenQuantities = new ArrayList<Double>();
     }
 
-    public Transaction(Stats singleGiven, int givenQuantity, Stats singleTaken, int takenQuantity){
+    public Transaction(Stats singleGiven, double givenQuantity, Stats singleTaken, double takenQuantity){
         ArrayList<Stats> takenList = new ArrayList<Stats>();
         takenList.add(singleTaken);
-        ArrayList<Integer> takenQuantityList = new ArrayList<Integer>();
+        ArrayList<Double> takenQuantityList = new ArrayList<Double>();
         takenQuantityList.add(takenQuantity);
         ArrayList<Stats> givenList = new ArrayList<Stats>();
         givenList.add(singleGiven);
-        ArrayList<Integer> givenQuantityList = new ArrayList<Integer>();
+        ArrayList<Double> givenQuantityList = new ArrayList<Double>();
         givenQuantityList.add(givenQuantity);
 
         taken = takenList;
@@ -33,8 +33,8 @@ public class Transaction {
         givenQuantities = givenQuantityList;
     }
 
-    public Transaction(ArrayList<Stats> taken, ArrayList<Integer> takenQuantities,
-                       ArrayList<Stats> given, ArrayList<Integer> givenQuantities) {
+    public Transaction(ArrayList<Stats> taken, ArrayList<Double> takenQuantities,
+                       ArrayList<Stats> given, ArrayList<Double> givenQuantities) {
         this.taken = taken;
         this.takenQuantities = takenQuantities;
         this.given = given;
@@ -49,11 +49,11 @@ public class Transaction {
         this.taken = taken;
     }
 
-    public ArrayList<Integer> getTakenQuantities() {
+    public ArrayList<Double> getTakenQuantities() {
         return takenQuantities;
     }
 
-    public void setTakenQuantities(ArrayList<Integer> takenQuantities) {
+    public void setTakenQuantities(ArrayList<Double> takenQuantities) {
         this.takenQuantities = takenQuantities;
     }
 
@@ -65,11 +65,11 @@ public class Transaction {
         this.given = given;
     }
 
-    public ArrayList<Integer> getGivenQuantities() {
+    public ArrayList<Double> getGivenQuantities() {
         return givenQuantities;
     }
 
-    public void setGivenQuantities(ArrayList<Integer> givenQuantities) {
+    public void setGivenQuantities(ArrayList<Double> givenQuantities) {
         this.givenQuantities = givenQuantities;
     }
 

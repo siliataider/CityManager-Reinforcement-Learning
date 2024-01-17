@@ -157,6 +157,7 @@ public class Simulator implements WebSocketListener {
 
     public void cycle(ArrayList<AgentDTO> agentList){
         simulation.getMapObjectManager().setAgents(agentList);
+        System.out.println(simulation.getMapObjectManager().getAgents());
     }
 
     @Override
@@ -171,9 +172,10 @@ public class Simulator implements WebSocketListener {
             Double weirdId = (Double) agentListRaw.get(i).get("id");
             int id = weirdId.intValue();
             String action = (String) agentListRaw.get(i).get("action");
-            agentList.add(new AgentDTO(id,action));
+            LinkedTreeMap<String,Double> state = (LinkedTreeMap<String, Double>) agentListRaw.get(i).get("state");
+            agentList.add(new AgentDTO(id,action,state));
         }
 
-        this.cycle(agentList);
+        cycle(agentList);
     }
 }

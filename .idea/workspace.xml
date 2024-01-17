@@ -5,12 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="07fbec91-0c86-47d8-ac4b-2ba1d8072e5e" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/MapObjects/State.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/DTO/BuildingDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/DTO/BuildingDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/DTO/AgentDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/DTO/AgentDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/MapObjectManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/MapObjectManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/MapObjects/Agent.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/MapObjects/Agent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/MapObjects/Building.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/MapObjects/Building.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/MapObjects/MapObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/MapObjects/MapObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/MapObjects/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/MapObjects/Transaction.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Simulator.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Simulator.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -61,28 +62,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Application.BackSimulationApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Application.WebSocketClient.executor&quot;: &quot;Run&quot;,
-    &quot;Maven.BackSimulation [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.BackSimulation [install].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.BackSimulation [package].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.BackSimulation [verify].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;jad&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/jad.ghandour/Bureau/City Manager&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.repository.indices&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Application.BackSimulationApplication.executor": "Run",
+    "Application.WebSocketClient.executor": "Run",
+    "Maven.BackSimulation [clean].executor": "Run",
+    "Maven.BackSimulation [install].executor": "Run",
+    "Maven.BackSimulation [package].executor": "Run",
+    "Maven.BackSimulation [verify].executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/home/jad.ghandour/Bureau/City Manager",
+    "project.structure.last.edited": "SDKs",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.example.BackSimulation.Model" />
