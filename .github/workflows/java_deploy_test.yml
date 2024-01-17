@@ -40,7 +40,6 @@ jobs:
       with:
         push: true
         tags: siliataider/backsimulation:latest
-        context: ./BackSimulation
         file: ./BackSimulation/Dockerfile
         
   deploy:
