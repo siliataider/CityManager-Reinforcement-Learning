@@ -2,3 +2,4 @@ websockets
 tensorflow
 numpy==1.24.0
 pytest
+pytest-asyncio
