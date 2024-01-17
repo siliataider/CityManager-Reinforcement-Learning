@@ -7,7 +7,7 @@ on:
       - 'front/**'
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
