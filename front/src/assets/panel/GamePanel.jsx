@@ -8,7 +8,7 @@ import CreationPanel from "./CreationPanel";
 
 
 
-const GamePanel = () => {
+const GamePanel = (props) => {
 
     const dispatch = useDispatch();
     const socket = useSelector( (state) => state.socket.socket);
@@ -19,7 +19,7 @@ const GamePanel = () => {
           const data = JSON.parse(message);
           if (data.response == "ok"){
               // Switch right panel
-              props.nextPanelListener(<CreationPanel className="col"></CreationPanel>)
+              props.nextPanelListener(<CreationPanel nextPanelListener={props.nextPanelListener} className="col"></CreationPanel>)
           }else {
               console.log(data.message)
           }
@@ -31,7 +31,7 @@ const GamePanel = () => {
       console.log(stopMessage)
 
       // Ask the back if the simulation can start
-      socket.emit(socketEvents.stop_simulation, JSON.stringify(startMessage))
+      socket.emit(socketEvents.stop_simulation, JSON.stringify(stopMessage))
   }
 
     useEffect(() =>{
@@ -70,7 +70,7 @@ const GamePanel = () => {
         <button>GraveYard</button>
         <br></br>
         <br></br>
-        <button onclick={stop}>STOP</button>
+        <button onClick={stop}>STOP</button>
         <br></br>
     </>
     );

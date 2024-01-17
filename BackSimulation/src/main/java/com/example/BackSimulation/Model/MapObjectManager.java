@@ -33,7 +33,6 @@ public class MapObjectManager {
         for(int i = 0; i<agentDTOList.size(); i++){
             Point coords = getByType("Home").getCoords();
             if(agentDTOList.get(i).getAction() != null){
-                System.out.println("c'est pas null");
                 coords = getByType(agentDTOList.get(i).getAction()).getCoords();
             }
             State state = new State(agentDTOList.get(i).getState(), coords.getX(), coords.getY());
