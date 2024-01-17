@@ -118,7 +118,11 @@ public class Simulator {
                         agentList.add(new AgentDTO(id,action,state));
                     }
 
-                    cycle(agentList);
+                    try {
+                        cycle(agentList);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
 
                 @Override
@@ -214,13 +218,31 @@ public class Simulator {
         }
     }
 
-    public void cycle(ArrayList<AgentDTO> agentList){
+    public void cycle(ArrayList<AgentDTO> agentList) throws InterruptedException {
         simulation.getMapObjectManager().setAgents(agentList);
         System.out.println(simulation.getMapObjectManager().getAgents());
+
         server.getBroadcastOperations().sendEvent("updateAgent","{" +
                 "\"agentList\": " + simulation.getMapObjectManager().agentsToJSONString() + "," +
                 "\"weather\": " + simulation.getWeatherManager().getWeather().getValue() +"," +
                 "\"timestamp\": " + simulation.getTimeManager().getCurrentTick() +
                 "}");
+
+        simulation.getTimeManager().advance();
+
+        Thread.sleep(1000);
+        System.out.println("rebelotte");
+
+        sendMessageToPython("{" +
+                "\"event\": \"updateAgent\"," +
+                "\"data\": {" +
+                "\"timestamp\": " + simulation.getTimeManager().getCurrentTick() +"," +
+                "\"weather\": " + simulation.getWeatherManager().getWeather().getValue() + "," +
+                "\"tick\": " + simulation.getTimeManager().getTotalTicks() +
+                "}" +
+                "}"
+        );
+
+
     }
 }
