@@ -36,7 +36,7 @@ public class MapObjectManager {
                 System.out.println("c'est pas null");
                 coords = getByType(agentDTOList.get(i).getAction()).getCoords();
             }
-            State state = new State(agentDTOList.get(i).getState());
+            State state = new State(agentDTOList.get(i).getState(), coords.getX(), coords.getY());
             trueAgents.add(new Agent(agentDTOList.get(i).getId(), coords, state));
         }
 
@@ -107,21 +107,16 @@ public class MapObjectManager {
         return new Building(new Point(1,1));
     }
 
-    public String toJSONString() {
-        String buildingsJSON = "[";
-        for(int i=0;i<buildings.size();i++){
+    public String agentsToJSONString() {
+        String agentsJSON = "[";
+        for(int i=0;i<agents.size();i++){
             if(i>0){
-                buildingsJSON+=",";
+                agentsJSON+=",";
             }
-            buildingsJSON+=buildings.get(i).toJSONString();
+            agentsJSON+=agents.get(i).toJSONString();
         }
-        buildingsJSON+="]";
+        agentsJSON+="]";
 
-        String ret =
-                "{"
-                +"buildings:"+buildingsJSON
-                +"}";
-
-        return ret;
+        return agentsJSON;
     }
 }

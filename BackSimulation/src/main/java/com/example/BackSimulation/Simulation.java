@@ -50,7 +50,7 @@ public class Simulation {
 
 
 
-    public String toJSONString(){
+    /*public String toJSONString(){
         String ret =
                 "{"
                 +"mapSize:{x:"+mapSize.getX()+",y:"+mapSize.getY()+"},"
@@ -60,7 +60,7 @@ public class Simulation {
                 +"}";
 
         return ret;
-    }
+    }*/
 
 
 }

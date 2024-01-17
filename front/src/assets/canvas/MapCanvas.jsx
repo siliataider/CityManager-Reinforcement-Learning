@@ -32,8 +32,10 @@ function MapCanvas () {
     const buildings = useSelector((state) => state.draw.buildings);
     const agents = useSelector((state)=> state.draw.agents);
 
-    // REFRESH THE CANAVS WHENE NEW BUILDING OF AGENTS
+    // REFRESH THE CANAVS WHENE NEW BUILDING OR AGENTS
     useEffect( ()=> { 
+      console.log("useeffect")
+      console.log(agents)
       clearCanavas(canvasRef)
       drawBuildings(buildings, canvasRef)
       drawAgents(agents, canvasRef)
