@@ -15,7 +15,7 @@ def get_recent_deploy_id(service_id, api_key):
 def check_deployment_status(service_id, deploy_id, api_key):
     url = f"https://api.render.com/v1/services/{service_id}/deploys/{deploy_id}"
     headers = {"Authorization": f"Bearer {api_key}"}
-    timeout = 1800  # Timeout of 30min?
+    timeout = 600  # Timeout in seconds
     start_time = time.time()
 
     while time.time() - start_time < timeout:
