@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import socketEvents from "../socket/socketEvents";
 
 import { setAgents } from "../canvas/drawSlice";
+import CreationPanel from "./CreationPanel";
 
 
 
@@ -11,6 +12,27 @@ const GamePanel = () => {
 
     const dispatch = useDispatch();
     const socket = useSelector( (state) => state.socket.socket);
+
+    function stop(){
+      socket.on(socketEvents.stop_simulation, (message) => {
+          console.log(message);
+          const data = JSON.parse(message);
+          if (data.response == "ok"){
+              // Switch right panel
+              props.nextPanelListener(<CreationPanel className="col"></CreationPanel>)
+          }else {
+              console.log(data.message)
+          }
+          socket.off(socketEvents.stop)
+      });
+
+      const stopMessage = {}
+
+      console.log(stopMessage)
+
+      // Ask the back if the simulation can start
+      socket.emit(socketEvents.stop_simulation, JSON.stringify(startMessage))
+  }
 
     useEffect(() =>{
         socket.on(socketEvents.refresh_agents, (message) => {
@@ -45,8 +67,10 @@ const GamePanel = () => {
         <button>x1</button>
         <button>x10</button>
         <br></br>
-
         <button>GraveYard</button>
+        <br></br>
+        <br></br>
+        <button onclick={stop}>STOP</button>
         <br></br>
     </>
     );

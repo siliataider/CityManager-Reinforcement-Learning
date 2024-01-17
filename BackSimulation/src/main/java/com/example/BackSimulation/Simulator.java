@@ -22,6 +22,8 @@ public class Simulator {
 
     private WebSocketClient pythonWebSocketClient;
 
+    private boolean go = true;
+
     public Simulator() {
         // Initialisez le client WebSocket Python dans le constructeur
         initPythonWebSocketClient();
@@ -89,6 +91,7 @@ public class Simulator {
         });
 
         newServer.start(); // Start serveur
+        go = true;
         return newServer;
 
     }
@@ -119,7 +122,9 @@ public class Simulator {
                     }
 
                     try {
-                        cycle(agentList);
+                        if(go){
+                            cycle(agentList);
+                        }
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
@@ -181,15 +186,13 @@ public class Simulator {
             @Override
             public void onData(SocketIOClient client, String data, AckRequest ackRequest) {
                 try{
-                    sendMessageToPython("{" +
-                            "\"event\": \"stop\"," +
-                            "}"
-                    );
                     server.getBroadcastOperations().sendEvent("stop",
                             "{"
                                     +"\"response\": ok,"
                                     +"\"message\": " +"\"Stopping simulation...\""
                                     +"}");
+                    go = false;
+
                 }
                 catch(Exception e){
                     server.getBroadcastOperations().sendEvent("stop",
