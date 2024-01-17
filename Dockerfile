@@ -2,7 +2,7 @@
 FROM nginx:latest
 
 # Copy your custom nginx.conf into the container
-COPY nginx.conf /etc/nginx/nginx.conf
+COPY nginx_to_deploy.conf /etc/nginx/nginx.conf
 
 # Expose the port Nginx is listening on
 EXPOSE 80
