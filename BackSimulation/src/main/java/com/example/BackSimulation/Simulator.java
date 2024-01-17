@@ -114,7 +114,8 @@ public class Simulator {
                         Double weirdId = (Double) agentListRaw.get(i).get("id");
                         int id = weirdId.intValue();
                         String action = (String) agentListRaw.get(i).get("action");
-                        agentList.add(new AgentDTO(id,action));
+                        LinkedTreeMap<String,Double> state = (LinkedTreeMap<String, Double>) agentListRaw.get(i).get("state");
+                        agentList.add(new AgentDTO(id,action,state));
                     }
 
                     cycle(agentList);
@@ -216,5 +217,6 @@ public class Simulator {
     public void cycle(ArrayList<AgentDTO> agentList){
         simulation.getMapObjectManager().setAgents(agentList);
         System.out.println(simulation.getMapObjectManager().getAgents());
+
     }
 }

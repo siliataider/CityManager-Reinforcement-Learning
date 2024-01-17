@@ -36,7 +36,8 @@ public class MapObjectManager {
                 System.out.println("c'est pas null");
                 coords = getByType(agentDTOList.get(i).getAction()).getCoords();
             }
-            trueAgents.add(new Agent(agentDTOList.get(i).getId(),coords));
+            State state = new State(agentDTOList.get(i).getState());
+            trueAgents.add(new Agent(agentDTOList.get(i).getId(), coords, state));
         }
 
         agents = trueAgents;

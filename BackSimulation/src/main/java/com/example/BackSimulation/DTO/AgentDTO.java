@@ -1,5 +1,6 @@
 package com.example.BackSimulation.DTO;
 
+import com.google.gson.internal.LinkedTreeMap;
 import org.springframework.lang.Nullable;
 
 public class AgentDTO {
@@ -7,9 +8,12 @@ public class AgentDTO {
     @Nullable
     private String action;
 
-    public AgentDTO(int id, String action) {
+    private LinkedTreeMap<String,Double> state;
+
+    public AgentDTO(int id, String action, LinkedTreeMap<String,Double> state) {
         this.id = id;
         this.action = action;
+        this.state = state;
     }
 
     public int getId() {
@@ -26,6 +30,10 @@ public class AgentDTO {
 
     public void setAction(String action) {
         this.action = action;
+    }
+
+    public LinkedTreeMap<String, Double> getState() {
+        return state;
     }
 
     @Override
