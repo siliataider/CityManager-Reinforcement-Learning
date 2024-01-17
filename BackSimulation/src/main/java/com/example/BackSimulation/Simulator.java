@@ -33,8 +33,8 @@ public class Simulator {
         // [VICK] This config needs to go somwere else :
         // SOCKET IO CONFIG :
         Configuration config = new Configuration();
-        config.setHostname("localhost");
         config.setPort(5050);
+        config.setOrigin("*"); // Permettre toutes les origines (à restreindre en production)
 
         // SEE : https://github.com/mrniko/netty-socketio/issues/254
         SocketConfig socketConfig = new SocketConfig();
