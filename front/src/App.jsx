@@ -24,7 +24,7 @@ function App() {
     useEffect(() =>{
       // SOCKET INIT :
       // SEE : https://github.com/mrniko/netty-socketio-demo
-      const newSocket = io(); 
+      const newSocket = io('https://citymanagerjava.onrender.com/'); 
 
       newSocket.on(socketEvents.connect, () => {
         console.log('Socket Connected !');
