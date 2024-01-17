@@ -41,10 +41,11 @@ async def read_socket(websocket):
 
         elif decode_message['event'] == 'updateAgent':
             simulationConditions.set_simulation_conditions(decode_message['data'])
+            simulationConditions.set_exploration_learning_rate()
+            print(f"{simulationConditions} tick: {decode_message['data']['tick']}")
 
             tIN = time()
             # if too much prints : https://stackoverflow.com/questions/8391411/how-to-block-calls-to-print
-            simulationConditions.set_exploration_learning_rate()
             res = runProc(simulationConditions.list_agent, simulationConditions)
             tOUT = time()
             
@@ -61,6 +62,8 @@ async def read_socket(websocket):
                 anwser['data']['agentList'].append(simulationConditions.get_one_agent_info(agent=agent_object, action=action))
             simulationConditions.list_agent = new_list_agent
 
+            # Set new episode to False
+            simulationConditions.is_new_episode = False
             print("Execution time : " + str(tOUT - tIN))
 
         elif decode_message['event'] in ['loadAgent', 'saveAgent']:
