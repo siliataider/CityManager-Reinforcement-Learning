@@ -35,9 +35,9 @@ public class Simulator {
         // [VICK] This config needs to go somwere else :
         // SOCKET IO CONFIG :
         Configuration config = new Configuration();
-        config.setHostname("citymanagerjava.onrender.com");
+        config.setHostname("0.0.0.0");
         config.setPort(5050);
-        
+
         // Ajoutez le middleware CORS ici
         config.setOrigin("*");
 
