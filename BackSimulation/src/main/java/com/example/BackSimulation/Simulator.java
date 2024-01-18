@@ -16,6 +16,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.awt.*;
+import java.util.List;
 
 @Service
 public class Simulator {
@@ -124,8 +125,8 @@ public class Simulator {
 
     private void initPythonWebSocketClient() {
         try {
-            pythonWebSocketClient = new WebSocketClient(new URI("wss://citymanagerpython.onrender.com")) {
-            //pythonWebSocketClient = new WebSocketClient(new URI("ws://localhost:8765")) {
+            //pythonWebSocketClient = new WebSocketClient(new URI("wss://citymanagerpython.onrender.com")) {
+            pythonWebSocketClient = new WebSocketClient(new URI("ws://localhost:8765")) {
                 @Override
                 public void onOpen(ServerHandshake handshakedata) {
                     System.out.println("Connected to Python WebSocket server");
@@ -147,7 +148,8 @@ public class Simulator {
                         String action = (String) agentListRaw.get(i).get("action");
                         String algo = (String) agentListRaw.get(i).get("algo");
                         LinkedTreeMap<String,Double> state = (LinkedTreeMap<String, Double>) agentListRaw.get(i).get("state");
-                        agentList.add(new AgentDTO(id,action,algo,state));
+                        List<Double> rewardMoyen = (List<Double>) agentListRaw.get(i).get("reward_moyen");
+                        agentList.add(new AgentDTO(id,action,algo,state, rewardMoyen));
                     }
 
                     try {
