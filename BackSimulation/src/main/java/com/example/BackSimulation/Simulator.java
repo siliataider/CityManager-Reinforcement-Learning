@@ -37,7 +37,7 @@ public class Simulator {
         // [VICK] This config needs to go somwere else :
         // SOCKET IO CONFIG :
         Configuration config = new Configuration();
-        config.setPort(5050);
+        config.setPort(8080);
         //config.setOrigin("*"); // Permettre toutes les origines (à restreindre en production)
 
         // SEE : https://github.com/mrniko/netty-socketio/issues/254
@@ -123,6 +123,7 @@ public class Simulator {
     }
 
     private void initPythonWebSocketClient() {
+        /**
         try {
             pythonWebSocketClient = new WebSocketClient(new URI("wss://citymanagerpython.onrender.com")) {
             //pythonWebSocketClient = new WebSocketClient(new URI("ws://localhost:8765")) {
@@ -175,6 +176,7 @@ public class Simulator {
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
+         */
     }
 
     private void startSimulation(StartDTO start) throws Exception {
