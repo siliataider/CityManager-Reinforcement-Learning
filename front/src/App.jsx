@@ -1,6 +1,6 @@
 import './App.css'
 
-import { useEffect, useState } from 'react';
+import {  useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import MapCanvas from './assets/canvas/MapCanvas';
@@ -10,8 +10,14 @@ import {io} from 'socket.io-client';
 import socketEvents from './assets/socket/socketEvents';
 import { setSocket } from './assets/socket/socketSlice';
 
-
-
+import { GoogleMap, Marker } from "react-google-maps"
+import {
+  APIProvider,
+  Map,
+  AdvancedMarker,
+  Pin,
+  InfoWindow,
+} from "@vis.gl/react-google-maps";
 
 function App() {
 
@@ -39,39 +45,53 @@ function App() {
 
     }, [])
 
+    // SEE : https://www.youtube.com/watch?v=PfZ4oLftItk
+    // SEE : https://console.cloud.google.com/google/maps-apis/home?project=front-map-411609
+    const position = { lat: 45.77722633389068, lng:  4.92226934948768 };
+    const [open, setOpen] = useState(false);
+
+
+    
+    const onClick = (e) =>{
+      console.log(e.detail.latLng);
+    }
+
 
   return (
-    <>
+  
+    <APIProvider apiKey={"AIzaSyAAvMg9x2VcnKS2R5PuaiaydluXxykRFno"}>
+      <div style={{ height: "100vh", width: "100%" }}>
+        <Map zoom={16} center={position} mapId={"c1f6e617d042fe39"} onClick={onClick}>
+          <AdvancedMarker position={position} onClick={() => setOpen(true)}>
+            <Pin
+              background={"grey"}
+              borderColor={"green"}
+              glyphColor={"purple"}
+            />
+          </AdvancedMarker>
 
-    {cursorObject}
+          {open && (
+            <InfoWindow position={position} onCloseClick={() => setOpen(false)}>
+              <p>I'm in Hamburg</p>
+            </InfoWindow>
+          )}
+        </Map>
+      </div>
+    </APIProvider>
 
-    {/* <Popup trigger=
-                {<button> Click to open modal </button>} 
-                modal nested>
-                {
-                    close => (
-                        <div className='modal'>
-                            <div className='content'>
-                                Welcome to GFG!!!
-                            </div>
-                            <div>
-                                <button onClick=
-                                    {() => close()}>
-                                        Close modal
-                                </button>
-                            </div>
-                        </div>
-                    )
-                }
-            </Popup>
-    */}
+  )
+   // <>
+
+    {/* {cursorObject} */}
+
+   
+
     
-    <div className='container'>
+    {/* <div className='container'>
     <div className="row">
 
       <div className='col-4'>
       {leftPanel}
-      {/* <GamePanel className="col"></GamePanel> */}
       </div>
 
       <div className='col'>
@@ -79,13 +99,13 @@ function App() {
       </div>
 
     </div>
-    </div>
+    </div> */}
 
 
-    </>
+    {/* </> */}
    
 
-  )
+  
 }
 
 export default App
