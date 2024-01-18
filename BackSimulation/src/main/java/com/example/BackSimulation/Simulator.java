@@ -124,8 +124,8 @@ public class Simulator {
 
     private void initPythonWebSocketClient() {
         try {
-            //"wss://citymanagerpython.onrender.com"
-            pythonWebSocketClient = new WebSocketClient(new URI("ws://localhost:8765")) {
+            pythonWebSocketClient = new WebSocketClient(new URI("wss://citymanagerpython.onrender.com")) {
+            //pythonWebSocketClient = new WebSocketClient(new URI("ws://localhost:8765")) {
                 @Override
                 public void onOpen(ServerHandshake handshakedata) {
                     System.out.println("Connected to Python WebSocket server");
