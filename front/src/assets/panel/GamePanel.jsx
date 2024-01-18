@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {useDispatch, useSelector} from 'react-redux';
 
 import socketEvents from "../socket/socketEvents";
@@ -6,13 +6,15 @@ import socketEvents from "../socket/socketEvents";
 import { clearMapObjects, setAgents } from "../canvas/drawSlice";
 import CreationPanel from "./CreationPanel";
 import { clearCanavas } from "../canvas/canavasTools";
-
+import GraphReward from "../graph/GraphReward";
 
 
 const GamePanel = (props) => {
 
     const dispatch = useDispatch();
     const socket = useSelector( (state) => state.socket.socket);
+    const agents = useSelector( (state) => state.draw.agents);
+    const [isAgentSet, setIsAgentSet] = useState(false);
 
     function stop(){
       socket.on(socketEvents.stop_simulation, (message) => {
@@ -49,9 +51,11 @@ const GamePanel = (props) => {
                 y : agent.state.y,
                 color : agent.color,
                 size : 10,
+                rewardMoyen: agent.rewardMoyen
             })
           }
           dispatch( setAgents( agentList) );
+          setIsAgentSet(true)
         });
       }, [])
 
@@ -74,6 +78,7 @@ const GamePanel = (props) => {
         <br></br>
         <button onClick={stop}>STOP</button>
         <br></br>
+        {isAgentSet && <GraphReward data={agents[0].rewardMoyen} />}
     </>
     );
     
