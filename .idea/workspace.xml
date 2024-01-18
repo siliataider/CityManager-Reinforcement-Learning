@@ -5,14 +5,30 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="07fbec91-0c86-47d8-ac4b-2ba1d8072e5e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/MapObjects/State.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BackSimulation/src/test/java/com/example/BackSimulation/DTO/AgentDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BackSimulation/src/test/java/com/example/BackSimulation/DTO/AgentListDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BackSimulation/src/test/java/com/example/BackSimulation/DTO/BuildingDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BackSimulation/src/test/java/com/example/BackSimulation/DTO/StartDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BackSimulation/src/test/java/com/example/BackSimulation/Model/Enums/BuildingType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BackSimulation/src/test/java/com/example/BackSimulation/Model/Enums/Stats.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BackSimulation/src/test/java/com/example/BackSimulation/Model/Enums/Weather.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BackSimulation/src/test/java/com/example/BackSimulation/Model/MapObjectManagerTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BackSimulation/src/test/java/com/example/BackSimulation/Model/MapObjects/AgentTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BackSimulation/src/test/java/com/example/BackSimulation/Model/MapObjects/BuildingTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BackSimulation/src/test/java/com/example/BackSimulation/Model/MapObjects/HomeTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BackSimulation/src/test/java/com/example/BackSimulation/Model/MapObjects/MapObjectTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BackSimulation/src/test/java/com/example/BackSimulation/Model/MapObjects/RestoTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BackSimulation/src/test/java/com/example/BackSimulation/Model/MapObjects/StateTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BackSimulation/src/test/java/com/example/BackSimulation/Model/MapObjects/TransactionTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BackSimulation/src/test/java/com/example/BackSimulation/Model/MapObjects/WorkTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BackSimulation/src/test/java/com/example/BackSimulation/Model/TimeManagerTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BackSimulation/src/test/java/com/example/BackSimulation/Model/WeatherManagerTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BackSimulation/src/test/java/com/example/BackSimulation/SimulationTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BackSimulation/src/test/java/com/example/BackSimulation/SimulatorTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/DTO/AgentDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/DTO/AgentDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/MapObjectManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/MapObjectManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/MapObjects/Agent.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/MapObjects/Agent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/MapObjects/Building.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/MapObjects/Building.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/MapObjects/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/MapObjects/Transaction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Simulator.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Simulator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackSimulation/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BackSimulation/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/MapObjects/State.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/MapObjects/State.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/assets/panel/CreationPanel.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/assets/panel/CreationPanel.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,6 +84,7 @@
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Application.BackSimulationApplication.executor": "Run",
     "Application.WebSocketClient.executor": "Run",
+    "JUnit.StateTests.itShouldHaveAllFiveAttributes.executor": "Run",
     "Maven.BackSimulation [clean].executor": "Run",
     "Maven.BackSimulation [install].executor": "Run",
     "Maven.BackSimulation [package].executor": "Run",
@@ -75,9 +92,9 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "jad",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/jad.ghandour/Bureau/City Manager",
+    "last_opened_file_path": "/home/jad.ghandour/Bureau/City Manager/BackSimulation/src/test/java/com/example/BackSimulation",
     "project.structure.last.edited": "SDKs",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
@@ -85,12 +102,15 @@
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/BackSimulation/src/test/java/com/example/BackSimulation" />
+    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.example.BackSimulation.Model" />
       <recent name="com.example.BackSimulation.Model.MapObjects" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.BackSimulationApplication">
+  <component name="RunManager" selected="JUnit.AgentTests.itShouldBeConvertedToValidJSON">
     <configuration name="BackSimulationApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.BackSimulation.BackSimulationApplication" />
       <module name="BackSimulation" />
@@ -117,8 +137,59 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="AgentTests.itShouldBeConvertedToValidJSON" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="BackSimulation" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.BackSimulation.Model.MapObjects.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.BackSimulation.Model.MapObjects" />
+      <option name="MAIN_CLASS_NAME" value="com.example.BackSimulation.Model.MapObjects.AgentTests" />
+      <option name="METHOD_NAME" value="itShouldBeConvertedToValidJSON" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="StateTests.itShouldBeConvertedToValidJSON" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="BackSimulation" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.BackSimulation.Model.MapObjects.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.BackSimulation.Model.MapObjects" />
+      <option name="MAIN_CLASS_NAME" value="com.example.BackSimulation.Model.MapObjects.StateTests" />
+      <option name="METHOD_NAME" value="itShouldBeConvertedToValidJSON" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="StateTests.itShouldHaveAllFiveAttributes" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="BackSimulation" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.BackSimulation.Model.MapObjects.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.BackSimulation.Model.MapObjects" />
+      <option name="MAIN_CLASS_NAME" value="com.example.BackSimulation.Model.MapObjects.StateTests" />
+      <option name="METHOD_NAME" value="itShouldHaveAllFiveAttributes" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.AgentTests.itShouldBeConvertedToValidJSON" />
+        <item itemvalue="JUnit.StateTests.itShouldBeConvertedToValidJSON" />
+        <item itemvalue="JUnit.StateTests.itShouldHaveAllFiveAttributes" />
         <item itemvalue="Application.BackSimulationApplication" />
         <item itemvalue="Application.WebSocketClient" />
       </list>

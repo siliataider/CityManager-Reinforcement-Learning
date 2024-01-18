@@ -10,6 +10,7 @@ public class Agent extends MapObject{
     public Agent(int id, Point coords) {
         super(id, coords);
         state = new State();
+        color = "red";
     }
 
     public Agent(int id, Point coords, State state, String algo) {
@@ -21,6 +22,12 @@ public class Agent extends MapObject{
         if(algo.equals("DQL")){
             color = "blue";
         }
+    }
+
+    public Agent() {
+        super(0 ,new Point(1,1));
+        state = new State();
+        color = "red";
     }
 
     @Override
