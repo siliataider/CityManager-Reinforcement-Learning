@@ -74,12 +74,12 @@ async def read_socket(websocket):
 
 
 # Run python backend as client
-async def connect_to_websocket():
-    uri = "wss://citymanagerjava.onrender.com/websocket-endpoint" 
-    async with websockets.connect(uri) as websocket:
-        while True:
-            # Envoyez et recevez des messages ici
-            await read_socket(websocket)
+# async def connect_to_websocket():
+#     uri = "wss://citymanagerjava.onrender.com/websocket-endpoint" 
+#     async with websockets.connect(uri) as websocket:
+#         while True:
+#             # Envoyez et recevez des messages ici
+#             await read_socket(websocket)
 
 # Run python backend as server
 async def listen_to_websocket():
