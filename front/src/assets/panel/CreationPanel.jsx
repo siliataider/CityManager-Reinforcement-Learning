@@ -1,4 +1,5 @@
 import {useDispatch, useSelector} from 'react-redux';
+import {React, useState} from 'react';
 
 import { setCursorObject, setBuildingType, switchIsDragging } from "../mouse/mouseSlice";
 
@@ -17,6 +18,19 @@ const CreationPanel = (props) => {
 
     const isDragging = useSelector( (state) => state.mouse.isDragging);
     const socket = useSelector( (state) => state.socket.socket);
+
+    const [counter, setCounter] = useState(1);
+
+    const increase = () => {
+        setCounter(count => count+1)
+    }
+
+    const decrease = () => {
+        if(counter > 1){
+            setCounter(count => count-1)
+        }
+        
+    }
 
     /**
      * Switch the cursore from dragging a building to not or the oposite
@@ -61,7 +75,7 @@ const CreationPanel = (props) => {
             socket.off(socketEvents.saveAndStart)
         });
 
-        const startMessage = {nAgents : 10}
+        const startMessage = {nAgents : counter}
 
         console.log(startMessage)
 
@@ -73,9 +87,9 @@ const CreationPanel = (props) => {
     return(
     <>
         <h1>Config :</h1>
-
-        <button>Agent : 0</button>
-        <button>+</button>
+        <button onClick = {decrease}>-</button>
+        <button>Agents : {counter}</button>
+        <button onClick = {increase}>+</button>
         <br></br>
 
 
