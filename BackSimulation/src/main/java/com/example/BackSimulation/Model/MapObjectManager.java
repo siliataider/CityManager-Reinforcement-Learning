@@ -32,9 +32,9 @@ public class MapObjectManager {
         ArrayList<Agent> trueAgents = new ArrayList<Agent>();
 
         for(int i = 0; i<agentDTOList.size(); i++){
-            Point coords = getByType("Home").getCoords();
-            if(agentDTOList.get(i).getAction() != null){
-                coords = getByType(agentDTOList.get(i).getAction()).getCoords();
+            Point coords = getByType(agentDTOList.get(i).getAction()).getCoords();
+            if(agentDTOList.get(i).getAction() == null){
+                coords = getByType("Home").getCoords();
             }
             String algo = agentDTOList.get(i).getAlgo();
             State state = new State(agentDTOList.get(i).getState(), coords.getX(), coords.getY());

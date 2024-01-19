@@ -17,6 +17,29 @@ const GamePanel = (props) => {
 
     const [speed, setSpeed] = useState(1);
     const [isAgentSet, setIsAgentSet] = useState(false);
+    const [weather,setWeather] = useState("Sunny")
+
+    function changeWeather(){
+      
+
+      socket.on(socketEvents.change_weather, (message) => {
+          console.log(message);
+          const data = JSON.parse(message);
+          if (data.response == "ok"){
+            setWeather(data.weather);
+          }
+          else{
+            console.log(data.message)
+          }
+          socket.off(socketEvents.change_weather)
+      });
+
+      const weatherMessage = {}
+      console.log(weatherMessage)
+
+      // Ask the back if the simulation can start
+      socket.emit(socketEvents.change_weather, JSON.stringify(weatherMessage))
+  }
 
     function changeSpeed(newSpeed){
       socket.on(socketEvents.change_speed, (message) => {
@@ -90,7 +113,8 @@ const GamePanel = (props) => {
         <button>+</button>
         <br></br>
 
-        <button>Change Weather</button>
+        <button onClick={changeWeather}>Change Weather</button>
+        <div>Weather: {weather}</div>
         <br></br>
         <label className ="col-form-label">Simulation speed:</label>
         <input

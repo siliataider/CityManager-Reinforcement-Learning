@@ -3,6 +3,7 @@ package com.example.BackSimulation;
 import com.corundumstudio.socketio.*;
 import com.corundumstudio.socketio.listener.ConnectListener;
 import com.corundumstudio.socketio.listener.DataListener;
+import com.corundumstudio.socketio.listener.DisconnectListener;
 import com.example.BackSimulation.DTO.*;
 import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
@@ -135,6 +136,30 @@ public class Simulator {
             }
         });
 
+        rawServer.addEventListener("weather", String.class, new DataListener<String>() {
+            @Override
+            public void onData(SocketIOClient client, String data, AckRequest ackRequest) {
+                try{
+                    Gson gson = new Gson();
+                    WeatherDTO weather = gson.fromJson(data, WeatherDTO.class);
+                    simulation.getWeatherManager().changeWeather();
+                    server.getBroadcastOperations().sendEvent("weather",
+                            "{"
+                                    +"\"response\": \"ok\","
+                                    +"\"weather\": \"" +simulation.getWeatherManager().toJSONString()+"\""
+                                    +"}");
+
+                }
+                catch(Exception e){
+                    server.getBroadcastOperations().sendEvent("weather",
+                            "{"
+                                    +"\"response\": \"notok\","
+                                    +"\"message\": " +"\"error changing weather: "+e+"\""
+                                    +"}");
+                }
+            }
+        });
+
 
         rawServer.addConnectListener(new ConnectListener() {
             @Override
@@ -144,6 +169,15 @@ public class Simulator {
 
             }
         });
+
+        /*rawServer.addDisconnectListener(new DisconnectListener() {
+            @Override
+            public void onDisconnect(SocketIOClient client) {
+                System.out.println("Client disconnected: " + client.getSessionId());
+                System.out.println("Stopping simulation...");
+                if(go){stopSimulation();}
+            }
+        });*/
 
 
 
