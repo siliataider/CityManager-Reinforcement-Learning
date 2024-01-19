@@ -10,7 +10,7 @@ public class State {
     private Double money;
 
     private int x = 1;
-    private int y =1;
+    private int y = 1;
 
     public State(Double hunger, Double energy, Double money) {
         this.hunger = hunger;

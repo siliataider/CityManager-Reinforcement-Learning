@@ -6,15 +6,36 @@ import socketEvents from "../socket/socketEvents";
 import { clearMapObjects, setAgents } from "../canvas/drawSlice";
 import CreationPanel from "./CreationPanel";
 import { clearCanavas } from "../canvas/canavasTools";
-import GraphReward from "../graph/GraphReward";
+
 
 
 const GamePanel = (props) => {
 
     const dispatch = useDispatch();
     const socket = useSelector( (state) => state.socket.socket);
-    const agents = useSelector( (state) => state.draw.agents);
-    const [isAgentSet, setIsAgentSet] = useState(false);
+
+    const [speed, setSpeed] = useState(1);
+
+    function changeSpeed(newSpeed){
+      socket.on(socketEvents.change_speed, (message) => {
+          console.log(message);
+          const data = JSON.parse(message);
+          if (data.response == "ok"){
+            setSpeed(newSpeed);
+          }
+          else{
+            console.log(data.message)
+          }
+          socket.off(socketEvents.change_speed)
+      });
+
+      const speedMessage = {speed : speed/10}
+
+      console.log(speedMessage)
+
+      // Ask the back if the simulation can start
+      socket.emit(socketEvents.change_speed, JSON.stringify(speedMessage))
+  }
 
     function stop(){
       socket.on(socketEvents.stop_simulation, (message) => {
@@ -51,11 +72,9 @@ const GamePanel = (props) => {
                 y : agent.state.y,
                 color : agent.color,
                 size : 10,
-                rewardMoyen: agent.rewardMoyen
             })
           }
           dispatch( setAgents( agentList) );
-          setIsAgentSet(true)
         });
       }, [])
 
@@ -69,16 +88,21 @@ const GamePanel = (props) => {
 
         <button>Change Weather</button>
         <br></br>
-
-        <button>x1</button>
-        <button>x10</button>
+        <label classname ="col-form-label">Simulation speed:</label>
+        <input
+        className="form-control w-25"
+        value={speed}
+        type="number"
+        max="100"
+        min="1"
+        onChange={e => changeSpeed(e.target.value)}
+        /> %
         <br></br>
         <button>GraveYard</button>
         <br></br>
         <br></br>
         <button onClick={stop}>STOP</button>
         <br></br>
-        {isAgentSet && <GraphReward data={agents[0].rewardMoyen} />}
     </>
     );
     
