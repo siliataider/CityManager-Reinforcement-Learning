@@ -1,6 +1,6 @@
 import './App.css'
 
-import { useEffect, useState } from 'react';
+import {  useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import MapCanvas from './assets/canvas/MapCanvas';
@@ -11,7 +11,7 @@ import socketEvents from './assets/socket/socketEvents';
 import { setSocket } from './assets/socket/socketSlice';
 
 
-
+import MapProject from './assets/map/MapProject';
 
 function App() {
 
@@ -39,53 +39,43 @@ function App() {
 
     }, [])
 
+    // SEE : https://www.youtube.com/watch?v=PfZ4oLftItk
+    // SEE : https://console.cloud.google.com/google/maps-apis/home?project=front-map-411609
+    const position = { lat: 45.77722633389068, lng:  4.92226934948768 };
+    const [open, setOpen] = useState(false);
+
+
+    
+    const onClick = (e) =>{
+      console.log(e.detail.latLng);
+    }
+
 
   return (
+
     <>
-
-    {cursorObject}
-
-    {/* <Popup trigger=
-                {<button> Click to open modal </button>} 
-                modal nested>
-                {
-                    close => (
-                        <div className='modal'>
-                            <div className='content'>
-                                Welcome to GFG!!!
-                            </div>
-                            <div>
-                                <button onClick=
-                                    {() => close()}>
-                                        Close modal
-                                </button>
-                            </div>
-                        </div>
-                    )
-                }
-            </Popup>
-    */}
-    
     <div className='container'>
     <div className="row">
 
       <div className='col-4'>
       {leftPanel}
-      {/* <GamePanel className="col"></GamePanel> */}
       </div>
 
       <div className='col'>
-        <MapCanvas></MapCanvas>
+        <MapProject></MapProject>
+
       </div>
 
     </div>
     </div>
 
+    {cursorObject} 
 
-    </>
+
+     </>); 
    
 
-  )
+  
 }
 
 export default App
