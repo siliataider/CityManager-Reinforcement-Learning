@@ -7,7 +7,7 @@ const GraphReward = ({ data }) => {
       labels: [],
       datasets: [
         {
-          label: 'Reward Moyen en fonction des episode',
+          label: 'Reward Moyen en fonction des episodes',
           data: [],
           fill: false,
           borderColor: 'rgba(75,192,192,1)',

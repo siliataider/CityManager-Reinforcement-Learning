@@ -1,5 +1,4 @@
 import random
-from resources.variables import MAX_TIME_STEP
 
 class AgentEnvironment:
     def __init__(self, timestamp, weather):
@@ -108,9 +107,9 @@ class AgentEnvironment:
         
         return reward, (timestamp, weather, hunger, energy, money)
 
-    def calul_reward_moyen(self, reward, is_new_episode):
-        if is_new_episode:
-            self.reward_moy.append(self.total_reward/ MAX_TIME_STEP)
+    def calul_reward_moyen(self, reward, simulationCondition):
+        if simulationCondition.is_new_episode:
+            self.reward_moy.append(self.total_reward/ simulationCondition.max_time_steps)
             self.total_reward = 0
         self.total_reward += reward
         #print(f"total reward: {self.total_reward}")

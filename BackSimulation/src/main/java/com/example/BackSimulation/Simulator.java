@@ -225,6 +225,8 @@ public class Simulator {
                     "\"event\": \"createAgent\"," +
                     "\"data\": {" +
                     "\"nbAgent\": " + start.getnAgents() + "," +
+                    "\"explorationRateDecay\": " + start.getexplorationRateDecay() + "," +
+                    "\"maxTimeStep\": " + start.getmaxTimeStep() + "," +
                     "\"timestamp\": " + simulation.getTimeManager().getCurrentTick() +"," +
                     "\"weather\": " + simulation.getWeatherManager().getWeather().getValue() +
                     "}" +
