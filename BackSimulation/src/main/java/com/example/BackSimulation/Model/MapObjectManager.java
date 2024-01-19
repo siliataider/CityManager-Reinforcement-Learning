@@ -121,4 +121,23 @@ public class MapObjectManager {
 
         return agentsJSON;
     }
+
+    public String buildingsToJSONString(){
+        String buildingsJSON = "[";
+        for(int i=0;i<buildings.size();i++){
+            if(i>0){
+                buildingsJSON+=",";
+            }
+            buildingsJSON+=buildings.get(i).toJSONString();
+        }
+        buildingsJSON+="]";
+
+        return buildingsJSON;
+    }
+
+    public String toJSONString(){
+        return "{\"agents\": " + agentsToJSONString()+"," +
+                "\"buildings\": " + buildingsToJSONString() +
+                "}";
+    }
 }
