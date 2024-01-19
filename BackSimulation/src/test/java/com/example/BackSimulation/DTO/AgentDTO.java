@@ -3,9 +3,6 @@ package com.example.BackSimulation.DTO;
 import com.google.gson.internal.LinkedTreeMap;
 import org.springframework.lang.Nullable;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class AgentDTO {
     private int id;
     @Nullable
@@ -14,14 +11,12 @@ public class AgentDTO {
     private String algo;
 
     private LinkedTreeMap<String,Double> state;
-    private List<Double> rewardmoyen;
 
-    public AgentDTO(int id, String action, String algo, LinkedTreeMap<String,Double> state, List<Double> rewardmoyen) {
+    public AgentDTO(int id, String action, String algo, LinkedTreeMap<String,Double> state) {
         this.id = id;
         this.action = action;
         this.algo = algo;
         this.state = state;
-        this.rewardmoyen = rewardmoyen;
     }
 
     public int getId() {
@@ -46,10 +41,6 @@ public class AgentDTO {
 
     public LinkedTreeMap<String, Double> getState() {
         return state;
-    }
-
-    public List<Double> getRewardmoyen() {
-        return rewardmoyen;
     }
 
     @Override

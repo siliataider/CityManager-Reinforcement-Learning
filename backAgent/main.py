@@ -21,9 +21,12 @@ async def read_socket(websocket):
         decode_message = json.loads(message)
 
         if decode_message['event'] == 'createAgent':
+            print("Creating agents")
             # init agents :
             agents = []
             data = decode_message['data']
+            simulationConditions.set_simulation_config(max_time_steps=data['maxTimeStep'], exploration_rate_decay=data['explorationRateDecay'])
+            print(f"exploration_rate_decay {simulationConditions.exploration_rate_decay}, maxtimestep {simulationConditions.max_time_steps}")
             for index in range(data['nbAgent']):
                 env = AgentEnvironment(timestamp=data['timestamp'], weather=data['weather'])
                 if index % 2:
@@ -74,12 +77,12 @@ async def read_socket(websocket):
 
 
 # Run python backend as client
-async def connect_to_websocket():
-    uri = "wss://citymanagerjava.onrender.com/websocket-endpoint" 
-    async with websockets.connect(uri) as websocket:
-        while True:
-            # Envoyez et recevez des messages ici
-            await read_socket(websocket)
+# async def connect_to_websocket():
+#     uri = "wss://citymanagerjava.onrender.com/websocket-endpoint" 
+#     async with websockets.connect(uri) as websocket:
+#         while True:
+#             # Envoyez et recevez des messages ici
+#             await read_socket(websocket)
 
 # Run python backend as server
 async def listen_to_websocket():

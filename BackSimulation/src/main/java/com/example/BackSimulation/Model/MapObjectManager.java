@@ -7,6 +7,7 @@ import com.example.BackSimulation.Model.MapObjects.*;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MapObjectManager {
 
@@ -37,7 +38,8 @@ public class MapObjectManager {
             }
             String algo = agentDTOList.get(i).getAlgo();
             State state = new State(agentDTOList.get(i).getState(), coords.getX(), coords.getY());
-            trueAgents.add(new Agent(agentDTOList.get(i).getId(), coords, state, algo));
+            List<Double> rewardMoyen = agentDTOList.get(i).getRewardmoyen();
+            trueAgents.add(new Agent(agentDTOList.get(i).getId(), coords, state, algo, rewardMoyen));
         }
 
         agents = trueAgents;

@@ -6,9 +6,10 @@ import socketReducer from './assets/socket/socketSlice';
 
 
 export default configureStore({
-     reducer: {
+    reducer: {
         mouse : mouseReducer,
         draw : drawsReducer,     
         socket : socketReducer,
         },
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware({serializableCheck: false}),
     })
