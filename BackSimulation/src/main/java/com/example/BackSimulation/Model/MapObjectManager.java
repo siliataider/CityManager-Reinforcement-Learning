@@ -4,7 +4,9 @@ import com.example.BackSimulation.DTO.AgentDTO;
 import com.example.BackSimulation.DTO.BuildingDTO;
 import com.example.BackSimulation.Model.Enums.BuildingType;
 import com.example.BackSimulation.Model.MapObjects.*;
+import com.example.BackSimulation.Model.MouvableObject.CoordBigDecimal;
 
+import javax.naming.ldap.Control;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,12 +34,12 @@ public class MapObjectManager {
         ArrayList<Agent> trueAgents = new ArrayList<Agent>();
 
         for(int i = 0; i<agentDTOList.size(); i++){
-            Point coords = getByType(agentDTOList.get(i).getAction()).getCoords();
+            CoordBigDecimal coords = getByType(agentDTOList.get(i).getAction()).getCoords();
             if(agentDTOList.get(i).getAction() == null){
                 coords = getByType("Home").getCoords();
             }
             String algo = agentDTOList.get(i).getAlgo();
-            State state = new State(agentDTOList.get(i).getState(), coords.getX(), coords.getY());
+            State state = new State(agentDTOList.get(i).getState());
             List<Double> rewardMoyen = agentDTOList.get(i).getRewardmoyen();
             trueAgents.add(new Agent(agentDTOList.get(i).getId(), coords, state, algo, rewardMoyen));
         }
@@ -85,7 +87,7 @@ public class MapObjectManager {
 
     }
     public void unbuild(int id){
-        for (int i = 0; i < buildings.size(); i++){
+        for (int i = 0; i < this.buildings.size(); i++){
             if(buildings.get(i).getId() == id){
                 buildings.remove(i);
             }
@@ -106,7 +108,7 @@ public class MapObjectManager {
                 return buildings.get(i);
             }
         }
-        return new Building(new Point(1,1));
+        return new Building(new CoordBigDecimal(1,1));
     }
 
     public String agentsToJSONString() {

@@ -32,9 +32,12 @@ public class Simulation {
         hasBuildings.put("Home",false);
         hasBuildings.put("Resto",false);
 
+
         for(int i = 0; i<mapObjectManager.getBuildings().size(); i++){
             hasBuildings.put(mapObjectManager.getBuildings().get(i).getClass().getSimpleName(),true);
         }
+
+        System.out.println(hasBuildings);
 
         if(nAgents>=1 & hasBuildings.get("Work") & hasBuildings.get("Home") & hasBuildings.get("Resto")){
             return true;

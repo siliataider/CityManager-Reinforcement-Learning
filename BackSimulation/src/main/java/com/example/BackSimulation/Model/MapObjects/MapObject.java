@@ -1,23 +1,19 @@
 package com.example.BackSimulation.Model.MapObjects;
+import com.example.BackSimulation.Model.MouvableObject.CoordBigDecimal;
+
 import java.awt.Point;
 
 public abstract class MapObject {
     private int id;
-    private Point coords;
-    private Point size = new Point(1,1);
-    private Object affichage = null;
+    public CoordBigDecimal coords;
 
-    public MapObject(int id, Point coords) {
+    public MapObject(int id, CoordBigDecimal coords) {
         this.id = id;
         this.coords = coords;
     }
 
-    public Point getCoords() {
+    public CoordBigDecimal getCoords() {
         return coords;
-    }
-
-    public void setCoords(Point coords) {
-        this.coords = coords;
     }
 
     public int getId(){

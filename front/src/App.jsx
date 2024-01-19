@@ -3,6 +3,7 @@ import './App.css'
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
+import MapProject from './assets/map/MapProject';
 import MapCanvas from './assets/canvas/MapCanvas';
 import CreationPanel from './assets/panel/CreationPanel'
 
@@ -43,28 +44,8 @@ function App() {
   return (
     <>
 
-    {cursorObject}
 
-    {/* <Popup trigger=
-                {<button> Click to open modal </button>} 
-                modal nested>
-                {
-                    close => (
-                        <div className='modal'>
-                            <div className='content'>
-                                Welcome to GFG!!!
-                            </div>
-                            <div>
-                                <button onClick=
-                                    {() => close()}>
-                                        Close modal
-                                </button>
-                            </div>
-                        </div>
-                    )
-                }
-            </Popup>
-    */}
+
     
     <div className='container'>
     <div className="row">
@@ -75,11 +56,13 @@ function App() {
       </div>
 
       <div className='col'>
-        <MapCanvas></MapCanvas>
+        <MapProject></MapProject>
       </div>
 
     </div>
     </div>
+
+    {cursorObject}
 
 
     </>

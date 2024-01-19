@@ -73,7 +73,6 @@ public class Simulator {
             public void onData(SocketIOClient client, String data, AckRequest ackRequest) {
                 Gson gson = new Gson();
                 BuildingDTO building = gson.fromJson(data, BuildingDTO.class);
-                building.setCoords(new Point(building.getX(),building.getY()));
                 try{
                     simulation.getMapObjectManager().build(building);
                     server.getBroadcastOperations().sendEvent("build",
@@ -97,8 +96,10 @@ public class Simulator {
             @Override
             public void onData(SocketIOClient client, String data, AckRequest ackRequest) {
                 try{
+                    System.out.println(data);
                     Gson gson = new Gson();
                     StartDTO start = gson.fromJson(data, StartDTO.class);
+                    System.out.println("OK");
                     startSimulation(start);
                 }
                 catch(Exception e){
@@ -267,8 +268,6 @@ public class Simulator {
                                         +"}");
                         go = false;
                         stopSimulation();
-
-
 
                     }
                     catch(Exception e){
