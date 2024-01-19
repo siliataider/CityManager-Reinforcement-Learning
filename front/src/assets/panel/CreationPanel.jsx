@@ -102,50 +102,59 @@ const CreationPanel = (props) => {
     return(
     <>
         <h1>Config :</h1>
-        <button onClick = {decrease}>-</button>
-        <button>Agents : {counter}</button>
-        <button onClick = {increase}>+</button>
-        <br></br>
+        <div className='col bg-secondary-subtle p-2'>
+            <div className='mb-2'>
+                <button type="button" className='btn btn-light' onClick = {decrease}>-</button>
+                <label className='col-form-label bg-light'>Agents : {counter}</label>
+                <button type="button" className='btn btn-light' onClick = {increase}>+</button>
+            </div>
+            
+            <div className='mb-2'>
+                <button type="button" className='btn btn-primary w-50' onClick={ () => switchCursor(BuildingType.HOME) }
+                >New House</button>
+            </div>
 
+            <div className='mb-2'>
+                <button className='btn btn-danger w-50' onClick={ () => switchCursor(BuildingType.FOOD)}
+                >New cantine</button>
+            </div>
 
-        <button onClick={ () => switchCursor(BuildingType.HOME) }
-        style={getButtonStyle(BuildingType.HOME[1])}
-        >New House</button>
-        <br></br>
+            <div className='mb-5'>
+                <button className='btn btn-success w-50' onClick={ () => switchCursor(BuildingType.JOB) }
+                >New office</button>
+            </div>
 
-        <button onClick={ () => switchCursor(BuildingType.FOOD)}
-        style={getButtonStyle(BuildingType.FOOD[1])}
-        >New cantine</button>
-        <br></br>
+            <div className='form-group row mb-2'>
+                <label className='col-form-label col-6'>Length of episode:</label>
+                <div className="col-4">
+                    <input 
+                        className='form-control' 
+                        type="number" 
+                        id="lengthOfEp" 
+                        value={lengthOfEpisode} 
+                        onChange={handleChangeLengthOfEpisode}
+                    />
+                </div>
+            </div>
 
-    
-        <button onClick={ () => switchCursor(BuildingType.JOB) }
-        style={getButtonStyle(BuildingType.JOB[1])}
-        >New office</button>
-        <br></br>
+            <div className='form-group row mb-5'>
+                <label className='col-form-label col-6'>Exploration Rate Decay:</label>
+                <div className="col-4">
+                    <input 
+                        className='form-control' 
+                        type="number" 
+                        id="lengthOfEp" 
+                        value={explorationRateDecay} 
+                        onChange={handleChangeExplorationRateDecay}
+                    />
+                </div>
+            </div>
 
-        <label className='col-form-label'>Length of episode:</label>
-        <input 
-            className='form-control' 
-            type="number" 
-            id="lengthOfEp" 
-            value={lengthOfEpisode} 
-            onChange={handleChangeLengthOfEpisode}
-        />
-        <br></br>
+            <div className='mb-2'>
+                <button type="button" className="btn btn-light w-50" onClick={saveAndStart}>Save & Start</button>
+            </div>
 
-        <label className='col-form-label'>Exploration Rate Decay:</label>
-        <input 
-            className='form-control' 
-            type="number" 
-            id="lengthOfEp" 
-            value={explorationRateDecay} 
-            onChange={handleChangeExplorationRateDecay}
-        />
-        <br></br>
-
-        <button onClick={saveAndStart}>Save & Start</button>
-        <br></br>
+        </div>
     </>
     );
     

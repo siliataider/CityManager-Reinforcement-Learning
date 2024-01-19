@@ -108,30 +108,42 @@ const GamePanel = (props) => {
     return(
     <>
         <h1>Config :</h1>
+        <div className="col bg-light px-2">
+          <div className="mb-2">
+            <label className="col-form-label">Agent : {agents.length}</label>
+          </div>
 
-        <button>Agent : 0</button>
-        <button>+</button>
-        <br></br>
+          <div className="mb-2">
+            <button onClick={changeWeather} className="btn btn-primary">Change Weather</button>
+            <div>Weather: {weather}</div>
+          </div>
+          <div className="form-group row mb-2">
+            <label className ="col-form-label col-4">Simulation speed:</label>
+            <div className="col-4">
+              <input
+                className="form-control"
+                value={speed}
+                type="number"
+                max="100"
+                min="1"
+                onChange={e => changeSpeed(e.target.value)}
+              />
+              </div>
+              <label className="col-form-label col-2">%</label>
+          </div>
+          <div className="mb-2">
+            <button className="btn btn-dark">GraveYard</button>
+          </div>
 
-        <button onClick={changeWeather}>Change Weather</button>
-        <div>Weather: {weather}</div>
-        <br></br>
-        <label className ="col-form-label">Simulation speed:</label>
-        <input
-        className="form-control w-25"
-        value={speed}
-        type="number"
-        max="100"
-        min="1"
-        onChange={e => changeSpeed(e.target.value)}
-        /> %
-        <br></br>
-        <button>GraveYard</button>
-        <br></br>
-        <br></br>
-        <button onClick={stop}>STOP</button>
-        <br></br>
-        {isAgentSet && <GraphReward data={agents[0].rewardMoyen} />}
+          <div className="mb-2">
+            <button className="btn btn-danger" onClick={stop}>STOP</button>
+          </div>
+
+          <div className="mb-2">
+            {isAgentSet && <GraphReward data={agents[0].rewardMoyen} />}
+          </div>
+
+        </div>
     </>
     );
     
