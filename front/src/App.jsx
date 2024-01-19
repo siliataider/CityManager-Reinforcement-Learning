@@ -58,16 +58,35 @@ function App() {
 
 
   return (
+
+    <>
+    {cursorObject} 
+
   
-    <APIProvider apiKey={"AIzaSyAAvMg9x2VcnKS2R5PuaiaydluXxykRFno"}>
+    
+
+
+    
+    <div className='container'>
+    <div className="row">
+
+      <div className='col-4'>
+      {leftPanel}
+      </div>
+
+      <div className='col'>
+      <APIProvider apiKey={"AIzaSyAAvMg9x2VcnKS2R5PuaiaydluXxykRFno"}>
       <div style={{ height: "100vh", width: "100%" }}>
-        <Map zoom={16} center={position} mapId={"c1f6e617d042fe39"} onClick={onClick}>
+        <Map zoom={15} center={position} mapId={"c1f6e617d042fe39"} onClick={onClick}>
+
+          
           <AdvancedMarker position={position} onClick={() => setOpen(true)}>
-            <Pin
-              background={"grey"}
-              borderColor={"green"}
-              glyphColor={"purple"}
-            />
+          <div style={{
+            backgroundColor:"blue",
+            width: 20,
+            height: 20,
+            borderRadius:50}}>
+          </div>
           </AdvancedMarker>
 
           {open && (
@@ -78,31 +97,14 @@ function App() {
         </Map>
       </div>
     </APIProvider>
-
-  )
-   // <>
-
-    {/* {cursorObject} */}
-
-   
-
-    
-    {/* <div className='container'>
-    <div className="row">
-
-      <div className='col-4'>
-      {leftPanel}
-      </div>
-
-      <div className='col'>
-        <MapCanvas></MapCanvas>
+       
       </div>
 
     </div>
-    </div> */}
+    </div>
 
 
-    {/* </> */}
+     </>); 
    
 
   
