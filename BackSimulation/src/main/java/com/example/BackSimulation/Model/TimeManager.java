@@ -54,8 +54,8 @@ public class TimeManager {
     public String toJSONString() {
         String ret =
                 "{"
-                +"currentTick:"+currentTick+","
-                +"totalTicks:"+totalTicks
+                +"\"currentTick\":"+currentTick+","
+                +"\"totalTicks\":"+totalTicks
                 +"}";
 
         return ret;

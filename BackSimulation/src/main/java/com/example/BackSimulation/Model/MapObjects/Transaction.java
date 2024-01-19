@@ -79,7 +79,7 @@ public class Transaction {
             if(i>0){
                 takenJSON+=",";
             }
-            takenJSON+=taken.get(i)+":"+takenQuantities.get(i);
+            takenJSON+="\""+taken.get(i)+"\""+":"+takenQuantities.get(i);
         }
         takenJSON+="}";
 
@@ -88,14 +88,14 @@ public class Transaction {
             if(i>0){
                 givenJSON+=",";
             }
-            givenJSON+=given.get(i)+":"+givenQuantities.get(i);
+            givenJSON+="\""+given.get(i)+"\""+":"+givenQuantities.get(i);
         }
         givenJSON+="}";
 
         String ret =
                 "{"
-                +"taken:"+takenJSON+","
-                +"given:"+givenJSON
+                +"\"taken\":"+takenJSON+","
+                +"\"given\":"+givenJSON
                 +"}";
 
         return ret;

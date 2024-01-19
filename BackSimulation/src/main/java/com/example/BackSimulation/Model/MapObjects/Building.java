@@ -38,10 +38,10 @@ public class Building extends MapObject{
     public String toJSONString() {
         String ret =
                 "{"
-                +"type:"+getClass().getSimpleName()+","
-                +"openTime:"+openTime+","
-                +"closeTime:"+closeTime+","
-                +"transaction:"+transaction.toJSONString()
+                +"\"type\":"+getClass().getSimpleName()+","
+                +"\"openTime\":"+openTime+","
+                +"\"closeTime\":"+closeTime+","
+                +"\"transaction\":"+transaction.toJSONString()
                 +"}";
 
         return ret;

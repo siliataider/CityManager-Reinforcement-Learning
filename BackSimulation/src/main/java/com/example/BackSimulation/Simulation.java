@@ -50,17 +50,17 @@ public class Simulation {
 
 
 
-    /*public String toJSONString(){
+    public String toJSONString(){
         String ret =
                 "{"
-                +"mapSize:{x:"+mapSize.getX()+",y:"+mapSize.getY()+"},"
-                +"time:"+timeManager.toJSONString()+","
-                +"weather:"+weatherManager.toJSONString()+","
-                +"mapObjects:"+mapObjectManager.toJSONString()
+                +"\"mapSize\":{\"x\":"+mapSize.getX()+",\"y\":"+mapSize.getY()+"},"
+                +"\"time\":"+timeManager.toJSONString()+","
+                +"\"weather\":"+weatherManager.toJSONString()+","
+                +"\"mapObjects\":"+mapObjectManager.toJSONString()
                 +"}";
 
         return ret;
-    }*/
+    }
 
 
 }
