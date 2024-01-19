@@ -16,6 +16,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.awt.*;
+import java.util.List;
 
 @Service
 public class Simulator {
@@ -37,7 +38,7 @@ public class Simulator {
         // [VICK] This config needs to go somwere else :
         // SOCKET IO CONFIG :
         Configuration config = new Configuration();
-        config.setPort(8080);
+        config.setPort(5050);
         //config.setOrigin("*"); // Permettre toutes les origines (à restreindre en production)
 
         // SEE : https://github.com/mrniko/netty-socketio/issues/254
@@ -123,10 +124,9 @@ public class Simulator {
     }
 
     private void initPythonWebSocketClient() {
-        /**
         try {
-            pythonWebSocketClient = new WebSocketClient(new URI("wss://citymanagerpython.onrender.com")) {
-            //pythonWebSocketClient = new WebSocketClient(new URI("ws://localhost:8765")) {
+            //pythonWebSocketClient = new WebSocketClient(new URI("wss://citymanagerpython.onrender.com")) {
+            pythonWebSocketClient = new WebSocketClient(new URI("ws://localhost:8765")) {
                 @Override
                 public void onOpen(ServerHandshake handshakedata) {
                     System.out.println("Connected to Python WebSocket server");
@@ -148,7 +148,8 @@ public class Simulator {
                         String action = (String) agentListRaw.get(i).get("action");
                         String algo = (String) agentListRaw.get(i).get("algo");
                         LinkedTreeMap<String,Double> state = (LinkedTreeMap<String, Double>) agentListRaw.get(i).get("state");
-                        agentList.add(new AgentDTO(id,action,algo,state));
+                        List<Double> rewardMoyen = (List<Double>) agentListRaw.get(i).get("reward_moyen");
+                        agentList.add(new AgentDTO(id,action,algo,state, rewardMoyen));
                     }
 
                     try {
@@ -176,7 +177,6 @@ public class Simulator {
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
-         */
     }
 
     private void startSimulation(StartDTO start) throws Exception {

@@ -1,11 +1,14 @@
 package com.example.BackSimulation.Model.MapObjects;
 
 import java.awt.*;
+import java.util.List;
 
 public class Agent extends MapObject{
     private State state;
 
     private String color;
+
+    private List<Double> rewardMoyen;
 
     public Agent(int id, Point coords) {
         super(id, coords);
@@ -13,7 +16,7 @@ public class Agent extends MapObject{
         color = "red";
     }
 
-    public Agent(int id, Point coords, State state, String algo) {
+    public Agent(int id, Point coords, State state, String algo, List<Double> rewardMoyen) {
         super(id, coords);
         this.state = state;
         if(algo.equals("QL")){
@@ -22,6 +25,7 @@ public class Agent extends MapObject{
         if(algo.equals("DQL")){
             color = "blue";
         }
+        this.rewardMoyen = rewardMoyen;
     }
 
     public Agent() {
@@ -43,7 +47,8 @@ public class Agent extends MapObject{
         String ret = "{" +
                 "\"id\": " + getId() + "," +
                 "\"color\": \"" + color + "\"," +
-                "\"state\": " + state.toJSONString() +
+                "\"state\": " + state.toJSONString() + "," +
+                "\"rewardMoyen\": " + rewardMoyen +
                 "}";
         return ret;
     }
