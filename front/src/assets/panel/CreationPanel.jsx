@@ -72,7 +72,7 @@ const CreationPanel = (props) => {
             }else {
                 console.log(data.message)
             }
-            socket.off(socketEvents.saveAndStart)
+            socket.off(socketEvents.run_simulation)
         });
 
         const startMessage = {nAgents : counter}

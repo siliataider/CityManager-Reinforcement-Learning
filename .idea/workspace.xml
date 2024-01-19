@@ -5,30 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="07fbec91-0c86-47d8-ac4b-2ba1d8072e5e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/BackSimulation/src/test/java/com/example/BackSimulation/DTO/AgentDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BackSimulation/src/test/java/com/example/BackSimulation/DTO/AgentListDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BackSimulation/src/test/java/com/example/BackSimulation/DTO/BuildingDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BackSimulation/src/test/java/com/example/BackSimulation/DTO/StartDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BackSimulation/src/test/java/com/example/BackSimulation/Model/Enums/BuildingType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BackSimulation/src/test/java/com/example/BackSimulation/Model/Enums/Stats.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BackSimulation/src/test/java/com/example/BackSimulation/Model/Enums/Weather.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BackSimulation/src/test/java/com/example/BackSimulation/Model/MapObjectManagerTests.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BackSimulation/src/test/java/com/example/BackSimulation/Model/MapObjects/AgentTests.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BackSimulation/src/test/java/com/example/BackSimulation/Model/MapObjects/BuildingTests.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BackSimulation/src/test/java/com/example/BackSimulation/Model/MapObjects/HomeTests.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BackSimulation/src/test/java/com/example/BackSimulation/Model/MapObjects/MapObjectTests.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BackSimulation/src/test/java/com/example/BackSimulation/Model/MapObjects/RestoTests.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BackSimulation/src/test/java/com/example/BackSimulation/Model/MapObjects/StateTests.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BackSimulation/src/test/java/com/example/BackSimulation/Model/MapObjects/TransactionTests.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BackSimulation/src/test/java/com/example/BackSimulation/Model/MapObjects/WorkTests.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BackSimulation/src/test/java/com/example/BackSimulation/Model/TimeManagerTests.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BackSimulation/src/test/java/com/example/BackSimulation/Model/WeatherManagerTests.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BackSimulation/src/test/java/com/example/BackSimulation/SimulationTests.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BackSimulation/src/test/java/com/example/BackSimulation/SimulatorTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/DTO/SpeedDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BackSimulation/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BackSimulation/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/MapObjects/State.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Model/MapObjects/State.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Simulator.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackSimulation/src/main/java/com/example/BackSimulation/Simulator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/front/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/src/assets/panel/CreationPanel.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/assets/panel/CreationPanel.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/assets/panel/GamePanel.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/assets/panel/GamePanel.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/assets/socket/socketEvents.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/assets/socket/socketEvents.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/index.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,29 +62,33 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Application.BackSimulationApplication.executor": "Run",
-    "Application.WebSocketClient.executor": "Run",
-    "JUnit.StateTests.itShouldHaveAllFiveAttributes.executor": "Run",
-    "Maven.BackSimulation [clean].executor": "Run",
-    "Maven.BackSimulation [install].executor": "Run",
-    "Maven.BackSimulation [package].executor": "Run",
-    "Maven.BackSimulation [verify].executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "jad",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/jad.ghandour/Bureau/City Manager/BackSimulation/src/test/java/com/example/BackSimulation",
-    "project.structure.last.edited": "SDKs",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Application.BackSimulationApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.WebSocketClient.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AgentTests.itShouldBeConvertedToValidJSON.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.StateTests.itShouldHaveAllFiveAttributes.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.BackSimulation [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.BackSimulation [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.BackSimulation [deploy].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.BackSimulation [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.BackSimulation [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.BackSimulation [validate].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.BackSimulation [verify].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;jad&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/jad.ghandour/Bureau/City Manager/BackSimulation/src/test/java/com/example/BackSimulation&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.repository.indices&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/BackSimulation/src/test/java/com/example/BackSimulation" />
@@ -110,7 +98,7 @@
       <recent name="com.example.BackSimulation.Model.MapObjects" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.AgentTests.itShouldBeConvertedToValidJSON">
+  <component name="RunManager" selected="Application.BackSimulationApplication">
     <configuration name="BackSimulationApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.BackSimulation.BackSimulationApplication" />
       <module name="BackSimulation" />
@@ -187,10 +175,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.BackSimulationApplication" />
         <item itemvalue="JUnit.AgentTests.itShouldBeConvertedToValidJSON" />
         <item itemvalue="JUnit.StateTests.itShouldBeConvertedToValidJSON" />
         <item itemvalue="JUnit.StateTests.itShouldHaveAllFiveAttributes" />
-        <item itemvalue="Application.BackSimulationApplication" />
         <item itemvalue="Application.WebSocketClient" />
       </list>
     </recent_temporary>
