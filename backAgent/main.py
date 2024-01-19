@@ -21,9 +21,12 @@ async def read_socket(websocket):
         decode_message = json.loads(message)
 
         if decode_message['event'] == 'createAgent':
+            print("Creating agents")
             # init agents :
             agents = []
             data = decode_message['data']
+            simulationConditions.set_simulation_config(max_time_steps=data['maxTimeStep'], exploration_rate_decay=data['explorationRateDecay'])
+            print(f"exploration_rate_decay {simulationConditions.exploration_rate_decay}, maxtimestep {simulationConditions.max_time_steps}")
             for index in range(data['nbAgent']):
                 env = AgentEnvironment(timestamp=data['timestamp'], weather=data['weather'])
                 if index % 2:
