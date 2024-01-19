@@ -18,7 +18,7 @@ class Agent() :
         # Exécution de l'action et obtention du nouvel état et de la récompense
         reward, next_state_value = self.env.get_reward_and_next_state(action)
 
-        self.env.calul_reward_moyen(reward, simulationConditions.is_new_episode)
+        self.env.calul_reward_moyen(reward, simulationConditions)
 
         next_state_value = (simulationConditions.timestamp, simulationConditions.weather, *next_state_value[2:])
         # Mise à jour de la table Q

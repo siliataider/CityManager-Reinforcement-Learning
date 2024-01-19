@@ -20,6 +20,9 @@ const CreationPanel = (props) => {
     const socket = useSelector( (state) => state.socket.socket);
 
     const [counter, setCounter] = useState(1);
+    const [explorationRateDecay, setExplorationRateDecay] = useState(25);
+    const [lengthOfEpisode, setLengthOfEpisode] = useState(50);
+
 
     const increase = () => {
         setCounter(count => count+1)
@@ -75,7 +78,7 @@ const CreationPanel = (props) => {
             socket.off(socketEvents.run_simulation)
         });
 
-        const startMessage = {nAgents : counter}
+        const startMessage = {nAgents : counter, explorationRateDecay: explorationRateDecay, maxTimeStep: lengthOfEpisode}
 
         console.log(startMessage)
 
@@ -83,6 +86,18 @@ const CreationPanel = (props) => {
         socket.emit(socketEvents.run_simulation, JSON.stringify(startMessage))
     }
     
+    const handleChangeLengthOfEpisode = (event) => {
+        if (event.target.value && event.target.value != 0) {
+            setLengthOfEpisode(event.target.value);
+        }
+    };
+
+    const handleChangeExplorationRateDecay = (event) => {
+        if (event.target.value && event.target.value != 0) {
+            setExplorationRateDecay(event.target.value);
+        }
+    
+    };
 
     return(
     <>
@@ -107,6 +122,26 @@ const CreationPanel = (props) => {
         <button onClick={ () => switchCursor(BuildingType.JOB) }
         style={getButtonStyle(BuildingType.JOB[1])}
         >New office</button>
+        <br></br>
+
+        <label className='col-form-label'>Length of episode:</label>
+        <input 
+            className='form-control' 
+            type="number" 
+            id="lengthOfEp" 
+            value={lengthOfEpisode} 
+            onChange={handleChangeLengthOfEpisode}
+        />
+        <br></br>
+
+        <label className='col-form-label'>Exploration Rate Decay:</label>
+        <input 
+            className='form-control' 
+            type="number" 
+            id="lengthOfEp" 
+            value={explorationRateDecay} 
+            onChange={handleChangeExplorationRateDecay}
+        />
         <br></br>
 
         <button onClick={saveAndStart}>Save & Start</button>
