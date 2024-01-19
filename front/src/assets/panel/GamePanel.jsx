@@ -6,15 +6,17 @@ import socketEvents from "../socket/socketEvents";
 import { clearMapObjects, setAgents } from "../canvas/drawSlice";
 import CreationPanel from "./CreationPanel";
 import { clearCanavas } from "../canvas/canavasTools";
-
+import GraphReward from "../graph/GraphReward";
 
 
 const GamePanel = (props) => {
 
     const dispatch = useDispatch();
     const socket = useSelector( (state) => state.socket.socket);
+    const agents = useSelector( (state) => state.draw.agents);
 
     const [speed, setSpeed] = useState(1);
+    const [isAgentSet, setIsAgentSet] = useState(false);
 
     function changeSpeed(newSpeed){
       socket.on(socketEvents.change_speed, (message) => {
@@ -72,9 +74,11 @@ const GamePanel = (props) => {
                 y : agent.state.y,
                 color : agent.color,
                 size : 10,
+                rewardMoyen: agent.rewardMoyen
             })
           }
           dispatch( setAgents( agentList) );
+          setIsAgentSet(true)
         });
       }, [])
 
@@ -88,7 +92,7 @@ const GamePanel = (props) => {
 
         <button>Change Weather</button>
         <br></br>
-        <label classname ="col-form-label">Simulation speed:</label>
+        <label className ="col-form-label">Simulation speed:</label>
         <input
         className="form-control w-25"
         value={speed}
@@ -103,6 +107,7 @@ const GamePanel = (props) => {
         <br></br>
         <button onClick={stop}>STOP</button>
         <br></br>
+        {isAgentSet && <GraphReward data={agents[0].rewardMoyen} />}
     </>
     );
     
