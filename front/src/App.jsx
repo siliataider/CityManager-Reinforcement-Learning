@@ -10,14 +10,8 @@ import {io} from 'socket.io-client';
 import socketEvents from './assets/socket/socketEvents';
 import { setSocket } from './assets/socket/socketSlice';
 
-import { GoogleMap, Marker } from "react-google-maps"
-import {
-  APIProvider,
-  Map,
-  AdvancedMarker,
-  Pin,
-  InfoWindow,
-} from "@vis.gl/react-google-maps";
+
+import MapProject from './assets/map/MapProject';
 
 function App() {
 
@@ -60,13 +54,6 @@ function App() {
   return (
 
     <>
-    {cursorObject} 
-
-  
-    
-
-
-    
     <div className='container'>
     <div className="row">
 
@@ -75,33 +62,14 @@ function App() {
       </div>
 
       <div className='col'>
-      <APIProvider apiKey={"AIzaSyAAvMg9x2VcnKS2R5PuaiaydluXxykRFno"}>
-      <div style={{ height: "100vh", width: "100%" }}>
-        <Map zoom={15} center={position} mapId={"c1f6e617d042fe39"} onClick={onClick}>
+        <MapProject></MapProject>
 
-          
-          <AdvancedMarker position={position} onClick={() => setOpen(true)}>
-          <div style={{
-            backgroundColor:"blue",
-            width: 20,
-            height: 20,
-            borderRadius:50}}>
-          </div>
-          </AdvancedMarker>
-
-          {open && (
-            <InfoWindow position={position} onCloseClick={() => setOpen(false)}>
-              <p>I'm in Hamburg</p>
-            </InfoWindow>
-          )}
-        </Map>
-      </div>
-    </APIProvider>
-       
       </div>
 
     </div>
     </div>
+
+    {cursorObject} 
 
 
      </>); 
