@@ -6,7 +6,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import MapProject from './assets/map/MapProject';
 import MapCanvas from './assets/canvas/MapCanvas';
 import CreationPanel from './assets/panel/CreationPanel'
-
 import {io} from 'socket.io-client';
 import socketEvents from './assets/socket/socketEvents';
 import { setSocket } from './assets/socket/socketSlice';
@@ -52,7 +51,7 @@ function App() {
 
       <div className='col-4'>
       {leftPanel}
-      {/* <GamePanel className="col"></GamePanel> */}
+      
       </div>
 
       <div className='col'>

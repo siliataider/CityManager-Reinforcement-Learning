@@ -24,6 +24,8 @@ public class CoordBigDecimal {
 
     @Override
     public String toString() {
-        return "Lat : " + this.lat + "Long : " + this.lng;
+        return "{\"lat\":" + this.lat + ","
+                + "\"lng\":" + this.lng
+                + "}";
     }
 }

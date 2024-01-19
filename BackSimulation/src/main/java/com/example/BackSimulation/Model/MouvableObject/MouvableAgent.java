@@ -2,6 +2,7 @@ package com.example.BackSimulation.Model.MouvableObject;
 
 import com.example.BackSimulation.Model.API.APIopenRouteService;
 import com.example.BackSimulation.Model.MapObjects.Agent;
+import com.example.BackSimulation.Model.MapObjects.Building;
 import com.example.BackSimulation.Model.MapObjects.MapObject;
 
 import java.math.BigDecimal;
@@ -13,21 +14,23 @@ import java.util.Map;
 
 public class MouvableAgent extends MapObject implements Mouvable{
     private CoordBigDecimal dCoords;
-
     private List<List<BigDecimal>> path;
     private int indexPath = 0;
+    private boolean hasArrived = false;
 
     private final BigDecimal deplacementMax = APIopenRouteService.deltaPoints.divide( BigDecimal.valueOf(1),10, RoundingMode.HALF_UP ) ;
     private final BigDecimal sightRadius= APIopenRouteService.deltaPoints.divide( BigDecimal.valueOf(4), 10, RoundingMode.HALF_UP) ;
 
     public MouvableAgent( int id, CoordBigDecimal coords){
         super(id, coords);
+        this.dCoords = new CoordBigDecimal(0,0);
     }
 
     public void setGoal( Building building ){
         this.path = APIopenRouteService.getPathAPI(this.coords.lng.floatValue(), this.coords.lat.floatValue()
                 , building.coords.lng.floatValue(), building.coords.lat.floatValue());
-        System.out.println(this.path.get(0));
+        this.hasArrived = false;
+        this.indexPath = 0;
     }
 
     public BigDecimal  getDistanceNextMove(BigDecimal dx, BigDecimal dy){
@@ -55,6 +58,7 @@ public class MouvableAgent extends MapObject implements Mouvable{
             this.indexPath++;
 
             if (this.indexPath >= this.path.size()) {
+                this.hasArrived = true;
                 System.out.println("Yay, mission acomplie !");
             }
 
@@ -107,11 +111,14 @@ public class MouvableAgent extends MapObject implements Mouvable{
     }
 
     public boolean hasArrived(){
-        return this.indexPath >= this.path.size();
+        return hasArrived || this.path == null;
     }
 
     @Override
     public String toString() {
-        return "lon : " + this.coords.lng + " dlon : " + this.dCoords.lng + " lat : " + this.coords.lat + " dlat : " + this.dCoords.lat;
+        return "lon : " + this.coords.lng + " dlon : "
+                + this.dCoords.lng + " lat : " + this.coords.lat
+                + " dlat : " + this.dCoords.lat
+                + "Path : " + this.path;
     }
 }

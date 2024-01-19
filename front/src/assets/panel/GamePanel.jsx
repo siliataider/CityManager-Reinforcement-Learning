@@ -86,15 +86,16 @@ const GamePanel = (props) => {
 
     useEffect(() =>{
         socket.on(socketEvents.refresh_agents, (message) => {
-          console.log(message)
-          let data
-          data = JSON.parse(message)
+
+          let data = JSON.parse(message)
           let agentList = [];
+          console.log(data)
           for (const agent of data.agentList){
+            console.log(agent)
+            console.log(agent.position)
             agentList.push({
                 id: agent.id,
-                x : agent.state.x,
-                y : agent.state.y,
+                position: agent.position,
                 color : agent.color,
                 size : 10,
                 rewardMoyen: agent.rewardMoyen

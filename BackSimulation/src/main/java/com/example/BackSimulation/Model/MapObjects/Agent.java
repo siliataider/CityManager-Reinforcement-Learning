@@ -51,6 +51,7 @@ public class Agent extends MouvableAgent {
                 "\"id\": " + getId() + "," +
                 "\"color\": \"" + color + "\"," +
                 "\"state\": " + state.toJSONString() + "," +
+                "\"position\":" + this.coords + "," +
                 "\"rewardMoyen\": " + rewardMoyen +
                 "}";
         return ret;

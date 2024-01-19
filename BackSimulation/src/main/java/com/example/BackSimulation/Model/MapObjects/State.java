@@ -63,7 +63,7 @@ public class State {
     public String toJSONString(){
         String ret = "{\"hunger\": " + hunger + "," +
                 "\"energy\": " + energy + "," +
-                "\"money\": "+ money + "," +
+                "\"money\": "+ money +
                 "}";
         return ret;
     }

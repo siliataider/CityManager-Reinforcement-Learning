@@ -1,6 +1,7 @@
 package com.example.BackSimulation.Model.MouvableObject;
 
 import com.example.BackSimulation.Model.MapObjects.Agent;
+import com.example.BackSimulation.Model.MapObjects.Building;
 
 import java.math.BigDecimal;
 

@@ -3,7 +3,6 @@ package com.example.BackSimulation;
 import com.corundumstudio.socketio.*;
 import com.corundumstudio.socketio.listener.ConnectListener;
 import com.corundumstudio.socketio.listener.DataListener;
-import com.corundumstudio.socketio.listener.DisconnectListener;
 import com.example.BackSimulation.DTO.*;
 import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
@@ -13,7 +12,6 @@ import org.java_websocket.client.WebSocketClient;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.awt.*;
 import java.util.List;
 
 @Service
@@ -327,14 +325,18 @@ public class Simulator {
     }
 
     private void cycle(ArrayList<AgentDTO> agentList) throws InterruptedException {
-        simulation.getMapObjectManager().setAgents(agentList);
-        System.out.println(simulation.getMapObjectManager().getAgents());
+        simulation.getMapObjectManager().updateAgentList(agentList);
 
-        server.getBroadcastOperations().sendEvent("updateAgent","{" +
-                "\"agentList\": " + simulation.getMapObjectManager().agentsToJSONString() + "," +
-                "\"weather\": " + simulation.getWeatherManager().getWeather().getValue() +"," +
-                "\"timestamp\": " + simulation.getTimeManager().getCurrentTick() +
-                "}");
+        while (simulation.getMapObjectManager().moveAgents()){
+
+            server.getBroadcastOperations().sendEvent("updateAgent","{" +
+                    "\"agentList\": " + simulation.getMapObjectManager().agentsToJSONString() + "," +
+                    "\"weather\": " + simulation.getWeatherManager().getWeather().getValue() +"," +
+                    "\"timestamp\": " + simulation.getTimeManager().getCurrentTick() +
+                    "}");
+
+            Thread.sleep(10);
+        }
 
         simulation.getTimeManager().advance();
 

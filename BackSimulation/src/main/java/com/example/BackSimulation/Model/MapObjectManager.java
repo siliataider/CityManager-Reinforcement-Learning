@@ -2,20 +2,19 @@ package com.example.BackSimulation.Model;
 
 import com.example.BackSimulation.DTO.AgentDTO;
 import com.example.BackSimulation.DTO.BuildingDTO;
-import com.example.BackSimulation.Model.Enums.BuildingType;
 import com.example.BackSimulation.Model.MapObjects.*;
 import com.example.BackSimulation.Model.MouvableObject.CoordBigDecimal;
+import com.example.BackSimulation.Model.MouvableObject.MouvableAgent;
 
-import javax.naming.ldap.Control;
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MapObjectManager {
 
     private int idCounter;
     private ArrayList<Building> buildings;
-    private ArrayList<Agent> agents;
+    private List<Agent> agents;
 
     public MapObjectManager() {
         this.idCounter = 0;
@@ -26,18 +25,17 @@ public class MapObjectManager {
         return buildings;
     }
 
-    public ArrayList<Agent> getAgents() {
+    public List<Agent> getAgents() {
         return agents;
     }
 
-    public void setAgents(ArrayList<AgentDTO> agentDTOList) {
-        ArrayList<Agent> trueAgents = new ArrayList<Agent>();
+    private void initAgents (List<AgentDTO> agentDTOList ){
+        List<Agent> trueAgents = new ArrayList<>();
 
         for(int i = 0; i<agentDTOList.size(); i++){
-            CoordBigDecimal coords = getByType(agentDTOList.get(i).getAction()).getCoords();
-            if(agentDTOList.get(i).getAction() == null){
-                coords = getByType("Home").getCoords();
-            }
+            // Agents always start from home :
+            CoordBigDecimal coords = getByType("Home").getCoords();
+
             String algo = agentDTOList.get(i).getAlgo();
             State state = new State(agentDTOList.get(i).getState());
             List<Double> rewardMoyen = agentDTOList.get(i).getRewardmoyen();
@@ -45,6 +43,52 @@ public class MapObjectManager {
         }
 
         agents = trueAgents;
+    }
+
+    /**
+     * Update agents according to the info contained in the DTO
+     * @param agentDTOList
+     */
+    public void updateAgentList(ArrayList<AgentDTO> agentDTOList) {
+        if (this.agents == null){
+            System.out.println("INIT");
+            this.initAgents(agentDTOList);
+        }else{
+            for(AgentDTO agentDTO : agentDTOList){
+                Building building = getByType(agentDTO.getAction());
+                MouvableAgent agent = this.agents.stream()
+                        .filter( x -> x.getId() == agentDTO.getId())
+                        .findFirst()
+                        .get();
+
+                System.out.println("Seting goal");
+                agent.setGoal(building);
+        }
+        }
+    }
+
+    /**
+     * Manage the agents movements
+     */
+    public boolean moveAgents(){
+        List<MouvableAgent> agentToMove = this.agents.stream()
+                .filter( element -> !element.hasArrived())
+                .collect(Collectors.toList());
+
+        System.out.println(agentToMove);
+
+        for (MouvableAgent mouvableAgent : agentToMove){
+            System.out.println("MOVEMENT : ");
+            System.out.println(mouvableAgent);
+            if (!mouvableAgent.hasArrived()){
+                mouvableAgent.setMoveToGoal();
+                mouvableAgent.move();
+                System.out.println(mouvableAgent);
+            }
+
+        }
+        return !agentToMove.isEmpty();
+
     }
 
     private int getIdCounter() {
@@ -103,12 +147,16 @@ public class MapObjectManager {
     }
 
     public Building getByType(String type){
-        for(int i = 0; i < buildings.size(); i++){
-            if(buildings.get(i).getClass().getSimpleName().equals(type)){
-                return buildings.get(i);
-            }
-        }
-        return new Building(new CoordBigDecimal(1,1));
+        System.out.println(this.buildings);
+        System.out.println(type);
+
+        Building building = this.buildings.stream()
+                .filter( build -> build.getClass().getSimpleName().equals(type))
+                .findFirst()
+                .get();
+        System.out.println(building);
+        return building;
+
     }
 
     public String agentsToJSONString() {

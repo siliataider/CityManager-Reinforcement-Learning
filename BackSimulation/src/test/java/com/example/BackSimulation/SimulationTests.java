@@ -2,9 +2,6 @@ package com.example.BackSimulation;
 
 import com.example.BackSimulation.DTO.AgentDTO;
 import com.example.BackSimulation.DTO.BuildingDTO;
-import com.example.BackSimulation.Model.Enums.BuildingType;
-import com.example.BackSimulation.Model.MapObjects.Agent;
-import com.example.BackSimulation.Model.MapObjects.State;
 import com.google.gson.internal.LinkedTreeMap;
 import org.json.JSONObject;
 import org.junit.Test;
@@ -30,7 +27,7 @@ public class SimulationTests {
         AgentDTO agent2 = new AgentDTO(1,"Home","DQL", state, new ArrayList<Double>());
         agentDTOS.add(agent1);
         agentDTOS.add(agent2);
-        underTest.getMapObjectManager().setAgents(agentDTOS);
+        underTest.getMapObjectManager().updateAgentList(agentDTOS);
 
         BuildingDTO building1 = new BuildingDTO("work",100,100,2,12,16);
         BuildingDTO building2 = new BuildingDTO("home",150,100,2,0,0);

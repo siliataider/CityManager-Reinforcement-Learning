@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { APIProvider, Map } from "@vis.gl/react-google-maps";
-import { getMarkerBuilding } from "./mapTools";
+import { getMarkerAgent, getMarkerBuilding } from "./mapTools";
 
 import socketEvents from "../socket/socketEvents";
 
@@ -26,12 +26,15 @@ function MapProject () {
   const buildingType = useSelector( (state) => state.mouse.buildingType);
   const isDragging = useSelector( (state) => state.mouse.isDragging);
 
+  const agentsList = useSelector((state)=> state.draw.agents);
+
   const position = { lat: 45.77722633389068, lng:  4.92226934948768 };
   const [open, setOpen] = useState(false);
 
   const [buildingList, setBuildingList] = useState([]);
 
-  const [marketList, setMarkerList] = useState([])
+  const [marketListBuilding, setMarkerBuildingList] = useState([])
+  const [marketListAgent, setMarkerAgentList] = useState([])
 
   const onClick = (e) =>{
     if(isDragging){
@@ -76,8 +79,12 @@ function MapProject () {
 
       // drawing marker list of building
     useEffect(() =>{
-      setMarkerList(getMarkerBuilding(buildingList))
+      setMarkerBuildingList(getMarkerBuilding(buildingList))
     }, [buildingList])
+
+    useEffect(() => {
+      setMarkerAgentList(getMarkerAgent(agentsList))
+    }, [agentsList])
   
 
   return (
@@ -85,7 +92,8 @@ function MapProject () {
       <div style={{ height: "100vh", width: "100%" }}>
         <Map zoom={15} center={position} mapId={"c1f6e617d042fe39"} onClick={onClick}>
 
-          {marketList}
+          {marketListBuilding}
+          {marketListAgent}
 
           {/* {open && (
             <InfoWindow position={position} onCloseClick={() => setOpen(false)}>
