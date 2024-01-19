@@ -10,19 +10,25 @@ class SimulationConditions() :
         self.exploration_rate = exploration_rate
         self.learning_rate = 1 - exploration_rate
         self.list_agent = []
+        self.exploration_rate_decay = EPLORATION_RATE_DECAY_STEPS
+        self.max_time_steps = MAX_TIME_STEP
 
     def __str__(self) -> str:
         return f"simulationCondition: exploration_rate => {self.exploration_rate}, learning_rate => {self.learning_rate}, is_new_episode: {self.is_new_episode}"
     
+    def set_simulation_config(self, exploration_rate_decay, max_time_steps):
+        self.exploration_rate_decay = exploration_rate_decay
+        self.max_time_steps = max_time_steps
+        
     def set_exploration_learning_rate(self):
         if (self.is_new_episode):
-            self.exploration_rate = max(FINAL_EXPLORATION_RATE, self.exploration_rate - (START_EXPLORATION_RATE - FINAL_EXPLORATION_RATE) / EPLORATION_RATE_DECAY_STEPS)
+            self.exploration_rate = max(FINAL_EXPLORATION_RATE, self.exploration_rate - (START_EXPLORATION_RATE - FINAL_EXPLORATION_RATE) / self.exploration_rate_decay)
             self.learning_rate = 1 - self.exploration_rate
     
     def set_simulation_conditions(self, message):
         self.weather = message['weather']
         self.timestamp = message['timestamp']
-        self.is_new_episode = not bool(message['tick']%MAX_TIME_STEP)
+        self.is_new_episode = not bool(message['tick']%self.max_time_steps)
     
     def set_list_agent(self, list_agent):
         self.list_agent = list_agent

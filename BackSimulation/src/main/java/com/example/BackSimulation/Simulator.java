@@ -3,10 +3,7 @@ package com.example.BackSimulation;
 import com.corundumstudio.socketio.*;
 import com.corundumstudio.socketio.listener.ConnectListener;
 import com.corundumstudio.socketio.listener.DataListener;
-import com.example.BackSimulation.DTO.AgentDTO;
-import com.example.BackSimulation.DTO.AgentListDTO;
-import com.example.BackSimulation.DTO.BuildingDTO;
-import com.example.BackSimulation.DTO.StartDTO;
+import com.example.BackSimulation.DTO.*;
 import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
 import org.java_websocket.handshake.ServerHandshake;
@@ -24,6 +21,9 @@ public class Simulator {
     private WebSocketClient pythonWebSocketClient;
 
     private boolean go = false;
+    private int maxWaitTime = 2000;
+    private int waitTime;
+    private long timeVariable;
 
     private SocketIOServer server = initServer();
     private Simulation simulation = new Simulation();
@@ -31,6 +31,7 @@ public class Simulator {
     public Simulator() {
         // Initialisez le client WebSocket Python dans le constructeur
         initPythonWebSocketClient();
+        waitTime = maxWaitTime;
     }
 
     private SocketIOServer initServer(){
@@ -102,8 +103,33 @@ public class Simulator {
                 catch(Exception e){
                     server.getBroadcastOperations().sendEvent("start",
                             "{"
-                                    +"\"response\": notok,"
-                                    +"\"message\": " +"\"error building: "+e+"\""
+                                    +"\"response\": \"notok\","
+                                    +"\"message\": " +"\"error starting: "+e+"\""
+                                    +"}");
+                }
+            }
+        });
+
+        rawServer.addEventListener("speed", String.class, new DataListener<String>() {
+            @Override
+            public void onData(SocketIOClient client, String data, AckRequest ackRequest) {
+                try{
+                    Gson gson = new Gson();
+                    SpeedDTO speed = gson.fromJson(data, SpeedDTO.class);
+                    Double newTime = (1-speed.getSpeed()) * maxWaitTime;
+                    waitTime = newTime.intValue();
+                    server.getBroadcastOperations().sendEvent("speed",
+                            "{"
+                                    +"\"response\": \"ok\","
+                                    +"\"message\": " +"\"Speed Changed\""
+                                    +"}");
+
+                }
+                catch(Exception e){
+                    server.getBroadcastOperations().sendEvent("speed",
+                            "{"
+                                    +"\"response\": \"notok\","
+                                    +"\"message\": " +"\"error changing speed: "+e+"\""
                                     +"}");
                 }
             }
@@ -135,6 +161,16 @@ public class Simulator {
 
                 @Override
                 public void onMessage(String message) {
+                    long responseTime = System.currentTimeMillis() - timeVariable;
+                    if(responseTime < waitTime){
+                        try {
+                            Thread.sleep(waitTime - responseTime);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+
+
                     System.out.println("Received message from Python server: " + message);
                     Gson gson = new Gson();
                     AgentListDTO agentListDTO = gson.fromJson(message, AgentListDTO.class);
@@ -225,6 +261,8 @@ public class Simulator {
                     "\"event\": \"createAgent\"," +
                     "\"data\": {" +
                     "\"nbAgent\": " + start.getnAgents() + "," +
+                    "\"explorationRateDecay\": " + start.getexplorationRateDecay() + "," +
+                    "\"maxTimeStep\": " + start.getmaxTimeStep() + "," +
                     "\"timestamp\": " + simulation.getTimeManager().getCurrentTick() +"," +
                     "\"weather\": " + simulation.getWeatherManager().getWeather().getValue() +
                     "}" +
@@ -267,9 +305,6 @@ public class Simulator {
 
         simulation.getTimeManager().advance();
 
-        //Thread.sleep(1000);
-        System.out.println("rebelotte");
-
         sendMessageToPython("{" +
                 "\"event\": \"updateAgent\"," +
                 "\"data\": {" +
@@ -279,6 +314,8 @@ public class Simulator {
                 "}" +
                 "}"
         );
+
+        timeVariable = System.currentTimeMillis();
     }
 
     private void stopSimulation(){

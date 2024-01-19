@@ -13,6 +13,7 @@ public class Agent extends MapObject{
     public Agent(int id, Point coords) {
         super(id, coords);
         state = new State();
+        color = "red";
     }
 
     public Agent(int id, Point coords, State state, String algo, List<Double> rewardMoyen) {
@@ -25,6 +26,12 @@ public class Agent extends MapObject{
             color = "blue";
         }
         this.rewardMoyen = rewardMoyen;
+    }
+
+    public Agent() {
+        super(0 ,new Point(1,1));
+        state = new State();
+        color = "red";
     }
 
     @Override

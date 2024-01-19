@@ -2,6 +2,6 @@
 **/__pycache__/
 *.pyc
 .idea/workspace.xml
-
+.vscode/
 
 front/package-lock.json
