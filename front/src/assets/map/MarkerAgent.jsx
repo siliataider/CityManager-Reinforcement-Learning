@@ -2,8 +2,6 @@ import { AdvancedMarker } from "@vis.gl/react-google-maps";
 import React, { useState, useRef } from "react";
 
 function MarkerAgent(props){
-  console.log("MarkerAgent props:", props);
-
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [currentColor, setCurrentColor] = useState(props.color);
 

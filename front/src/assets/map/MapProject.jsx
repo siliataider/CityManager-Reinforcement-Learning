@@ -27,10 +27,9 @@ function MapProject () {
   const isDragging = useSelector( (state) => state.mouse.isDragging);
 
   const agentsList = useSelector((state)=> state.draw.agents);
+  const buildingsList = useSelector((state)=> state.draw.buildings);
 
   const position = { lat: 45.77722633389068, lng:  4.92226934948768 };
-
-  const [buildingList, setBuildingList] = useState([]);
 
   const [markerListBuilding, setMarkerBuildingList] = useState([])
   const [markerListAgent, setMarkerAgentList] = useState([])
@@ -56,11 +55,10 @@ function MapProject () {
         let data = JSON.parse(message);
         if (data.response == 'ok'){
           // new building added
-          setBuildingList( buildingList.concat(building))
-
           // Switch cursor back to normal
           dispatch(setCursorObject(null))
           dispatch(switchIsDragging())
+          dispatch(addBuildings(building))
 
         } else{
           //TODO:
@@ -77,12 +75,11 @@ function MapProject () {
 
       // drawing marker list of building
     useEffect(() =>{
-      setMarkerBuildingList(getMarkerBuilding(buildingList))
-    }, [buildingList])
+      setMarkerBuildingList(getMarkerBuilding(buildingsList))
+    }, [buildingsList])
 
     useEffect(() => {
-      console.log("Agent List :")
-      console.log(agentsList);
+      console.log("Agent List: ", agentsList)
       setMarkerAgentList(getMarkerAgent(agentsList))
     }, [agentsList])
   
