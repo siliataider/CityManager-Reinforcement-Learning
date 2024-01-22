@@ -1,98 +1,74 @@
 import { useEffect, useState } from "react";
 import {useDispatch, useSelector} from 'react-redux';
-
 import socketEvents from "../socket/socketEvents";
-
 import { clearMapObjects, setAgents } from "../canvas/drawSlice";
 import CreationPanel from "./CreationPanel";
-import { clearCanavas } from "../canvas/canavasTools";
 import GraphReward from "../graph/GraphReward";
 
 
 const GamePanel = (props) => {
-
     const dispatch = useDispatch();
     const socket = useSelector( (state) => state.socket.socket);
     const agents = useSelector( (state) => state.draw.agents);
-
+    const current_agent_id = useSelector( (state) => state.draw.current_agent_id);
     const [speed, setSpeed] = useState(1);
-    const [isAgentSet, setIsAgentSet] = useState(false);
     const [weather,setWeather] = useState("Sunny")
     const [graveyard, setGraveyard] = useState([])
 
     function changeWeather(){
-      
-
       socket.on(socketEvents.change_weather, (message) => {
-          //console.log(message);
           const data = JSON.parse(message);
           if (data.response == "ok"){
             setWeather(data.weather);
           }
           else{
-            console.log(data.message)
+            alert(data.message)
           }
           socket.off(socketEvents.change_weather)
       });
-
       const weatherMessage = {}
-      //console.log(weatherMessage)
-
       // Ask the back if the simulation can start
       socket.emit(socketEvents.change_weather, JSON.stringify(weatherMessage))
   }
 
     function changeSpeed(newSpeed){
       socket.on(socketEvents.change_speed, (message) => {
-          //console.log(message);
           const data = JSON.parse(message);
           if (data.response == "ok"){
             setSpeed(newSpeed);
           }
           else{
-            console.log(data.message)
+            alert(data.message)
           }
           socket.off(socketEvents.change_speed)
       });
-
       const speedMessage = {speed : speed/10}
-
-      //console.log(speedMessage)
-
       // Ask the back if the simulation can start
       socket.emit(socketEvents.change_speed, JSON.stringify(speedMessage))
   }
 
     function stop(){
       socket.on(socketEvents.stop_simulation, (message) => {
-          //console.log(message);
           const data = JSON.parse(message);
           if (data.response == "ok"){
               // Switch right panel
               props.nextPanelListener(<CreationPanel nextPanelListener={props.nextPanelListener} className="col"></CreationPanel>)
           }else {
-              console.log(data.message)
+              alert(data.message)
           }
           dispatch(clearMapObjects())
           socket.off(socketEvents.stop)
       });
-
       const stopMessage = {}
-
-      //console.log(stopMessage)
-
       // Ask the back if the simulation can start
       socket.emit(socketEvents.stop_simulation, JSON.stringify(stopMessage))
   }
     useEffect(() =>{
         socket.on(socketEvents.refresh_agents, (message) => {
           let liste_graveyard = []
-
           let data = JSON.parse(message)
           let agentList = [];
           for (const agent of data.agentList){
-            console.log(agent)
-            //console.log(agent.position)
             agentList.push({
                 id: agent.id,
                 position: agent.position,
@@ -107,8 +83,6 @@ const GamePanel = (props) => {
           }
           setGraveyard(liste_graveyard)
           dispatch( setAgents( agentList) );
-          //console.log("SET AGENTS: ", agentList)
-          setIsAgentSet(true)
         });
       }, [])
 
@@ -155,9 +129,9 @@ const GamePanel = (props) => {
           </div>
 
           <div className="mb-2">
-            {isAgentSet && (
+            {agents[current_agent_id] && (
               <div>
-                <GraphReward data={agents[0].rewardMoyen} />
+                <GraphReward data={agents[current_agent_id].rewardMoyen} />
                 <button className="btn btn-primary w-50" onClick={saveAlgo}>Save Algorithm</button>
               </div>
             )}
