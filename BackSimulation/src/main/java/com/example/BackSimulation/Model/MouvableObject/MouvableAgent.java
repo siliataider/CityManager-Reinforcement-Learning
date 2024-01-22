@@ -32,7 +32,7 @@ public class MouvableAgent extends MapObject implements Mouvable{
         System.out.println("CONVertion : " + building.coords.lng.doubleValue() + " " + building.coords.lat.doubleValue());
 
         this.path = APIopenRouteService.getPathAPI(this.coords.lng.floatValue(), this.coords.lat.floatValue()
-                , building.coords.lng.doubleValue(), building.coords.lat.doubleValue());
+                , building.coords.lng.floatValue(), building.coords.lat.floatValue());
         this.hasArrived = false;
         this.indexPath = 0;
 
