@@ -79,15 +79,18 @@ public class MapObjectManager {
                 .filter( element -> !element.hasArrived())
                 .collect(Collectors.toList());
 
-        System.out.println(agentToMove);
-
         for (MouvableAgent mouvableAgent : agentToMove){
-            System.out.println("MOVEMENT : ");
-            System.out.println(mouvableAgent);
             if (!mouvableAgent.hasArrived()){
                 mouvableAgent.setMoveToGoal();
+
+                List<MouvableAgent> toCloseAgents = agentToMove.stream()
+                        .filter( element -> element.getId() != mouvableAgent.getId() && !element.coords.equals(mouvableAgent.coords) )
+                        .toList();
+
+                for (MouvableAgent closeAgent : toCloseAgents){
+                    mouvableAgent.setObstacle(closeAgent);
+                }
                 mouvableAgent.move();
-                System.out.println(mouvableAgent);
             }
 
         }
