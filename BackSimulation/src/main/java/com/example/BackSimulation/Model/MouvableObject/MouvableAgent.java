@@ -89,11 +89,16 @@ public class MouvableAgent extends MapObject implements Mouvable{
             System.out.println(distance);
             System.out.println(dLongitude.divide(distance, 10, RoundingMode.HALF_UP).multiply(push));
             System.out.println("+++++++++");
+            try {
+                this.dCoords.lng = dLongitude.add(dLongitude.divide(distance, 10, RoundingMode.HALF_UP).multiply(push));
+                this.dCoords.lat = dLatitude.add(dLatitude.divide(distance, 10, RoundingMode.HALF_UP).multiply(push));
 
-            BigDecimal multiply = dLongitude.divide(distance, 10, RoundingMode.HALF_UP).multiply(push);
-            this.dCoords.lng = dLongitude.add(dLongitude.divide(distance, 10, RoundingMode.HALF_UP).multiply(push));
-            this.dCoords.lat = dLatitude.add(dLatitude.divide(distance, 10, RoundingMode.HALF_UP).multiply(push));
-        }
+            }catch(ArithmeticException e ){
+                System.out.println("Div 0 : " + e);
+
+            }
+
+            }
 
         /*
 
