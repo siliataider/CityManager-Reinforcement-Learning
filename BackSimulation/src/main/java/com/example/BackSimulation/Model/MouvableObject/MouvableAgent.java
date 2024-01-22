@@ -28,15 +28,15 @@ public class MouvableAgent extends MapObject implements Mouvable{
     // PUBLIC METHODES FROM MOUVABLE OBJECT :
 
     public void setGoal( Building building ){
-        System.out.println("API build"  + building );
-        System.out.println("CONVertion : " + building.coords.lng.doubleValue() + " " + building.coords.lat.doubleValue());
+        //System.out.println("API build"  + building );
+        //System.out.println("CONVertion : " + building.coords.lng.doubleValue() + " " + building.coords.lat.doubleValue());
 
         this.path = APIopenRouteService.getPathAPI(this.coords.lng.floatValue(), this.coords.lat.floatValue()
                 , building.coords.lng.floatValue(), building.coords.lat.floatValue());
         this.hasArrived = false;
         this.indexPath = 0;
 
-        System.out.println("Path : "  + this.path);
+        //System.out.println("Path : "  + this.path);
     }
 
     @Override
@@ -96,17 +96,9 @@ public class MouvableAgent extends MapObject implements Mouvable{
 
 
         if (distance.compareTo(this.sightRadius) <0) {
-            System.out.println("Push :");
-            System.out.println(this.sightRadius);
-            System.out.println(this.deplacementMax);
-            System.out.println(push);
-            System.out.println(distance);
-            System.out.println(dLongitude.divide(distance, 10, RoundingMode.HALF_UP).multiply(push));
-            System.out.println("+++++++++");
             try {
                 this.dCoords.lng = dLongitude.add(dLongitude.divide(distance, 10, RoundingMode.HALF_UP).multiply(push));
                 this.dCoords.lat = dLatitude.add(dLatitude.divide(distance, 10, RoundingMode.HALF_UP).multiply(push));
-
             }catch(ArithmeticException e ){
                 System.out.println("Div 0 : " + e);
 

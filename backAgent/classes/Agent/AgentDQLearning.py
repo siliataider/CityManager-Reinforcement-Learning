@@ -4,6 +4,7 @@ import numpy as np
 from resources.methods import reshape_state
 from resources.wrappers import ModelWrapper
 import tensorflow as tf
+import os 
 
 class AgentDQLearning(Agent) :
     def __init__(self, num_states, num_actions, env, agent_id):
@@ -29,7 +30,9 @@ class AgentDQLearning(Agent) :
         self.model.model.fit(state, np.array([target]), epochs=1, verbose=0)
     
     def save_model(self, filename):
-        self.model.model.save('./models/'+filename+'.keras')
+        folder = os.path.expanduser('~')
+        file_path = os.path.join(folder, filename + '.keras')
+        self.model.model.save(file_path)
     
     def load_model(self, filename):
         self.model.model = tf.keras.models.load_model('./models/' + filename)
