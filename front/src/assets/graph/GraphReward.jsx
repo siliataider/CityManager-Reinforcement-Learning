@@ -7,7 +7,7 @@ const GraphReward = ({ data }) => {
       labels: [],
       datasets: [
         {
-          label: 'Reward Moyen en fonction des episodes',
+          label: 'Average reward per episode',
           data: [],
           fill: false,
           borderColor: 'rgba(75,192,192,1)',
@@ -15,6 +15,58 @@ const GraphReward = ({ data }) => {
         },
       ],
     });
+
+    const chartOptions = {
+      scales: {
+          x: {
+              ticks: {
+                  color: 'white',
+                  font: {
+                    size: 14,
+                    weight: 'bold'
+                }
+              },
+              grid: {
+                  color: 'rgba(255, 255, 255, 0.1)'
+              }
+          },
+          y: {
+              ticks: {
+                  color: 'white',
+                  font: {
+                    size: 14, 
+                    weight: 'bold'
+                }
+              },
+              grid: {
+                  color: 'rgba(255, 255, 255, 0.1)'
+              }
+          }
+      },
+      plugins: {
+          legend: {
+              labels: {
+                  color: 'white',
+                  font: {
+                    size: 14,
+                    weight: 'bold'
+                }
+              }
+          },
+          tooltip: {
+            titleFont: {
+              size: 14,
+              weight: 'bold'
+            },
+            bodyFont: {
+                size: 14,
+                weight: 'bold' 
+            },
+            titleFontColor: 'white', 
+            bodyFontColor: 'white',
+          }
+      }
+  };
   
     useEffect(() => {
       // Mettez à jour le graphique chaque fois que les données changent
@@ -32,7 +84,7 @@ const GraphReward = ({ data }) => {
   
     return (
       <div>
-        <Line data={chartData} />
+        <Line data={chartData} options={chartOptions}/>
       </div>
     );
   };
