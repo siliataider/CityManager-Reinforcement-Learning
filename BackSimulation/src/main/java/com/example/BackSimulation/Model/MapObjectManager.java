@@ -39,7 +39,7 @@ public class MapObjectManager {
             String algo = agentDTOList.get(i).getAlgo();
             State state = new State(agentDTOList.get(i).getState());
             List<Double> rewardMoyen = agentDTOList.get(i).getRewardMoyen();
-            Double lifePoint = agentDTO.get(i).getLifePoint();
+            Double lifePoint = agentDTOList.get(i).getLifePoint();
             trueAgents.add(new Agent(agentDTOList.get(i).getId(), coords, state, algo, rewardMoyen, lifePoint));
         }
 
