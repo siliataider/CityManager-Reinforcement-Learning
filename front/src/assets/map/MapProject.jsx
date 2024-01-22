@@ -70,7 +70,6 @@ function MapProject () {
         // Delete listener :
         socket.off(socketEvents.new_building)
       });
-      console.log(building)
 
       // Send the building to back
       socket.emit(socketEvents.new_building, JSON.stringify(building))
@@ -83,6 +82,9 @@ function MapProject () {
     }, [buildingList])
 
     useEffect(() => {
+      console.log("Agent List :")
+      console.log(agentsList);
+      console.log(marketListAgent);
       setMarkerAgentList(getMarkerAgent(agentsList))
     }, [agentsList])
   
