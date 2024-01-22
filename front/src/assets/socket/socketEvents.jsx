@@ -6,6 +6,8 @@ const socketEvents = {
     change_speed: "speed",
     change_weather: "weather",
     stop_simulation:"stop",
+    save_agent: "saveAgent",
+    load_agent: "loadAgent"
 }
 
 export default socketEvents;

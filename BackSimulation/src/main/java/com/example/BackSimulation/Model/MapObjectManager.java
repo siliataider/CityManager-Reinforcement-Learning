@@ -157,14 +157,14 @@ public class MapObjectManager {
     }
 
     public Building getByType(String type){
-        System.out.println(this.buildings);
-        System.out.println(type);
+        //System.out.println(this.buildings);
+        //System.out.println(type);
 
         Building building = this.buildings.stream()
                 .filter( build -> build.getClass().getSimpleName().equals(type))
                 .findFirst()
                 .get();
-        System.out.println(building);
+        //System.out.println(building);
         return building;
 
     }
