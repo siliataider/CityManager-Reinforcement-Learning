@@ -2,23 +2,16 @@ import './App.css'
 
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-
 import MapProject from './assets/map/MapProject';
-import MapCanvas from './assets/canvas/MapCanvas';
 import CreationPanel from './assets/panel/CreationPanel'
 import {io} from 'socket.io-client';
 import socketEvents from './assets/socket/socketEvents';
 import { setSocket } from './assets/socket/socketSlice';
 
-
-
-
 function App() {
 
     const[leftPanel, setLeftPanel] = useState(0)
-
     const cursorObject = useSelector( (state) => state.mouse.cursorObject)
-   
     const dispatch = useDispatch();
 
     useEffect(() =>{
@@ -33,40 +26,25 @@ function App() {
         dispatch( setSocket(newSocket) );
       });
 
-     
       // INIT OF THE LEFT PANEL :
       setLeftPanel(<CreationPanel nextPanelListener={setLeftPanel} className="col"></CreationPanel>)
-
     }, [])
 
 
   return (
     <>
-
-
-
-    
-    <div className='container'>
-    <div className="row">
-
-      <div className='col-4'>
-      {leftPanel}
-      
+      <div className='container'>
+        <div className="row">
+          <div className='col-4'>
+            {leftPanel}
+          </div>
+          <div className='col'>
+            <MapProject></MapProject>
+          </div>
+        </div>
       </div>
-
-      <div className='col'>
-        <MapProject></MapProject>
-      </div>
-
-    </div>
-    </div>
-
-    {cursorObject}
-
-
+      {cursorObject}
     </>
-   
-
   )
 }
 

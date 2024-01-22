@@ -5,6 +5,7 @@ export const drawSlice = createSlice({
   initialState: {
     agents : [],
     buildings : [],
+    current_agent_id : null,
   },
   reducers: {
     setAgents: (state, action) =>{
@@ -13,17 +14,20 @@ export const drawSlice = createSlice({
 
     addBuildings: (state, action) =>{
         state.buildings.push( action.payload );
-        console.log(state.buildings)
     },
 
     clearMapObjects: (state) => {
-      state.buildings = []
-      state.agents = []
+      state.buildings = [];
+      state.agents = [];
+    },
+
+    setCurrentAgentId: (state, action) => {
+      state.current_agent_id = action.payload;
     },
     
   },
 });
 
-export const { setAgents, addBuildings, clearMapObjects} = drawSlice.actions;
+export const { setAgents, addBuildings, clearMapObjects, setCurrentAgentId} = drawSlice.actions;
 
 export default drawSlice.reducer;
