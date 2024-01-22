@@ -2,6 +2,7 @@ from .Agent import Agent
 import random
 import numpy as np
 from resources.methods import convert_value_to_state
+import os 
 
 class AgentQLearning(Agent) :
     def __init__(self, num_states, num_actions, env, agent_id):
@@ -26,7 +27,9 @@ class AgentQLearning(Agent) :
         self.env.state = next_state
 
     def save_model(self, filename):
-        np.save('./models/' + filename + '.npy', self.q_table)
+        folder = os.path.expanduser('~')
+        file_path = os.path.join(folder, filename + '.npy')
+        np.save(file_path, self.q_table)
     
     def load_model(self, filename):
         self.q_table = np.load('./models/' + filename)
