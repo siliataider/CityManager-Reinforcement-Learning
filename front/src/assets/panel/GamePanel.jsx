@@ -91,7 +91,7 @@ const GamePanel = (props) => {
           let data = JSON.parse(message)
           let agentList = [];
           for (const agent of data.agentList){
-            console.log(agent)
+            //console.log(agent)
             //console.log(agent.position)
             agentList.push({
                 id: agent.id,
@@ -114,6 +114,17 @@ const GamePanel = (props) => {
 
     function saveAlgo(){
         console.log("Saving algorithm...")
+        socket.on(socketEvents.save_agent, (message) => {
+          //console.log(message);
+          const data = JSON.parse(message);
+          console.log(data.message)
+          socket.off(socketEvents.save_agent)
+      });
+
+      const saveAgent = {id: agents[0].id, filename: "test"}
+
+      // Ask the back if the simulation can start
+      socket.emit(socketEvents.save_agent, JSON.stringify(saveAgent))
     }
     return(
     <>

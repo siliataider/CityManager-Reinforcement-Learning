@@ -79,7 +79,7 @@ function MapProject () {
     }, [buildingsList])
 
     useEffect(() => {
-      console.log("Agent List: ", agentsList)
+      //console.log("Agent List: ", agentsList)
       setMarkerAgentList(getMarkerAgent(agentsList))
     }, [agentsList])
   

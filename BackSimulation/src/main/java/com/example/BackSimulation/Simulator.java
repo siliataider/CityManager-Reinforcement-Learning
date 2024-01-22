@@ -6,6 +6,7 @@ import com.corundumstudio.socketio.listener.DisconnectListener;
 import com.corundumstudio.socketio.listener.DataListener;
 import com.example.BackSimulation.DTO.*;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.google.gson.internal.LinkedTreeMap;
 import org.java_websocket.handshake.ServerHandshake;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class Simulator {
@@ -167,6 +169,39 @@ public class Simulator {
             }
         });
 
+        rawServer.addEventListener("saveAgent", String.class, new DataListener<String>() {
+            @Override
+            public void onData(SocketIOClient client, String data, AckRequest ackRequest) {
+                try{
+                    Gson gson = new Gson();
+                    JsonObject saveAgent = gson.fromJson(data, JsonObject.class);
+
+                    server.getBroadcastOperations().sendEvent("saveAgent",
+                            "{"
+                                    +"\"response\": \"ok\","
+                                    +"\"message\": " +"\"Saving Agent model...\""
+                                    +"}");
+
+                    sendMessageToPython("{" +
+                            "\"event\": \"saveAgent\"," +
+                            "\"data\": {" +
+                            "\"id\": " + saveAgent.get("id").getAsInt() + "," +
+                            "\"filename\": " + "\"" + saveAgent.get("filename").getAsString() +"\"" +
+                            "}" +
+                            "}"
+                    );
+                }
+                catch(Exception e){
+                    server.getBroadcastOperations().sendEvent("saveAgent",
+                            "{"
+                                    +"\"response\": notok,"
+                                    +"\"message\": " +"\"error stopping: "+e+"\""
+                                    +"}");
+                }
+            }
+        });
+
+
 
     }
 
@@ -182,40 +217,13 @@ public class Simulator {
 
                 @Override
                 public void onMessage(String message) {
-                    long responseTime = System.currentTimeMillis() - timeVariable;
-                    if(responseTime < waitTime){
-                        try {
-                            Thread.sleep(waitTime - responseTime);
-                        } catch (InterruptedException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-
-
-                    System.out.println("Received message from Python server: " + message);
                     Gson gson = new Gson();
-                    AgentListDTO agentListDTO = gson.fromJson(message, AgentListDTO.class);
-                    ArrayList<LinkedTreeMap> agentListRaw = agentListDTO.getData().get("agentList");
+                    JsonObject pythonResponse = gson.fromJson(message, JsonObject.class);
 
-                    ArrayList<AgentDTO> agentList = new ArrayList<AgentDTO>();
-
-                    for(int i = 0; i<agentListRaw.size(); i++) {
-                        Double weirdId = (Double) agentListRaw.get(i).get("id");
-                        int id = weirdId.intValue();
-                        String action = (String) agentListRaw.get(i).get("action");
-                        String algo = (String) agentListRaw.get(i).get("algo");
-                        LinkedTreeMap<String,Double> state = (LinkedTreeMap<String, Double>) agentListRaw.get(i).get("state");
-                        List<Double> rewardMoyen = (List<Double>) agentListRaw.get(i).get("reward_moyen");
-                        Double lifePoint = (Double) agentListRaw.get(i).get("life_point");
-                        agentList.add(new AgentDTO(id,action,algo,state, rewardMoyen, lifePoint));
-                    }
-
-                    try {
-                        if(go){
-                            cycle(agentList);
-                        }
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
+                    if (Objects.equals(pythonResponse.get("event").getAsString(), "saveAgent")) {
+                        saveAgentData(message);
+                    } else {
+                        readAgentData(message);
                     }
                 }
 
@@ -235,6 +243,48 @@ public class Simulator {
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
+    }
+    private void readAgentData(String message) {
+
+        long responseTime = System.currentTimeMillis() - timeVariable;
+        if(responseTime < waitTime){
+            try {
+                Thread.sleep(waitTime - responseTime);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+
+        System.out.println("Received message from Python server: " + message);
+        Gson gsonAgent = new Gson();
+        AgentListDTO agentListDTO = gsonAgent.fromJson(message, AgentListDTO.class);
+        ArrayList<LinkedTreeMap> agentListRaw = agentListDTO.getData().get("agentList");
+
+        ArrayList<AgentDTO> agentList = new ArrayList<AgentDTO>();
+
+        for(int i = 0; i<agentListRaw.size(); i++) {
+            Double weirdId = (Double) agentListRaw.get(i).get("id");
+            int id = weirdId.intValue();
+            String action = (String) agentListRaw.get(i).get("action");
+            String algo = (String) agentListRaw.get(i).get("algo");
+            LinkedTreeMap<String,Double> state = (LinkedTreeMap<String, Double>) agentListRaw.get(i).get("state");
+            List<Double> rewardMoyen = (List<Double>) agentListRaw.get(i).get("reward_moyen");
+            Double lifePoint = (Double) agentListRaw.get(i).get("life_point");
+            agentList.add(new AgentDTO(id,action,algo,state, rewardMoyen, lifePoint));
+        }
+
+        try {
+            if(go){
+                cycle(agentList);
+            }
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void saveAgentData(String message) {
+
     }
 
     private void startSimulation(StartDTO start) throws Exception {
