@@ -9,9 +9,6 @@ public class State {
     private Double energy;
     private Double money;
 
-    private int x = 1;
-    private int y = 1;
-
     public State(Double hunger, Double energy, Double money) {
         this.hunger = hunger;
         this.energy = energy;
@@ -24,12 +21,10 @@ public class State {
         money = 1.0;
     }
 
-    public State(LinkedTreeMap<String,Double> pseudoState, Double x, Double y){
+    public State(LinkedTreeMap<String,Double> pseudoState){
         hunger = pseudoState.get("hunger");
         energy = pseudoState.get("energy");
         money = pseudoState.get("money");
-        this.x = x.intValue();
-        this.y = y.intValue();
     }
 
     public Double getHunger() {
@@ -68,9 +63,7 @@ public class State {
     public String toJSONString(){
         String ret = "{\"hunger\": " + hunger + "," +
                 "\"energy\": " + energy + "," +
-                "\"money\": "+ money + "," +
-                "\"x\": " + x + "," +
-                "\"y\": " + y +
+                "\"money\": "+ money +
                 "}";
         return ret;
     }

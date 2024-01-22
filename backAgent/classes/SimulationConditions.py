@@ -52,7 +52,8 @@ class SimulationConditions() :
                     'money': money
                 },
                 'algo': agent.algo,
-                'reward_moyen': agent.env.reward_moy
+                'reward_moyen': agent.env.reward_moy,
+                'life_point': agent.env.life_point
             }
         
         if action != None:

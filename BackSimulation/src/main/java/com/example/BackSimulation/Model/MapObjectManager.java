@@ -2,18 +2,19 @@ package com.example.BackSimulation.Model;
 
 import com.example.BackSimulation.DTO.AgentDTO;
 import com.example.BackSimulation.DTO.BuildingDTO;
-import com.example.BackSimulation.Model.Enums.BuildingType;
 import com.example.BackSimulation.Model.MapObjects.*;
+import com.example.BackSimulation.Model.MouvableObject.CoordBigDecimal;
+import com.example.BackSimulation.Model.MouvableObject.MouvableAgent;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MapObjectManager {
 
     private int idCounter;
     private ArrayList<Building> buildings;
-    private ArrayList<Agent> agents;
+    private List<Agent> agents;
 
     public MapObjectManager() {
         this.idCounter = 0;
@@ -24,25 +25,80 @@ public class MapObjectManager {
         return buildings;
     }
 
-    public ArrayList<Agent> getAgents() {
+    public List<Agent> getAgents() {
         return agents;
     }
 
-    public void setAgents(ArrayList<AgentDTO> agentDTOList) {
-        ArrayList<Agent> trueAgents = new ArrayList<Agent>();
+    private void initAgents (List<AgentDTO> agentDTOList ){
+        List<Agent> trueAgents = new ArrayList<>();
 
         for(int i = 0; i<agentDTOList.size(); i++){
-            Point coords = getByType(agentDTOList.get(i).getAction()).getCoords();
-            if(agentDTOList.get(i).getAction() == null){
-                coords = getByType("Home").getCoords();
-            }
+            // Agents always start from home :
+            CoordBigDecimal coords = getByType("Home").getCoords();
+
             String algo = agentDTOList.get(i).getAlgo();
-            State state = new State(agentDTOList.get(i).getState(), coords.getX(), coords.getY());
-            List<Double> rewardMoyen = agentDTOList.get(i).getRewardmoyen();
-            trueAgents.add(new Agent(agentDTOList.get(i).getId(), coords, state, algo, rewardMoyen));
+            State state = new State(agentDTOList.get(i).getState());
+            List<Double> rewardMoyen = agentDTOList.get(i).getRewardMoyen();
+            Double lifePoint = agentDTOList.get(i).getLifePoint();
+            trueAgents.add(new Agent(agentDTOList.get(i).getId(), coords, state, algo, rewardMoyen, lifePoint));
         }
 
         agents = trueAgents;
+    }
+
+    /**
+     * Update agents according to the info contained in the DTO
+     * @param agentDTOList
+     */
+    public void updateAgentList(ArrayList<AgentDTO> agentDTOList) {
+        if (this.agents == null){
+            System.out.println("INIT");
+            this.initAgents(agentDTOList);
+        }else{
+            for(AgentDTO agentDTO : agentDTOList){
+                State state = new State(agentDTO.getState());
+                Building building = getByType(agentDTO.getAction());
+                Agent agent = this.agents.stream()
+                        .filter( x -> x.getId() == agentDTO.getId())
+                        .findFirst()
+                        .get();
+
+                agent.setLifePoint(agentDTO.getLifePoint());
+                agent.setState(state);
+                agent.setRewardMoyen(agentDTO.getRewardMoyen());
+                System.out.println("Setting goal");
+                if (agentDTO.getLifePoint() >= 0.20) {
+                    agent.setGoal(building);
+                }
+        }
+        }
+    }
+
+    /**
+     * Manage the agents movements
+     */
+    public boolean moveAgents(){
+        List<MouvableAgent> agentToMove = this.agents.stream()
+                .filter( element -> !element.hasArrived())
+                .collect(Collectors.toList());
+
+        for (MouvableAgent mouvableAgent : agentToMove){
+            if (!mouvableAgent.hasArrived()){
+                mouvableAgent.setMoveToGoal();
+
+                List<MouvableAgent> toCloseAgents = agentToMove.stream()
+                        .filter( element -> element.getId() != mouvableAgent.getId() && !element.coords.equals(mouvableAgent.coords) )
+                        .toList();
+
+                for (MouvableAgent closeAgent : toCloseAgents){
+                    mouvableAgent.setObstacle(closeAgent);
+                }
+                mouvableAgent.move();
+            }
+
+        }
+        return !agentToMove.isEmpty();
+
     }
 
     private int getIdCounter() {
@@ -85,7 +141,7 @@ public class MapObjectManager {
 
     }
     public void unbuild(int id){
-        for (int i = 0; i < buildings.size(); i++){
+        for (int i = 0; i < this.buildings.size(); i++){
             if(buildings.get(i).getId() == id){
                 buildings.remove(i);
             }
@@ -101,12 +157,16 @@ public class MapObjectManager {
     }
 
     public Building getByType(String type){
-        for(int i = 0; i < buildings.size(); i++){
-            if(buildings.get(i).getClass().getSimpleName().equals(type)){
-                return buildings.get(i);
-            }
-        }
-        return new Building(new Point(1,1));
+        System.out.println(this.buildings);
+        System.out.println(type);
+
+        Building building = this.buildings.stream()
+                .filter( build -> build.getClass().getSimpleName().equals(type))
+                .findFirst()
+                .get();
+        System.out.println(building);
+        return building;
+
     }
 
     public String agentsToJSONString() {
