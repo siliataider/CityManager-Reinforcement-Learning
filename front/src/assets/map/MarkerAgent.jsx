@@ -36,8 +36,22 @@ function MarkerAgent(props){
             height: 20,
             borderRadius: 50,
             border: `2px solid ${props.color}`,
+            position: 'relative',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
           }}
-        ></div>
+        >
+          <span
+            style={{
+              color: 'white',
+              fontSize: '10px',
+              position: 'absolute',
+            }}
+          >
+            {props.id}
+          </span>
+        </div>
       </AdvancedMarker>
 
       {isPopupOpen && (

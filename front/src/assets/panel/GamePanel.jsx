@@ -107,7 +107,6 @@ const GamePanel = (props) => {
           }
           setGraveyard(liste_graveyard)
           dispatch( setAgents( agentList) );
-          //console.log("SET AGENTS: ", agentList)
           setIsAgentSet(true)
         });
       }, [])
