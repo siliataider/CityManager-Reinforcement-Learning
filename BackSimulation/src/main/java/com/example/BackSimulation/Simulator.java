@@ -206,7 +206,8 @@ public class Simulator {
                         String algo = (String) agentListRaw.get(i).get("algo");
                         LinkedTreeMap<String,Double> state = (LinkedTreeMap<String, Double>) agentListRaw.get(i).get("state");
                         List<Double> rewardMoyen = (List<Double>) agentListRaw.get(i).get("reward_moyen");
-                        agentList.add(new AgentDTO(id,action,algo,state, rewardMoyen));
+                        Double lifePoint = (Double) agentListRaw.get(i).get("life_point");
+                        agentList.add(new AgentDTO(id,action,algo,state, rewardMoyen, lifePoint));
                     }
 
                     try {
@@ -314,7 +315,11 @@ public class Simulator {
 
     private void cycle(ArrayList<AgentDTO> agentList) throws InterruptedException {
         simulation.getMapObjectManager().updateAgentList(agentList);
-
+        server.getBroadcastOperations().sendEvent("updateAgent","{" +
+                "\"agentList\": " + simulation.getMapObjectManager().agentsToJSONString() + "," +
+                "\"weather\": " + simulation.getWeatherManager().getWeather().getValue() +"," +
+                "\"timestamp\": " + simulation.getTimeManager().getCurrentTick() +
+                "}");
         while (simulation.getMapObjectManager().moveAgents()){
 
             server.getBroadcastOperations().sendEvent("updateAgent","{" +

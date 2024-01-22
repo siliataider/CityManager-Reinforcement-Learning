@@ -18,6 +18,7 @@ const GamePanel = (props) => {
     const [speed, setSpeed] = useState(1);
     const [isAgentSet, setIsAgentSet] = useState(false);
     const [weather,setWeather] = useState("Sunny")
+    const [graveyard, setGraveyard] = useState([])
 
     function changeWeather(){
       
@@ -83,9 +84,9 @@ const GamePanel = (props) => {
       // Ask the back if the simulation can start
       socket.emit(socketEvents.stop_simulation, JSON.stringify(stopMessage))
   }
-
     useEffect(() =>{
         socket.on(socketEvents.refresh_agents, (message) => {
+          let liste_graveyard = []
 
           let data = JSON.parse(message)
           let agentList = [];
@@ -100,7 +101,11 @@ const GamePanel = (props) => {
                 size : 10,
                 rewardMoyen: agent.rewardMoyen
             })
+            if (agent.color == "black") {
+              liste_graveyard.push(agent.id)
+            }
           }
+          setGraveyard(liste_graveyard)
           dispatch( setAgents( agentList) );
           setIsAgentSet(true)
         });
@@ -133,7 +138,12 @@ const GamePanel = (props) => {
               <label className="col-form-label col-2">%</label>
           </div>
           <div className="mb-2">
-            <button className="btn btn-dark">GraveYard</button>
+            <label className="col-form-label">Graveyard : </label>
+            <ul>
+              {graveyard.map((item, index) => (
+                <li key={index}>agentid: {item}</li>
+              ))}
+            </ul>
           </div>
 
           <div className="mb-2">

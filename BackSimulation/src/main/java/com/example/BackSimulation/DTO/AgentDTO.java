@@ -16,12 +16,15 @@ public class AgentDTO {
     private LinkedTreeMap<String,Double> state;
     private List<Double> rewardMoyen;
 
-    public AgentDTO(int id, String action, String algo, LinkedTreeMap<String,Double> state, List<Double> rewardMoyen) {
+    private Double lifePoint;
+
+    public AgentDTO(int id, String action, String algo, LinkedTreeMap<String,Double> state, List<Double> rewardMoyen, Double lifePoint) {
         this.id = id;
         this.action = action;
         this.algo = algo;
         this.state = state;
         this.rewardMoyen = rewardMoyen;
+        this.lifePoint = lifePoint;
     }
 
     public int getId() {
@@ -51,6 +54,8 @@ public class AgentDTO {
     public List<Double> getRewardMoyen() {
         return rewardMoyen;
     }
+
+    public Double getLifePoint() {return lifePoint;}
 
     @Override
     public String toString() {

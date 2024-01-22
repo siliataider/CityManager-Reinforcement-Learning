@@ -39,7 +39,8 @@ public class MapObjectManager {
             String algo = agentDTOList.get(i).getAlgo();
             State state = new State(agentDTOList.get(i).getState());
             List<Double> rewardMoyen = agentDTOList.get(i).getRewardMoyen();
-            trueAgents.add(new Agent(agentDTOList.get(i).getId(), coords, state, algo, rewardMoyen));
+            Double lifePoint = agentDTO.get(i).getLifePoint();
+            trueAgents.add(new Agent(agentDTOList.get(i).getId(), coords, state, algo, rewardMoyen, lifePoint));
         }
 
         agents = trueAgents;
@@ -56,17 +57,19 @@ public class MapObjectManager {
         }else{
             for(AgentDTO agentDTO : agentDTOList){
                 State state = new State(agentDTO.getState());
-                List<Double> rewardMoyen = agentDTO.getRewardMoyen();
                 Building building = getByType(agentDTO.getAction());
                 Agent agent = this.agents.stream()
                         .filter( x -> x.getId() == agentDTO.getId())
                         .findFirst()
                         .get();
 
+                agent.setLifePoint(agentDTO.getLifePoint());
                 agent.setState(state);
-                agent.setRewardMoyen(rewardMoyen);
+                agent.setRewardMoyen(agentDTO.getRewardMoyen());
                 System.out.println("Setting goal");
-                agent.setGoal(building);
+                if (agentDTO.getLifePoint() >= 0.20) {
+                    agent.setGoal(building);
+                }
         }
         }
     }
@@ -79,15 +82,10 @@ public class MapObjectManager {
                 .filter( element -> !element.hasArrived())
                 .collect(Collectors.toList());
 
-        System.out.println(agentToMove);
-
         for (MouvableAgent mouvableAgent : agentToMove){
-            System.out.println("MOVEMENT : ");
-            System.out.println(mouvableAgent);
             if (!mouvableAgent.hasArrived()){
                 mouvableAgent.setMoveToGoal();
                 mouvableAgent.move();
-                System.out.println(mouvableAgent);
             }
 
         }

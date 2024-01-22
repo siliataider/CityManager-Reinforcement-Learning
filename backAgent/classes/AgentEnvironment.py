@@ -6,16 +6,20 @@ class AgentEnvironment:
         self.state_value = self.init_state(timestamp=timestamp, weather=weather)
         self.reward_moy = []
         self.total_reward = 0
+        self.life_point = 1.0
 
     def reset(self):
         self.state = 0
         self.state_value = (0, 0, 0, 0, 0)
         self.reward_moy = []
         self.total_reward = 0
+        self.life_point = 1.0
+
     
     def init_state(self, timestamp, weather):
         hunger, energy, money = [round(random.uniform(0, 1), 1) for _ in range(3)]
         state = (timestamp, weather, hunger, energy, money) #TODO, hunger, energy et money random pour le moment
+        self.life_point = 0.33*hunger + 0.33*energy + 0.33*money
         return state
 
     def get_reward_and_next_state(self, action):
@@ -55,7 +59,7 @@ class AgentEnvironment:
                     reward += 1
                 reward += 1
                 energy -= 0.025
-                money += 0.1
+                money += 0.15
             else:
                 if money > 0.8:
                     reward -= 0.20
@@ -90,7 +94,7 @@ class AgentEnvironment:
             else:
                 reward += 1
 
-            money -= 0.1
+            money -= 0.075
             hunger += 0.1
 
         hunger = max(min(hunger, 1), 0)
@@ -104,7 +108,8 @@ class AgentEnvironment:
             timestamp = 0
         weather = random.choice([0, 1])
         '''
-        
+        self.life_point = 0.33*hunger + 0.33*energy + 0.33*money
+
         return reward, (timestamp, weather, hunger, energy, money)
 
     def calul_reward_moyen(self, reward, simulationCondition):

@@ -23,8 +23,8 @@ public class SimulationTests {
         state.put("Hunger",1.0);
         state.put("Money",1.0);
         state.put("Work",1.0);
-        AgentDTO agent1 = new AgentDTO(0,null,"QL", state, new ArrayList<Double>());
-        AgentDTO agent2 = new AgentDTO(1,"Home","DQL", state, new ArrayList<Double>());
+        AgentDTO agent1 = new AgentDTO(0,null,"QL", state, new ArrayList<Double>(), 0.5);
+        AgentDTO agent2 = new AgentDTO(1,"Home","DQL", state, new ArrayList<Double>(), 0.5);
         agentDTOS.add(agent1);
         agentDTOS.add(agent2);
         underTest.getMapObjectManager().updateAgentList(agentDTOS);
