@@ -13,36 +13,39 @@ class Agent() :
         return f"agent_id: {self.agent_id}, state: {self.env.state}, state_value: {self.env.state_value}"
     
     def train(self, simulationConditions):
+        
         # Choix de l'action
         action = self.choose_action(self.env.state_value, simulationConditions.exploration_rate)
-        # Exécution de l'action et obtention du nouvel état et de la récompense
-        reward, next_state_value = self.env.get_reward_and_next_state(action)
-
-        self.env.calul_reward_moyen(reward, simulationConditions)
-
-        next_state_value = (simulationConditions.timestamp, simulationConditions.weather, *next_state_value[2:])
-        # Mise à jour de la table Q
-
-        self.train_model(self.env.state_value, action, reward, next_state_value, simulationConditions.learning_rate, DISCOUNT_FACTOR)
-
-        #print(f"REWARD: {reward}, action: {action}")
-        #print(f"current state value {self.env.state_value} current state: {TABLE_STATES[self.env.state]}")
-        #print(f"next state value: {next_state_value} next state: {TABLE_STATES[next_state]}")
-        #print(f"action: {TABLE_ACTIONS[action]}, reward: {reward}, exploration_rate: {simulationConditions.exploration_rate}")
-        #print("------------------------------------------------------------------------------")
         
-        # Mettre à jour l'état actuel
-        self.env.state_value = next_state_value
+        if self.env.life_point >= 0.20:
+            # Exécution de l'action et obtention du nouvel état et de la récompense
+            reward, next_state_value = self.env.get_reward_and_next_state(action)
 
-        # total_reward += reward
-        '''
-        if total_reward <= 0:
-        print("DEEEEEEEEEEEEAAAAAAAAAAAAAADDDDDDDDDDDD")
-        print(f"time_step: {env.time_step}, total_reward: {total_reward}")
-        break
-        '''
-        #average_rewards.append(total_reward / max_time_steps)
-        #print(f"exploration_rate: {simulationConditions.exploration_rate}, action: {action}")
+            self.env.calul_reward_moyen(reward, simulationConditions)
+
+            next_state_value = (simulationConditions.timestamp, simulationConditions.weather, *next_state_value[2:])
+            # Mise à jour de la table Q
+
+            self.train_model(self.env.state_value, action, reward, next_state_value, simulationConditions.learning_rate, DISCOUNT_FACTOR)
+
+            #print(f"REWARD: {reward}, action: {action}")
+            #print(f"current state value {self.env.state_value} current state: {TABLE_STATES[self.env.state]}")
+            #print(f"next state value: {next_state_value} next state: {TABLE_STATES[next_state]}")
+            #print(f"action: {TABLE_ACTIONS[action]}, reward: {reward}, exploration_rate: {simulationConditions.exploration_rate}")
+            #print("------------------------------------------------------------------------------")
+            
+            # Mettre à jour l'état actuel
+            self.env.state_value = next_state_value
+
+            # total_reward += reward
+            '''
+            if total_reward <= 0:
+            print("DEEEEEEEEEEEEAAAAAAAAAAAAAADDDDDDDDDDDD")
+            print(f"time_step: {env.time_step}, total_reward: {total_reward}")
+            break
+            '''
+            #average_rewards.append(total_reward / max_time_steps)
+            #print(f"exploration_rate: {simulationConditions.exploration_rate}, action: {action}")
         
         return self, action
 

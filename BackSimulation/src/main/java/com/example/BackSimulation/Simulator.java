@@ -2,6 +2,7 @@ package com.example.BackSimulation;
 
 import com.corundumstudio.socketio.*;
 import com.corundumstudio.socketio.listener.ConnectListener;
+import com.corundumstudio.socketio.listener.DisconnectListener;
 import com.corundumstudio.socketio.listener.DataListener;
 import com.example.BackSimulation.DTO.*;
 import com.google.gson.Gson;
@@ -12,7 +13,6 @@ import org.java_websocket.client.WebSocketClient;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.awt.*;
 import java.util.List;
 
 @Service
@@ -50,29 +50,35 @@ public class Simulator {
 
         SocketIOServer newServer = new SocketIOServer(config);
 
-        addListeners(newServer);
+        newServer.addConnectListener(new ConnectListener() {
+            @Override
+            public void onConnect(SocketIOClient client) {
+                System.out.println("Client connected: " + client.getSessionId());
+                System.out.println(newServer.getAllClients());
+            }
+        });
 
-        System.out.println("newserver");
-        System.out.println(newServer);
-        System.out.println(newServer.getConfiguration().getHostname());
-        System.out.println(newServer.getConfiguration().getOrigin());
-        System.out.println(newServer.getConfiguration().getPort());
-        System.out.println(newServer.getConfiguration());
-        System.out.println(newServer.getAllClients());
+        newServer.addDisconnectListener(new DisconnectListener() {
+            @Override
+            public void onDisconnect(SocketIOClient client) {
+                System.out.println("Client disconnected: " + client.getSessionId());
+                System.out.println("Stopping simulation...");
+                stopSimulation();
+            }
+        });
+        addListeners(newServer);
 
         newServer.start(); // Start serveur
         go = true;
         return newServer;
 
     }
-
     private void addListeners(SocketIOServer rawServer){
         rawServer.addEventListener("build", String.class, new DataListener<String>() {
             @Override
             public void onData(SocketIOClient client, String data, AckRequest ackRequest) {
                 Gson gson = new Gson();
                 BuildingDTO building = gson.fromJson(data, BuildingDTO.class);
-                building.setCoords(new Point(building.getX(),building.getY()));
                 try{
                     simulation.getMapObjectManager().build(building);
                     server.getBroadcastOperations().sendEvent("build",
@@ -96,8 +102,10 @@ public class Simulator {
             @Override
             public void onData(SocketIOClient client, String data, AckRequest ackRequest) {
                 try{
+                    System.out.println(data);
                     Gson gson = new Gson();
                     StartDTO start = gson.fromJson(data, StartDTO.class);
+                    System.out.println("OK");
                     startSimulation(start);
                 }
                 catch(Exception e){
@@ -135,16 +143,29 @@ public class Simulator {
             }
         });
 
-
-        rawServer.addConnectListener(new ConnectListener() {
+        rawServer.addEventListener("weather", String.class, new DataListener<String>() {
             @Override
-            public void onConnect(SocketIOClient client) {
-                System.out.println("Client connected: " + client.getSessionId());
-                System.out.println(rawServer.getAllClients());
+            public void onData(SocketIOClient client, String data, AckRequest ackRequest) {
+                try{
+                    Gson gson = new Gson();
+                    WeatherDTO weather = gson.fromJson(data, WeatherDTO.class);
+                    simulation.getWeatherManager().changeWeather();
+                    server.getBroadcastOperations().sendEvent("weather",
+                            "{"
+                                    +"\"response\": \"ok\","
+                                    +"\"weather\": \"" +simulation.getWeatherManager().toJSONString()+"\""
+                                    +"}");
 
+                }
+                catch(Exception e){
+                    server.getBroadcastOperations().sendEvent("weather",
+                            "{"
+                                    +"\"response\": \"notok\","
+                                    +"\"message\": " +"\"error changing weather: "+e+"\""
+                                    +"}");
+                }
             }
         });
-
 
 
     }
@@ -185,7 +206,8 @@ public class Simulator {
                         String algo = (String) agentListRaw.get(i).get("algo");
                         LinkedTreeMap<String,Double> state = (LinkedTreeMap<String, Double>) agentListRaw.get(i).get("state");
                         List<Double> rewardMoyen = (List<Double>) agentListRaw.get(i).get("reward_moyen");
-                        agentList.add(new AgentDTO(id,action,algo,state, rewardMoyen));
+                        Double lifePoint = (Double) agentListRaw.get(i).get("life_point");
+                        agentList.add(new AgentDTO(id,action,algo,state, rewardMoyen, lifePoint));
                     }
 
                     try {
@@ -233,8 +255,6 @@ public class Simulator {
                                         +"}");
                         go = false;
                         stopSimulation();
-
-
 
                     }
                     catch(Exception e){
@@ -294,14 +314,22 @@ public class Simulator {
     }
 
     private void cycle(ArrayList<AgentDTO> agentList) throws InterruptedException {
-        simulation.getMapObjectManager().setAgents(agentList);
-        System.out.println(simulation.getMapObjectManager().getAgents());
-
+        simulation.getMapObjectManager().updateAgentList(agentList);
         server.getBroadcastOperations().sendEvent("updateAgent","{" +
                 "\"agentList\": " + simulation.getMapObjectManager().agentsToJSONString() + "," +
                 "\"weather\": " + simulation.getWeatherManager().getWeather().getValue() +"," +
                 "\"timestamp\": " + simulation.getTimeManager().getCurrentTick() +
                 "}");
+        while (simulation.getMapObjectManager().moveAgents()){
+
+            server.getBroadcastOperations().sendEvent("updateAgent","{" +
+                    "\"agentList\": " + simulation.getMapObjectManager().agentsToJSONString() + "," +
+                    "\"weather\": " + simulation.getWeatherManager().getWeather().getValue() +"," +
+                    "\"timestamp\": " + simulation.getTimeManager().getCurrentTick() +
+                    "}");
+
+            Thread.sleep(waitTime/200);
+        }
 
         simulation.getTimeManager().advance();
 

@@ -11,7 +11,6 @@ export const drawSlice = createSlice({
         state.agents = action.payload;
     },
 
-
     addBuildings: (state, action) =>{
         state.buildings.push( action.payload );
         console.log(state.buildings)

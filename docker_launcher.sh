@@ -22,7 +22,7 @@ cd /CityManager-Reinforcement-Learning/BackSimulation
 java -jar target/BackSimulation-0.0.1-SNAPSHOT.jar &
 
 # Start the React front-end
-echo "Starting Node backend..."
+echo "Starting React backend..."
 cd /CityManager-Reinforcement-Learning/front
 npm run dev
 

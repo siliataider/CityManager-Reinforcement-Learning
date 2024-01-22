@@ -4,6 +4,7 @@ const socketEvents = {
     run_simulation:"start",
     refresh_agents:"updateAgent",
     change_speed: "speed",
+    change_weather: "weather",
     stop_simulation:"stop",
 }
 

@@ -67,7 +67,7 @@ const CreationPanel = (props) => {
      */
     function saveAndStart(){
         socket.on(socketEvents.run_simulation, (message) => {
-            console.log(message);
+            //console.log(message);
             const data = JSON.parse(message);
             if (data.response == "ok"){
                 // Switch left panel
@@ -80,7 +80,7 @@ const CreationPanel = (props) => {
 
         const startMessage = {nAgents : counter, explorationRateDecay: explorationRateDecay, maxTimeStep: lengthOfEpisode}
 
-        console.log(startMessage)
+        //console.log(startMessage)
 
         // Ask the back if the simulation can start
         socket.emit(socketEvents.run_simulation, JSON.stringify(startMessage))
@@ -98,6 +98,10 @@ const CreationPanel = (props) => {
         }
     
     };
+
+    function loadAlgo(){
+        console.log("Loading algorithm...")
+    }
 
     return(
     <>
@@ -148,6 +152,10 @@ const CreationPanel = (props) => {
                         onChange={handleChangeExplorationRateDecay}
                     />
                 </div>
+            </div>
+
+            <div className="mb-2">
+                <button className="btn btn-dark w-50" onClick={loadAlgo}>Load Algorithm</button>
             </div>
 
             <div className='mb-2'>

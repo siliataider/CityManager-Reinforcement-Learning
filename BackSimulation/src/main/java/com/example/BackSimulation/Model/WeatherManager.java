@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class WeatherManager {
     private Weather weather = Weather.Sunny;
-    private double changeRate = 0.05;
+    private double changeRate = 1.0;
 
     public Weather getWeather(){
         return this.weather;
@@ -21,20 +21,18 @@ public class WeatherManager {
     public WeatherManager() {
     }
     public void changeWeather(){
-        Random r = new Random();
-        double selector = r.nextDouble();
+        //Random r = new Random();
+        //double selector = r.nextDouble();
 
-        if(changeRate>=selector){
+        //if(changeRate>=selector){
             setWeather(rollWeather());
-        }
+        //}
     }
 
     private Weather rollWeather(){
         if (getWeather() == Weather.Sunny){
-            setChangeRate(0.1);
             return Weather.Rainy;
         }
-        setChangeRate(0.05);
         return Weather.Sunny;
     }
 

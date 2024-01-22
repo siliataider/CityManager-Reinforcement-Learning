@@ -1,18 +1,18 @@
 package com.example.BackSimulation.Model.MapObjects;
 
 import com.example.BackSimulation.Model.Enums.Stats;
+import com.example.BackSimulation.Model.MouvableObject.CoordBigDecimal;
 
 import java.awt.*;
-import java.util.ArrayList;
 
 public class Resto extends Building {
-    public Resto(Point coords,int nutriments, int cost,int openTime,int closeTime){
+    public Resto(CoordBigDecimal coords, int nutriments, int cost, int openTime, int closeTime){
         super(coords,openTime,closeTime);
         Transaction transaction = new Transaction(Stats.Food,nutriments,Stats.Money,cost);
         setTransaction(transaction);
     }
 
-    public Resto(Point coords, int openTime,int closeTime){
+    public Resto(CoordBigDecimal coords, int openTime,int closeTime){
         super(coords,openTime,closeTime);
         Transaction transaction = new Transaction(Stats.Food,10,Stats.Money,10);
         setTransaction(transaction);

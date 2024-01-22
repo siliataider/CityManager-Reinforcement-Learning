@@ -1,21 +1,24 @@
 package com.example.BackSimulation.Model.MapObjects;
 
+import com.example.BackSimulation.Model.MouvableObject.CoordBigDecimal;
+
 import java.awt.*;
+import java.math.BigDecimal;
 
 public class Building extends MapObject{
     private int openTime;
     private int closeTime;
     private Transaction transaction;
 
-    public Building(int id, Point coords) {
+    public Building(int id, CoordBigDecimal coords) {
         super(id, coords);
     }
 
-    public Building(Point coords) {
+    public Building(CoordBigDecimal coords) {
         super(0, coords);
     }
 
-    public Building(Point coords, int openTime, int closeTime) {
+    public Building(CoordBigDecimal coords, int openTime, int closeTime) {
         super(0,coords);
         this.openTime = openTime;
         this.closeTime = closeTime;
@@ -30,9 +33,13 @@ public class Building extends MapObject{
         this.closeTime=closeTime;
     }
 
+    public CoordBigDecimal getCoords(){
+        return this.coords;
+    }
+
     @Override
     public String toString() {
-        return this.getClass().getSimpleName()+"; ("+getCoords().getX()+","+getCoords().getY()+")";
+        return this.getClass().getSimpleName()+"; ("+getCoords() + ")";
     }
 
     public String toJSONString() {

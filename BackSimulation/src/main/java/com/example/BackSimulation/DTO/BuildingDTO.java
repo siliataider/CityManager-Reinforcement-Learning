@@ -1,16 +1,12 @@
 package com.example.BackSimulation.DTO;
 
 import com.example.BackSimulation.Model.Enums.BuildingType;
-import com.example.BackSimulation.Model.MapObjects.Transaction;
-
-import java.awt.*;
+import com.example.BackSimulation.Model.MouvableObject.CoordBigDecimal;
 
 public class BuildingDTO {
     private BuildingType type;
 
-    private int x;
-    private int y;
-    private Point coords;
+    private CoordBigDecimal position;
 
     private int size;
     private int openTime;
@@ -18,8 +14,6 @@ public class BuildingDTO {
 
     public BuildingDTO(String type, int x, int y, int size, int openTime, int closeTime) {
         this.type = BuildingType.valueOf(type);
-        this.x = x;
-        this.y = y;
         this.size = size;
         this.openTime = openTime;
         this.closeTime = closeTime;
@@ -37,35 +31,29 @@ public class BuildingDTO {
         return closeTime;
     }
 
-    public Point getCoords() {
-        return coords;
+    public CoordBigDecimal getPosition() {
+        return position;
     }
 
     public int getSize() { return size; }
 
-    public void setCoords(Point coords) {
-        this.coords = coords;
+    public void setPosition(CoordBigDecimal position) {
+        this.position = position;
     }
 
     @Override
     public String toString() {
         return "BuildingDTO{" +
                 "type=" + type +
-                ", x=" + x +
-                ", y=" + y +
-                ", coords=" + coords +
+                ", coords=" + position +
                 ", size=" + size +
                 ", openTime=" + openTime +
                 ", closeTime=" + closeTime +
                 '}';
     }
 
-    public int getX() {
-        return x;
-    }
-
-    public int getY(){
-        return y;
+    public CoordBigDecimal getCoords() {
+        return this.position;
     }
 }
 
