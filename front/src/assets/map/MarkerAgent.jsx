@@ -11,6 +11,9 @@ function MarkerAgent(props){
     if (!isPopupOpen) {
       setCurrentColor('yellow');
     }
+    else{
+      setCurrentColor(props.color); 
+    }
     setIsPopupOpen(!isPopupOpen);
   };
 
