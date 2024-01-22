@@ -328,7 +328,7 @@ public class Simulator {
                     "\"timestamp\": " + simulation.getTimeManager().getCurrentTick() +
                     "}");
 
-            Thread.sleep(10);
+            Thread.sleep(waitTime/200);
         }
 
         simulation.getTimeManager().advance();
