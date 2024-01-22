@@ -37,6 +37,13 @@ public class Agent extends MouvableAgent {
         color = "red";
     }
 
+    public void setState(State state) {
+        this.state = state;
+    }
+    public void setRewardMoyen(List<Double> rewardMoyen) {
+        this.rewardMoyen = rewardMoyen;
+    }
+
     @Override
     public String toString() {
         return "Agent{" +

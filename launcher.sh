@@ -17,7 +17,7 @@ java -jar target/BackSimulation-0.0.1-SNAPSHOT.jar &
 # Start the react front-end
 cd ../front
 npm install
-npm run build &
+npm run dev &
 
 # Done
 echo "READY !"

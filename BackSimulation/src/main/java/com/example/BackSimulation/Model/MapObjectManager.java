@@ -38,7 +38,7 @@ public class MapObjectManager {
 
             String algo = agentDTOList.get(i).getAlgo();
             State state = new State(agentDTOList.get(i).getState());
-            List<Double> rewardMoyen = agentDTOList.get(i).getRewardmoyen();
+            List<Double> rewardMoyen = agentDTOList.get(i).getRewardMoyen();
             trueAgents.add(new Agent(agentDTOList.get(i).getId(), coords, state, algo, rewardMoyen));
         }
 
@@ -55,15 +55,17 @@ public class MapObjectManager {
             this.initAgents(agentDTOList);
         }else{
             for(AgentDTO agentDTO : agentDTOList){
+                State state = new State(agentDTO.getState());
+                List<Double> rewardMoyen = agentDTO.getRewardMoyen();
                 Building building = getByType(agentDTO.getAction());
-                MouvableAgent agent = this.agents.stream()
+                Agent agent = this.agents.stream()
                         .filter( x -> x.getId() == agentDTO.getId())
                         .findFirst()
                         .get();
 
-                System.out.println("GOAL :  " +  building);
-                System.out.println("GOAL OF : " + agent.getId());
-
+                agent.setState(state);
+                agent.setRewardMoyen(rewardMoyen);
+                System.out.println("Setting goal");
                 agent.setGoal(building);
         }
         }

@@ -23,7 +23,7 @@ const GamePanel = (props) => {
       
 
       socket.on(socketEvents.change_weather, (message) => {
-          console.log(message);
+          //console.log(message);
           const data = JSON.parse(message);
           if (data.response == "ok"){
             setWeather(data.weather);
@@ -35,7 +35,7 @@ const GamePanel = (props) => {
       });
 
       const weatherMessage = {}
-      console.log(weatherMessage)
+      //console.log(weatherMessage)
 
       // Ask the back if the simulation can start
       socket.emit(socketEvents.change_weather, JSON.stringify(weatherMessage))
@@ -43,7 +43,7 @@ const GamePanel = (props) => {
 
     function changeSpeed(newSpeed){
       socket.on(socketEvents.change_speed, (message) => {
-          console.log(message);
+          //console.log(message);
           const data = JSON.parse(message);
           if (data.response == "ok"){
             setSpeed(newSpeed);
@@ -56,7 +56,7 @@ const GamePanel = (props) => {
 
       const speedMessage = {speed : speed/10}
 
-      console.log(speedMessage)
+      //console.log(speedMessage)
 
       // Ask the back if the simulation can start
       socket.emit(socketEvents.change_speed, JSON.stringify(speedMessage))
@@ -64,7 +64,7 @@ const GamePanel = (props) => {
 
     function stop(){
       socket.on(socketEvents.stop_simulation, (message) => {
-          console.log(message);
+          //console.log(message);
           const data = JSON.parse(message);
           if (data.response == "ok"){
               // Switch right panel
@@ -78,7 +78,7 @@ const GamePanel = (props) => {
 
       const stopMessage = {}
 
-      console.log(stopMessage)
+      //console.log(stopMessage)
 
       // Ask the back if the simulation can start
       socket.emit(socketEvents.stop_simulation, JSON.stringify(stopMessage))
@@ -89,23 +89,27 @@ const GamePanel = (props) => {
 
           let data = JSON.parse(message)
           let agentList = [];
-          console.log(data)
           for (const agent of data.agentList){
             console.log(agent)
-            console.log(agent.position)
+            //console.log(agent.position)
             agentList.push({
                 id: agent.id,
                 position: agent.position,
                 color : agent.color,
                 size : 10,
-                rewardMoyen: agent.rewardMoyen
+                rewardMoyen: agent.rewardMoyen,
+                state: agent.state
             })
           }
           dispatch( setAgents( agentList) );
+          //console.log("SET AGENTS: ", agentList)
           setIsAgentSet(true)
         });
       }, [])
 
+    function saveAlgo(){
+        console.log("Saving algorithm...")
+    }
     return(
     <>
         <h1>Config :</h1>
@@ -141,7 +145,12 @@ const GamePanel = (props) => {
           </div>
 
           <div className="mb-2">
-            {isAgentSet && <GraphReward data={agents[0].rewardMoyen} />}
+            {isAgentSet && (
+              <div>
+                <GraphReward data={agents[0].rewardMoyen} />
+                <button className="btn btn-primary w-50" onClick={saveAlgo}>Save Algorithm</button>
+              </div>
+            )}
           </div>
 
         </div>
