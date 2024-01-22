@@ -1,16 +1,32 @@
 import { AdvancedMarker } from "@vis.gl/react-google-maps";
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect } from "react";
+import {useDispatch, useSelector} from 'react-redux';
+import { setCurrentAgentId } from "../canvas/drawSlice";
 
 function MarkerAgent(props){
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [currentColor, setCurrentColor] = useState(props.color);
+  const [currentTextColor, setCurrentTextColor] = useState('white');
+  const current_agent_id = useSelector( (state) => state.draw.current_agent_id);
+  const dispatch = useDispatch();
+
+  useEffect(() =>{
+    console.log("current_agent_id: ", current_agent_id)
+    if (current_agent_id != props.id){
+      closePopup();
+    }
+  }, [current_agent_id])
 
   const togglePopup = () => {
     if (!isPopupOpen) {
       setCurrentColor('yellow');
+      setCurrentTextColor(props.color)
+      dispatch(setCurrentAgentId(props.id));
     }
     else{
       setCurrentColor(props.color); 
+      setCurrentTextColor('white')
+      dispatch(setCurrentAgentId(null));
     }
     setIsPopupOpen(!isPopupOpen);
   };
@@ -18,6 +34,8 @@ function MarkerAgent(props){
   const closePopup = () => {
     setIsPopupOpen(false);
     setCurrentColor(props.color); 
+    setCurrentTextColor('white')
+    dispatch(setCurrentAgentId(null));
   };
 
 
@@ -44,7 +62,7 @@ function MarkerAgent(props){
         >
           <span
             style={{
-              color: 'white',
+              color: `${currentTextColor}`,
               fontSize: '10px',
               position: 'absolute',
             }}

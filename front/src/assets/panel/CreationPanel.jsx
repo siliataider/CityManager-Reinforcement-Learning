@@ -1,28 +1,19 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {React, useState} from 'react';
-
 import { setCursorObject, setBuildingType, switchIsDragging } from "../mouse/mouseSlice";
-
 import BuildingType from "../buildings/BuildingType";
 import socketEvents from "../socket/socketEvents";
-
 import GamePanel from "./GamePanel";
-
 import Cursor from "../mouse/Cursor";
-
-
 
 const CreationPanel = (props) => {
 
     const dispatch = useDispatch();
-
     const isDragging = useSelector( (state) => state.mouse.isDragging);
     const socket = useSelector( (state) => state.socket.socket);
-
     const [counter, setCounter] = useState(1);
     const [explorationRateDecay, setExplorationRateDecay] = useState(25);
     const [lengthOfEpisode, setLengthOfEpisode] = useState(50);
-
 
     const increase = () => {
         setCounter(count => count+1)
@@ -32,7 +23,6 @@ const CreationPanel = (props) => {
         if(counter > 1){
             setCounter(count => count-1)
         }
-        
     }
 
     /**
@@ -67,21 +57,16 @@ const CreationPanel = (props) => {
      */
     function saveAndStart(){
         socket.on(socketEvents.run_simulation, (message) => {
-            //console.log(message);
             const data = JSON.parse(message);
             if (data.response == "ok"){
                 // Switch left panel
                 props.nextPanelListener(<GamePanel nextPanelListener={props.nextPanelListener} className="col"></GamePanel>)
             }else {
-                console.log(data.message)
+                alert(data.message)
             }
             socket.off(socketEvents.run_simulation)
         });
-
         const startMessage = {nAgents : counter, explorationRateDecay: explorationRateDecay, maxTimeStep: lengthOfEpisode}
-
-        //console.log(startMessage)
-
         // Ask the back if the simulation can start
         socket.emit(socketEvents.run_simulation, JSON.stringify(startMessage))
     }
@@ -96,7 +81,6 @@ const CreationPanel = (props) => {
         if (event.target.value && event.target.value != 0) {
             setExplorationRateDecay(event.target.value);
         }
-    
     };
 
     function loadAlgo(){

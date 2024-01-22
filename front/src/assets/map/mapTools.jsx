@@ -1,4 +1,3 @@
-import BuildingType from "../buildings/BuildingType";
 import MarkerAgent from "./MarkerAgent";
 import MarkerBuilding from "./MarkerBuilding";
 
