@@ -18,16 +18,19 @@ public class APIopenRouteService {
     private  static final String domainName = "https://api.openrouteservice.org/v2/directions/foot-walking";
     private static final String tocken = "5b3ce3597851110001cf624898d73d0c7634461abc58ae5564b8c48d";
 
-    private static Map<Map< Map<Double, Double>, Map<Double,Double> >, List<List<BigDecimal>> > cachedPath;
+    private static Map<String, List<List<BigDecimal> >> cachedPath = new HashMap<>();
 
-    public static List<List<BigDecimal>> getPathAPI(double startLong, double startLat, double endLong, double endLat){
+    public static List<List<BigDecimal>> getPathAPI(float startLong, float startLat, float endLong, float endLat){
+
+        String tailURL = "&start="+ startLong + "," + startLat + "&end=" + endLong + "," + endLat;
+
+        if (cachedPath.containsKey(tailURL)){
+            return cachedPath.get(tailURL);
+        }
 
         String URL = domainName
                 + "?api_key=" + tocken
-                + "&start="+ startLong + "," + startLat
-                + "&end=" + endLong + "," + endLat;
-
-        System.out.println(URL);
+                + tailURL;
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create( URL ))
@@ -44,8 +47,6 @@ public class APIopenRouteService {
 
         JSONObject json = new JSONObject(response.body());
 
-        System.out.println(json);
-
         JSONArray a = (JSONArray) json.get("features");
         JSONObject b = (JSONObject) a.get(0);
         JSONObject c = (JSONObject) b.get("geometry");
@@ -53,13 +54,9 @@ public class APIopenRouteService {
 
         List<List<BigDecimal>> cordsList = (List<List<BigDecimal>>)(List<?>)d.toList();
 
-        /**
-        Map<Map<Double,Double>, Map<Double,Double> > key = new HashMap<>();
-        key.put( new HashMap<>(), new HashMap<>());
+        // Add path to cach : 
+        cachedPath.put( tailURL , cordsList);
 
-
-        this.cachedPath.put();
-        */
         return cordsList;
     }
 
