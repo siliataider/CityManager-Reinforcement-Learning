@@ -104,8 +104,8 @@ const GamePanel = (props) => {
     }
     return(
     <>
-        <h1>Config :</h1>
-        <div className="col bg-light px-2">
+        <div className="col bg-dark-opacity p-4 text-white rounded">
+          <h2>Control Panel :</h2>
           <div className="mb-2">
             <label className="col-form-label">Agent : {agents.length}</label>
           </div>
@@ -140,10 +140,11 @@ const GamePanel = (props) => {
           <div className="mb-2">
             <button className="btn btn-danger" onClick={stop}>STOP</button>
           </div>
+        </div>
 
-          <div className="mb-2">
+        <div className="">
             {agents[current_agent_id] && (
-              <div>
+              <div className="bg-dark-opacity p-4 text-white rounded mt-2">
                 <GraphReward data={agents[current_agent_id].rewardMoyen} />
                 <div className="form-group row mb-2">
                   <label className ="col-form-label col-3">FileName:</label>
@@ -154,8 +155,6 @@ const GamePanel = (props) => {
                 <button className="btn btn-primary w-50" onClick={saveAlgo}>Save Algorithm</button>
               </div>
             )}
-          </div>
-
         </div>
     </>
     );

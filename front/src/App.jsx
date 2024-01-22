@@ -30,22 +30,17 @@ function App() {
       setLeftPanel(<CreationPanel nextPanelListener={setLeftPanel} className="col"></CreationPanel>)
     }, [])
 
-
-  return (
-    <>
-      <div className='container'>
-        <div className="row">
-          <div className='col-4'>
+    return (
+      <>
+        <div className="full-screen-map">
+          <MapProject></MapProject>
+          <div className="floating-panel">
             {leftPanel}
           </div>
-          <div className='col'>
-            <MapProject></MapProject>
-          </div>
         </div>
-      </div>
-      {cursorObject}
-    </>
-  )
+        {cursorObject}
+      </>
+    );
 }
 
 export default App

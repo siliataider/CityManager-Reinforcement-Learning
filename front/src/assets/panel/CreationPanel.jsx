@@ -89,11 +89,11 @@ const CreationPanel = (props) => {
 
     return(
     <>
-        <h1>Config :</h1>
-        <div className='col bg-secondary-subtle p-2'>
+        <div className='col bg-dark-opacity p-4 rounded'>
+            <h2>Config :</h2>
             <div className='mb-2'>
                 <button type="button" className='btn btn-light' onClick = {decrease}>-</button>
-                <label className='col-form-label bg-light'>Agents : {counter}</label>
+                <label className='col-form-label bg-light text-muted p-2 rounded'>Agents : {counter}</label>
                 <button type="button" className='btn btn-light' onClick = {increase}>+</button>
             </div>
             

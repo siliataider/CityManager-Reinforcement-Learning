@@ -28,7 +28,7 @@ function MapProject () {
         type: buildingType,
         position : e.detail.latLng,
         color : color,
-        size : 40,
+        size : 60,
         openTime : 8,
         closeTime :20,
       }

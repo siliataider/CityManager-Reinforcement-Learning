@@ -52,8 +52,8 @@ function MarkerAgent(props){
         <div
           style={{
             backgroundColor: currentColor,
-            width: 20,
-            height: 20,
+            width: 35,
+            height: 35,
             borderRadius: 50,
             border: `2px solid ${props.color}`,
             position: 'relative',
@@ -79,14 +79,14 @@ function MarkerAgent(props){
         style={{
           position: "absolute",
           top: props.position.lat + 10,
-          left: props.position.lng + 10,
+          right: props.position.lng + 10,
           backgroundColor: "yellow",
           padding: "15px",
           border: "1px solid #ccc",
           zIndex: 9999,
           display: "flex",
           flexDirection: "column",
-          alignItems: "flex-start",
+          alignItems: "flex-end",
         }}
         > 
         <button
@@ -105,9 +105,9 @@ function MarkerAgent(props){
             X
           </button>
           <ul>
-            <li>Energy: {props.state?.energy}</li>
-            <li>Hunger: {props.state?.hunger}</li>
-            <li>Money: {props.state?.money}</li>
+            <li>Energy: {props.state?.energy*100}%</li>
+            <li>Hunger: {props.state?.hunger*100}%</li>
+            <li>Money: {props.state?.money*100}%</li>
           </ul>
         </div>
       )}
