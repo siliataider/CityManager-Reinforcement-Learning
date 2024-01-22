@@ -15,8 +15,8 @@ export function getMarkerBuilding(buildingList){
 export function getMarkerAgent(agentList){
     let markerList = []
     let key = 0;
-    for (const build of agentList){
-        markerList.push(<MarkerAgent key={key} color={build.color} position={build.position}></MarkerAgent> );
+    for (const agent of agentList){
+        markerList.push(<MarkerAgent key={key} color={agent.color} position={agent.position} state={agent.state}></MarkerAgent> );
         key += 1;
     }
     return markerList;
