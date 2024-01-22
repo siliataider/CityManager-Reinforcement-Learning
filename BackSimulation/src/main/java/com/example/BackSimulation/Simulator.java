@@ -23,7 +23,7 @@ public class Simulator {
     private WebSocketClient pythonWebSocketClient;
 
     private boolean go = false;
-    private int maxWaitTime = 2000;
+    private int maxWaitTime = 1000;
     private int waitTime;
     private long timeVariable;
 
@@ -249,7 +249,12 @@ public class Simulator {
         long responseTime = System.currentTimeMillis() - timeVariable;
         if(responseTime < waitTime){
             try {
-                Thread.sleep(waitTime - responseTime);
+                long sleep = waitTime - responseTime;
+                System.out.println(sleep);
+                if (sleep<=0) {
+                    sleep = 0;
+                }
+                Thread.sleep(sleep);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -378,7 +383,7 @@ public class Simulator {
                     "\"timestamp\": " + simulation.getTimeManager().getCurrentTick() +
                     "}");
 
-            Thread.sleep(waitTime/200);
+            Thread.sleep(waitTime/100);
         }
 
         simulation.getTimeManager().advance();

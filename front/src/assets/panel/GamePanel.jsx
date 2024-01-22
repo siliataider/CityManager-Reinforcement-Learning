@@ -14,6 +14,7 @@ const GamePanel = (props) => {
     const [speed, setSpeed] = useState(1);
     const [weather,setWeather] = useState("Sunny")
     const [graveyard, setGraveyard] = useState([])
+    const [filename, setFilename] = useState('')
 
     function changeWeather(){
       socket.on(socketEvents.change_weather, (message) => {
@@ -32,19 +33,14 @@ const GamePanel = (props) => {
   }
 
     function changeSpeed(newSpeed){
-      socket.on(socketEvents.change_speed, (message) => {
-          const data = JSON.parse(message);
-          if (data.response == "ok"){
-            setSpeed(newSpeed);
-          }
-          else{
-            alert(data.message)
-          }
-          socket.off(socketEvents.change_speed)
-      });
-      const speedMessage = {speed : speed/10}
-      // Ask the back if the simulation can start
-      socket.emit(socketEvents.change_speed, JSON.stringify(speedMessage))
+      if (newSpeed && newSpeed >= 1 && newSpeed <=100) {
+        setSpeed(newSpeed)
+
+        const speedMessage = {speed : newSpeed/100}
+        // Ask the back if the simulation can start
+        socket.emit(socketEvents.change_speed, JSON.stringify(speedMessage))
+      }
+     
   }
 
     function stop(){
@@ -94,11 +90,17 @@ const GamePanel = (props) => {
           console.log(data.message)
           socket.off(socketEvents.save_agent)
       });
+      if (!filename) {
+        alert("Please enter a filename")
+      }
+      else {
+        const saveAgent = {id: current_agent_id, filename: filename}
 
-      const saveAgent = {id: agents[0].id, filename: "test"}
-
-      // Ask the back if the simulation can start
-      socket.emit(socketEvents.save_agent, JSON.stringify(saveAgent))
+        // Ask the back if the simulation can start
+        socket.emit(socketEvents.save_agent, JSON.stringify(saveAgent))
+        setFilename('')
+      }
+        
     }
     return(
     <>
@@ -143,6 +145,12 @@ const GamePanel = (props) => {
             {agents[current_agent_id] && (
               <div>
                 <GraphReward data={agents[current_agent_id].rewardMoyen} />
+                <div className="form-group row mb-2">
+                  <label className ="col-form-label col-3">FileName:</label>
+                  <div className="col-9">
+                    <input type="text" className="form-control" value={filename} onChange={e => setFilename(e.target.value)}></input>
+                  </div>
+                </div>
                 <button className="btn btn-primary w-50" onClick={saveAlgo}>Save Algorithm</button>
               </div>
             )}
