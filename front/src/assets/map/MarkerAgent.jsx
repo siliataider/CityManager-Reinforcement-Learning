@@ -13,7 +13,9 @@ function MarkerAgent(props){
   useEffect(() =>{
     console.log("current_agent_id: ", current_agent_id)
     if (current_agent_id != props.id){
-      closePopup();
+      setIsPopupOpen(false);
+      setCurrentColor(props.color); 
+      setCurrentTextColor('white');
     }
   }, [current_agent_id])
 
@@ -34,7 +36,7 @@ function MarkerAgent(props){
   const closePopup = () => {
     setIsPopupOpen(false);
     setCurrentColor(props.color); 
-    setCurrentTextColor('white')
+    setCurrentTextColor('white');
     dispatch(setCurrentAgentId(null));
   };
 
