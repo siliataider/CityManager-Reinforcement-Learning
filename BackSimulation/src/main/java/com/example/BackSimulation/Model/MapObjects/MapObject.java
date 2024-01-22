@@ -9,7 +9,7 @@ public abstract class MapObject {
 
     public MapObject(int id, CoordBigDecimal coords) {
         this.id = id;
-        this.coords = coords;
+        this.coords = new CoordBigDecimal(coords.lng.doubleValue(), coords.lat.doubleValue());
     }
 
     public CoordBigDecimal getCoords() {

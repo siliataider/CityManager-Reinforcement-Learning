@@ -85,6 +85,14 @@ public class MapObjectManager {
         for (MouvableAgent mouvableAgent : agentToMove){
             if (!mouvableAgent.hasArrived()){
                 mouvableAgent.setMoveToGoal();
+
+                List<MouvableAgent> toCloseAgents = agentToMove.stream()
+                        .filter( element -> element.getId() != mouvableAgent.getId() && !element.coords.equals(mouvableAgent.coords) )
+                        .toList();
+
+                for (MouvableAgent closeAgent : toCloseAgents){
+                    mouvableAgent.setObstacle(closeAgent);
+                }
                 mouvableAgent.move();
             }
 

@@ -29,12 +29,11 @@ function MapProject () {
   const agentsList = useSelector((state)=> state.draw.agents);
 
   const position = { lat: 45.77722633389068, lng:  4.92226934948768 };
-  const [open, setOpen] = useState(false);
 
   const [buildingList, setBuildingList] = useState([]);
 
-  const [marketListBuilding, setMarkerBuildingList] = useState([])
-  const [marketListAgent, setMarkerAgentList] = useState([])
+  const [markerListBuilding, setMarkerBuildingList] = useState([])
+  const [markerListAgent, setMarkerAgentList] = useState([])
 
   const onClick = (e) =>{
     if(isDragging){
@@ -70,7 +69,6 @@ function MapProject () {
         // Delete listener :
         socket.off(socketEvents.new_building)
       });
-      console.log(building)
 
       // Send the building to back
       socket.emit(socketEvents.new_building, JSON.stringify(building))
@@ -83,6 +81,9 @@ function MapProject () {
     }, [buildingList])
 
     useEffect(() => {
+      console.log("Agent List :")
+      console.log(agentsList);
+      console.log(marketListAgent);
       setMarkerAgentList(getMarkerAgent(agentsList))
     }, [agentsList])
   
@@ -92,14 +93,8 @@ function MapProject () {
       <div style={{ height: "100vh", width: "100%" }}>
         <Map zoom={15} center={position} mapId={"c1f6e617d042fe39"} onClick={onClick}>
 
-          {marketListBuilding}
-          {marketListAgent}
-
-          {/* {open && (
-            <InfoWindow position={position} onCloseClick={() => setOpen(false)}>
-              <p>I AM A TEXT BOX ! PLEASE PUT SOMTHIN IN ME I FEEL EMPTY !</p>
-            </InfoWindow>
-          )} */}
+          {markerListBuilding}
+          {markerListAgent}
 
         </Map>
       </div>

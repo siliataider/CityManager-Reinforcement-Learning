@@ -12,6 +12,11 @@ public class CoordBigDecimal {
         this.lat = lat;
     }
 
+    public  CoordBigDecimal(double lng, double lat){
+        this.lng = BigDecimal.valueOf(lng);
+        this.lat = BigDecimal.valueOf(lat);
+    }
+
     public CoordBigDecimal(int lng, int lat){
         this.lng = BigDecimal.valueOf(lng);
         this.lat = BigDecimal.valueOf(lat);
@@ -27,5 +32,11 @@ public class CoordBigDecimal {
         return "{\"lat\":" + this.lat + ","
                 + "\"lng\":" + this.lng
                 + "}";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        CoordBigDecimal other = (CoordBigDecimal) obj;
+        return this.lat.equals(other.lat)  && this.lng.equals(other.lng);
     }
 }
