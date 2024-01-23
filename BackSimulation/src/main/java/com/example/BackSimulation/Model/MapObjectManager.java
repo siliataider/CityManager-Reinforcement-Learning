@@ -38,7 +38,7 @@ public class MapObjectManager {
 
         for(int i = 0; i<agentDTOList.size(); i++){
             // Agents always start from a random home :
-            CoordBigDecimal coords = homesList.get( rand.nextInt(homesList.size()) ).getCoords();
+            CoordBigDecimal coords = homesList.get( rand.nextInt(homesList.size())).getCoords();
 
             String algo = agentDTOList.get(i).getAlgo();
             State state = new State(agentDTOList.get(i).getState());

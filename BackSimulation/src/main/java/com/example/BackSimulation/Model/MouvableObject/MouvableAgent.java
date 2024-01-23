@@ -16,6 +16,7 @@ public class MouvableAgent extends MapObject implements Mouvable{
     private List<List<BigDecimal>> path;
     private int indexPath = 0;
     private boolean hasArrived = false;
+    private Building lastPostion;
 
     private final BigDecimal deplacementMax = APIopenRouteService.deltaPoints.divide( BigDecimal.valueOf(1),10, RoundingMode.HALF_UP ) ;
     private final BigDecimal sightRadius= APIopenRouteService.deltaPoints.divide( BigDecimal.valueOf(0.5), 10, RoundingMode.HALF_UP) ;
@@ -28,15 +29,18 @@ public class MouvableAgent extends MapObject implements Mouvable{
     // PUBLIC METHODES FROM MOUVABLE OBJECT :
 
     public void setGoal( Building building ){
-        //System.out.println("API build"  + building );
-        //System.out.println("CONVertion : " + building.coords.lng.doubleValue() + " " + building.coords.lat.doubleValue());
+        if(lastPostion == null) {
+            System.out.println("NULL");
+            this.path = APIopenRouteService.getPathAPI(this.coords.lng.floatValue(), this.coords.lat.floatValue()
+                    , building.coords.lng.floatValue(), building.coords.lat.floatValue());
 
-        this.path = APIopenRouteService.getPathAPI(this.coords.lng.floatValue(), this.coords.lat.floatValue()
-                , building.coords.lng.floatValue(), building.coords.lat.floatValue());
+        }else {
+            System.out.println("NOT NULL");
+            this.path = APIopenRouteService.getPathAPI(this.lastPostion, building);
+        }
+        lastPostion = building;
         this.hasArrived = false;
         this.indexPath = 0;
-
-        //System.out.println("Path : "  + this.path);
     }
 
     @Override
@@ -66,7 +70,6 @@ public class MouvableAgent extends MapObject implements Mouvable{
 
             if (this.indexPath >= this.path.size()) {
                 this.hasArrived = true;
-                System.out.println("Yay, mission acomplie !");
             }
 
         }
@@ -101,19 +104,9 @@ public class MouvableAgent extends MapObject implements Mouvable{
                 this.dCoords.lat = dLatitude.add(dLatitude.divide(distance, 10, RoundingMode.HALF_UP).multiply(push));
             }catch(ArithmeticException e ){
                 System.out.println("Div 0 : " + e);
-
             }
 
             }
-
-        /*
-
-        BigDecimal multiply = dLongitude.divide(distance, 10, RoundingMode.HALF_UP).multiply(push);
-        this.dCoords.lng = dLongitude.add(multiply);
-        this.dCoords.lat = dLatitude.add(multiply);
-         */
-
-
     }
 
     public boolean hasArrived(){
