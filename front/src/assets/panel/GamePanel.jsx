@@ -71,7 +71,8 @@ const GamePanel = (props) => {
                 color : agent.color,
                 size : 10,
                 rewardMoyen: agent.rewardMoyen,
-                state: agent.state
+                state: agent.state,
+                lifePoint: agent.lifePoint,
             })
             if (agent.color == "black") {
               liste_graveyard.push(agent.id)
