@@ -76,7 +76,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    needs: test-back-python, test-back-java
+    needs: [test-back-python, test-back-java] 
 
     steps:
     - uses: actions/checkout@v2
