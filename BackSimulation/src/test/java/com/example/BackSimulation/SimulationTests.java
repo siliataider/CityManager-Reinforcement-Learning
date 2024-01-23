@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class SimulationTests {
@@ -50,6 +51,36 @@ public class SimulationTests {
 
         assertTrue(isValidJSON);
 
+    }
+
+    @Test
+    public void ItShouldVerifyASimulationIsValid(){
+
+        Simulation underTest = new Simulation();
+
+        assertFalse(underTest.verify(0));
+        assertFalse(underTest.verify(5));
+
+        BuildingDTO building1 = new BuildingDTO("work",100,100,2,12,16);
+        building1.setPosition(new CoordBigDecimal(100,100));
+        BuildingDTO building2 = new BuildingDTO("home",150,100,2,0,0);
+        building2.setPosition(new CoordBigDecimal(150,100));
+        BuildingDTO building3 = new BuildingDTO("resto",200,100,2,18,23);
+        building3.setPosition(new CoordBigDecimal(200,100));
+
+        underTest.getMapObjectManager().build(building1);
+        underTest.getMapObjectManager().build(building2);
+
+        assertFalse(underTest.verify(0));
+        assertFalse(underTest.verify(5));
+
+        underTest.getMapObjectManager().build(building3);
+
+        assertFalse(underTest.verify(0));
+
+
+
+        assertTrue(underTest.verify(5));
     }
 
 
