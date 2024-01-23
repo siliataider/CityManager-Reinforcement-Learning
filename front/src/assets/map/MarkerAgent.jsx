@@ -67,6 +67,7 @@ function MarkerAgent(props){
               color: `${currentTextColor}`,
               fontSize: '10px',
               position: 'absolute',
+              weight: 'bold',
             }}
           >
             {props.id}
@@ -75,7 +76,7 @@ function MarkerAgent(props){
       </AdvancedMarker>
 
       {isPopupOpen && (
-        <div className="bg-dark-opacity text-white rounded p-4 col-3 position-absolute"
+        <div className="bg-dark-opacity text-white rounded p-4 col-2 position-absolute"
         style={{ 
           top: '100PX', 
           right: '100PX',
@@ -90,9 +91,9 @@ function MarkerAgent(props){
           >
           </button>
           <ul>
-            <li>Energy: {props.state?.energy*100}%</li>
-            <li>Hunger: {props.state?.hunger*100}%</li>
-            <li>Money: {props.state?.money*100}%</li>
+            <li>Energy: {props.state?.energy ? Math.round(props.state.energy * 100) : 0}%</li>
+            <li>Hunger: {props.state?.hunger ? Math.round(props.state.hunger * 100) : 0}%</li>
+            <li>Money: {props.state?.money ? Math.round(props.state.money * 100) : 0}%</li>
           </ul>
         </div>
       )}

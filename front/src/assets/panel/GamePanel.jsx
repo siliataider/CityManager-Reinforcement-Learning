@@ -91,7 +91,7 @@ const GamePanel = (props) => {
           socket.off(socketEvents.save_agent)
       });
       if (!filename) {
-        alert("Please enter a filename")
+        alert("Please enter a valid filename")
       }
       else {
         const saveAgent = {id: current_agent_id, filename: filename}
@@ -107,12 +107,11 @@ const GamePanel = (props) => {
         <div className="col bg-dark-opacity p-4 text-white rounded">
           <h2>Control Panel :</h2>
           <div className="mb-2">
-            <label className="col-form-label">Agent : {agents.length}</label>
+            <label className='col-form-label bg-light text-muted p-2 rounded'>Agents : {agents.length}</label>
           </div>
 
           <div className="mb-2">
-            <button onClick={changeWeather} className="btn btn-primary">Change Weather</button>
-            <div>Weather: {weather}</div>
+            <button onClick={changeWeather} className="btn btn-primary">Switch: {weather}</button>
           </div>
           <div className="form-group row mb-2">
             <label className ="col-form-label col-4">Simulation speed:</label>
@@ -129,7 +128,7 @@ const GamePanel = (props) => {
               <label className="col-form-label col-2">%</label>
           </div>
           <div className="mb-2">
-            <label className="col-form-label">Graveyard : </label>
+            <label className="col-form-label bg-dark p-2 rounded text-white">Graveyard: </label>
             <ul>
               {graveyard.map((item, index) => (
                 <li key={index}>agentid: {item}</li>
@@ -147,7 +146,7 @@ const GamePanel = (props) => {
               <div className="bg-dark-opacity p-4 text-white rounded mt-2">
                 <GraphReward data={agents[current_agent_id].rewardMoyen} />
                 <div className="form-group row mb-2">
-                  <label className ="col-form-label col-3">FileName:</label>
+                  <label className ="col-form-label col-3 bg-dark p-2 rounded text-white">FileName:</label>
                   <div className="col-9">
                     <input type="text" className="form-control" value={filename} onChange={e => setFilename(e.target.value)}></input>
                   </div>
