@@ -104,7 +104,7 @@ const CreationPanel = (props) => {
 
             <div className='mb-2'>
                 <button className='btn btn-danger w-50' onClick={ () => switchCursor(BuildingType.FOOD)}
-                >New cantine</button>
+                >New Restaurant</button>
             </div>
 
             <div className='mb-5'>
