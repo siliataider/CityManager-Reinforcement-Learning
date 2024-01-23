@@ -75,34 +75,19 @@ function MarkerAgent(props){
       </AdvancedMarker>
 
       {isPopupOpen && (
-        <div
-        style={{
-          position: "absolute",
-          top: props.position.lat + 10,
-          right: props.position.lng + 10,
-          backgroundColor: "yellow",
-          padding: "15px",
-          border: "1px solid #ccc",
-          zIndex: 9999,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "flex-end",
-        }}
-        > 
+        <div className="bg-dark-opacity text-white rounded p-4 col-3 position-absolute"
+        style={{ 
+          top: '100PX', 
+          right: '100PX',
+          zIndex: 9999 
+      }}
+      > 
         <button
             onClick={() => {
               closePopup();
             }}
-            style={{
-              position: "absolute",
-              top: "5px",
-              right: "5px",
-              backgroundColor: "transparent",
-              border: "none",
-              cursor: "pointer",
-            }}
+            className="btn-close btn-close-white position-absolute top-0 end-0"
           >
-            X
           </button>
           <ul>
             <li>Energy: {props.state?.energy*100}%</li>
