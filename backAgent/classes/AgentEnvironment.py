@@ -72,30 +72,34 @@ class AgentEnvironment:
             hunger -= 0.05
 
         elif action == 2:  # Go Eat
-            if hunger > 0.8:
-                if money < 0.2:
-                    reward -= 0.30
-                reward -= 0.50
-            elif hunger < 0.2:
-                if money < 0.2:
-                    reward -= 0.30
-                elif money > 0.8:
+            if money > 0.05:
+                if hunger > 0.8:
+                    if money < 0.2:
+                        reward -= 0.30
+                    reward -= 0.50
+                elif hunger < 0.2:
+                    if money < 0.2:
+                        reward -= 0.30
+                    elif money > 0.8:
+                        reward += 1
                     reward += 1
-                reward += 1
-            else:
-                if money < 0.2:
-                    reward -= 0.30
-                elif money > 0.8:
-                    reward += 0.30
-                reward += 0.35
+                else:
+                    if money < 0.2:
+                        reward -= 0.30
+                    elif money > 0.8:
+                        reward += 0.30
+                    reward += 0.35
 
-            if weather:
-                reward -= 0.20
-            else:
-                reward += 1
+                if weather:
+                    reward -= 0.20
+                else:
+                    reward += 1
 
-            money -= 0.075
-            hunger += 0.1
+                money -= 0.05
+                hunger += 0.1
+            else:
+                hunger -= 0.75
+                reward -= 1
 
         hunger = max(min(hunger, 1), 0)
         energy = max(min(energy, 1), 0)
