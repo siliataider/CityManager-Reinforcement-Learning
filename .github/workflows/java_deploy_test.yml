@@ -66,3 +66,19 @@ jobs:
       run: >
         curl -X POST -H 'Authorization: Bearer ${{ secrets.RENDER_API_KEY }}' -d '' 
         https://api.render.com/deploy/srv-cmj4au6n7f5s73a7dvu0?key=a578AouEmQE
+
+  test:
+    needs: deploy
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v2
+      with:
+        java-version: '17'
+        distribution: 'adopt'
+
+    - name: Test with Maven
+      run: cd BackSimulation && mvn test

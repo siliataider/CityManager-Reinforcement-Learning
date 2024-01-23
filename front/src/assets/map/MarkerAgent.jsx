@@ -67,6 +67,7 @@ function MarkerAgent(props){
               color: `${currentTextColor}`,
               fontSize: '10px',
               position: 'absolute',
+              weight: 'bold',
             }}
           >
             {props.id}
@@ -75,39 +76,24 @@ function MarkerAgent(props){
       </AdvancedMarker>
 
       {isPopupOpen && (
-        <div
-        style={{
-          position: "absolute",
-          top: props.position.lat + 10,
-          right: props.position.lng + 10,
-          backgroundColor: "yellow",
-          padding: "15px",
-          border: "1px solid #ccc",
-          zIndex: 9999,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "flex-end",
-        }}
-        > 
+        <div className="bg-dark-opacity text-white rounded p-4 col-2 position-absolute"
+        style={{ 
+          top: '100PX', 
+          right: '100PX',
+          zIndex: 9999 
+      }}
+      > 
         <button
             onClick={() => {
               closePopup();
             }}
-            style={{
-              position: "absolute",
-              top: "5px",
-              right: "5px",
-              backgroundColor: "transparent",
-              border: "none",
-              cursor: "pointer",
-            }}
+            className="btn-close btn-close-white position-absolute top-0 end-0"
           >
-            X
           </button>
           <ul>
-            <li>Energy: {props.state?.energy*100}%</li>
-            <li>Hunger: {props.state?.hunger*100}%</li>
-            <li>Money: {props.state?.money*100}%</li>
+            <li>Energy: {props.state?.energy ? Math.round(props.state.energy * 100) : 0}%</li>
+            <li>Hunger: {props.state?.hunger ? Math.round(props.state.hunger * 100) : 0}%</li>
+            <li>Money: {props.state?.money ? Math.round(props.state.money * 100) : 0}%</li>
           </ul>
         </div>
       )}
