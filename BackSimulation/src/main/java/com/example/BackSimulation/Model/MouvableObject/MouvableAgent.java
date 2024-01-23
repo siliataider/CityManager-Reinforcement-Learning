@@ -39,6 +39,20 @@ public class MouvableAgent extends MapObject implements Mouvable{
         //System.out.println("Path : "  + this.path);
     }
 
+    @Override
+    public void setGoal(List<Building> buildings) {
+        int indexMin = 0;
+        BigDecimal distance = null;
+
+        for( int i = 0; i < buildings.size(); i ++){
+            if (distance == null || distance.compareTo( this.distancefromAgent( buildings.get(i) ) ) > 0 ) {
+                indexMin = i;
+                distance = this.distancefromAgent( buildings.get(i) );
+            }
+        }
+        this.setGoal(buildings.get(indexMin));
+    }
+
     public void setMoveToGoal(){
         Map<String, BigDecimal> map = getNextPoint();
 
@@ -137,7 +151,7 @@ public class MouvableAgent extends MapObject implements Mouvable{
      * @param otherAgent
      * @return
      */
-    private BigDecimal distancefromAgent(MouvableAgent otherAgent){
+    private BigDecimal distancefromAgent(MapObject otherAgent){
         return (
                 otherAgent.coords.lng.subtract(this.coords.lng).pow(2).add(
                         otherAgent.coords.lat.subtract( this.coords.lat).pow(2)).sqrt( new MathContext(10) )

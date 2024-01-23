@@ -2,7 +2,16 @@ import { AdvancedMarker } from "@vis.gl/react-google-maps";
 
 function MarkerBuilding(props){
 
-    return  (<AdvancedMarker position={props.position} onClick={() => setOpen(true)}>
+  let label = "";
+  if (props.color === "blue") {
+      label = "House";
+  } else if (props.color === "green") {
+      label = "Office";
+  } else if (props.color === "red") {
+      label = "Restaurant";
+  }
+
+  return  (<AdvancedMarker position={props.position} onClick={() => setOpen(true)}>
     <div 
     style={{ 
       //position: "fixed",
@@ -29,6 +38,20 @@ function MarkerBuilding(props){
         stroke={props.color}
         strokeWidth="10"
       />
+      <text 
+        x="50%" 
+        y="50%" 
+        alignmentBaseline="middle" 
+        textAnchor="middle" 
+        fill={props.color}
+        fontSize="10"
+        fontWeight="bold"
+        style={{
+            pointerEvents: "none",
+        }}
+    >
+        {label}
+    </text>
     </svg>
   </div>
 
