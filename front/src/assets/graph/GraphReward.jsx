@@ -36,11 +36,14 @@ const GraphReward = ({ data }) => {
                   font: {
                     size: 14, 
                     weight: 'bold'
-                }
+                },
+                beginAtZero: true,
               },
               grid: {
                   color: 'rgba(255, 255, 255, 0.1)'
-              }
+              },
+              min: -0.5,
+              max: 2
           }
       },
       plugins: {
