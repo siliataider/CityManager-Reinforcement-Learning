@@ -72,6 +72,19 @@ function MarkerAgent(props){
           >
             {props.id}
           </span>
+          <span
+            style={{
+              color: `${props.color}`,
+              fontSize: '12px', // Adjust the font size as needed
+              position: 'absolute',
+              top: '-20px', // Position above the marker
+              left: '50%', // Center horizontally
+              transform: 'translateX(-50%)', // Ensure it's centered
+              fontWeight: 'bold',
+            }}
+          >
+            {Math.round(props.lifePoint * 100)}% 
+          </span>
         </div>
       </AdvancedMarker>
 
@@ -91,6 +104,7 @@ function MarkerAgent(props){
           >
           </button>
           <ul>
+            <li>Total life points: {Math.round(props.lifePoint * 100)}%</li>
             <li>Energy: {props.state?.energy ? Math.round(props.state.energy * 100) : 0}%</li>
             <li>Hunger: {props.state?.hunger ? Math.round(props.state.hunger * 100) : 0}%</li>
             <li>Money: {props.state?.money ? Math.round(props.state.money * 100) : 0}%</li>

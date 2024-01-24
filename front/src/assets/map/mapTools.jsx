@@ -15,7 +15,7 @@ export function getMarkerAgent(agentList){
     let markerList = []
     let key = 0;
     for (const agent of agentList){
-        markerList.push(<MarkerAgent key={key} id={agent.id} color={agent.color} position={agent.position} state={agent.state}></MarkerAgent> );
+        markerList.push(<MarkerAgent key={key} id={agent.id} color={agent.color} position={agent.position} state={agent.state} lifePoint={agent.lifePoint}></MarkerAgent> );
         key += 1;
     }
     return markerList;
