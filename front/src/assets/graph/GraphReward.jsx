@@ -42,7 +42,7 @@ const GraphReward = ({ data }) => {
               grid: {
                   color: 'rgba(255, 255, 255, 0.1)'
               },
-              min: -0.5,
+              min: -1.5,
               max: 2
           }
       },

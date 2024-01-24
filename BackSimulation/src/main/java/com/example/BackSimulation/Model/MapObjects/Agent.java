@@ -13,6 +13,7 @@ public class Agent extends MouvableAgent {
 
     private List<Double> rewardMoyen;
     private Double lifePoint;
+    private String algo;
 
     public Agent(int id, CoordBigDecimal coords) {
         super(id, coords);
@@ -23,12 +24,8 @@ public class Agent extends MouvableAgent {
     public Agent(int id, CoordBigDecimal coords, State state, String algo, List<Double> rewardMoyen, Double lifePoint) {
         super(id, coords);
         this.state = state;
-        if(algo.equals("QL")){
-            color = "red";
-        }
-        else if(algo.equals("DQL")){
-            color = "blue";
-        }
+        this.algo = algo;
+        this.setAgentColor(algo);
 
         this.rewardMoyen = rewardMoyen;
         this.lifePoint = lifePoint;
@@ -51,6 +48,8 @@ public class Agent extends MouvableAgent {
         this.lifePoint = lifePoint;
         if (lifePoint < 0.20 ) {
             this.color = "black";
+        } else {
+            setAgentColor(this.algo);
         }
     }
     public Double getLifePoint() {
@@ -76,5 +75,14 @@ public class Agent extends MouvableAgent {
                 "\"rewardMoyen\": " + rewardMoyen +
                 "}";
         return ret;
+    }
+
+    public void setAgentColor(String algo) {
+        if(algo.equals("QL")){
+            this.color = "red";
+        }
+        else if(algo.equals("DQL")){
+            this.color = "blue";
+        }
     }
 }

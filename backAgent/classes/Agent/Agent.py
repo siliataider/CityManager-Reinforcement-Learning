@@ -21,8 +21,6 @@ class Agent() :
             # Exécution de l'action et obtention du nouvel état et de la récompense
             reward, next_state_value = self.env.get_reward_and_next_state(action)
 
-            self.env.calul_reward_moyen(reward, simulationConditions)
-
             next_state_value = (simulationConditions.timestamp, simulationConditions.weather, *next_state_value[2:])
             # Mise à jour de la table Q
 
@@ -46,6 +44,10 @@ class Agent() :
             '''
             #average_rewards.append(total_reward / max_time_steps)
             #print(f"exploration_rate: {simulationConditions.exploration_rate}, action: {action}")
+        else:
+            reward = -1
+        
+        self.env.calul_reward_moyen(reward, simulationConditions)
         
         return self, action
 
