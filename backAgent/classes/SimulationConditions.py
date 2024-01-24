@@ -24,6 +24,8 @@ class SimulationConditions() :
         if (self.is_new_episode):
             self.exploration_rate = max(FINAL_EXPLORATION_RATE, self.exploration_rate - (START_EXPLORATION_RATE - FINAL_EXPLORATION_RATE) / self.exploration_rate_decay)
             self.learning_rate = 1 - self.exploration_rate
+            for agent in self.list_agent:
+                agent.env.state_value = agent.env.init_state(self.timestamp, self.weather)
     
     def set_simulation_conditions(self, message):
         self.weather = message['weather']
