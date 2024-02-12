@@ -2,6 +2,16 @@
 
 CityManager Reinforcement Learning is an interactive web-based game that combines the fun of city-building with the advanced technology of artificial intelligence. 🌆👾 Build your city, deploy AI agents, and watch them learn and evolve in real-time!
 
+## Demo
+
+* For more details, checkout our [Short Report](grp5_Rapport_FOEX_GHANDOUR_RAJAUD_TAIDER.pdf)!
+
+* You can also chekcout our [Teaser Video](https://youtu.be/YjdlPgHJ2UE) for a better understanding of the project.
+
+* You can even have access to our [PowerPoint Presentation](https://docs.google.com/presentation/d/1zDpo5Tk8YWrd6qleoZuT8AjfJGk2-HHX6jXKon48nGM/edit?usp=sharing) for a quick demo.
+
+
+
 ## **Features 🚀**
 
 * **Interactive City Building:** Place houses, offices, and restaurants to create your city.
@@ -36,8 +46,7 @@ Feedback and Contributions 💡
 ## Trello
 https://trello.com/w/citymanagergr5
 
-## Repository Structure
-CityManager-Reinforcement-Learning<br>
-├── backAgent (Python backend) <br>
-├── BackSimulation (Java backend)<br>
-└── front (React frontend)
+## Design & Architecture
+
+![image](https://github.com/siliataider/CityManager-Reinforcement-Learning/assets/69010419/b06d8fad-5006-427c-8170-031c264a7f0c)
+
